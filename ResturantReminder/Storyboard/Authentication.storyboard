@@ -62,7 +62,7 @@
                                                         <rect key="frame" x="54" y="0.0" width="284" height="60"/>
                                                         <color key="textColor" name="DarkGreyTextColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -96,7 +96,7 @@
                                                         <rect key="frame" x="49.666666666666671" y="0.0" width="251.33333333333331" height="60"/>
                                                         <color key="textColor" name="DarkGreyTextColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19g-2e-amy">
                                                         <rect key="frame" x="301" y="17" width="53" height="26"/>
@@ -319,7 +319,7 @@
                                                         <rect key="frame" x="16" y="0.0" width="322" height="85.666666666666671"/>
                                                         <color key="textColor" name="DarkGreyTextColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -348,7 +348,7 @@
                                                         <rect key="frame" x="16" y="0.0" width="322" height="85.333333333333329"/>
                                                         <color key="textColor" name="DarkGreyTextColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -377,7 +377,7 @@
                                                         <rect key="frame" x="16" y="0.0" width="322" height="85.666666666666671"/>
                                                         <color key="textColor" name="DarkGreyTextColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -406,7 +406,7 @@
                                                         <rect key="frame" x="16" y="0.0" width="322" height="85.333333333333329"/>
                                                         <color key="textColor" name="DarkGreyTextColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -540,7 +540,7 @@
                                                         <rect key="frame" x="54" y="0.0" width="284" height="60.333333333333336"/>
                                                         <color key="textColor" name="DarkGreyTextColor"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
