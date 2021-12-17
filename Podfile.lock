@@ -1,0 +1,20 @@
+PODS:
+  - IQKeyboardManagerSwift (6.5.9)
+  - Presentr (1.9)
+
+DEPENDENCIES:
+  - IQKeyboardManagerSwift
+  - Presentr
+
+SPEC REPOS:
+  trunk:
+    - IQKeyboardManagerSwift
+    - Presentr
+
+SPEC CHECKSUMS:
+  IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
+
+PODFILE CHECKSUM: 708e8ac964f75a14ac0f810d39e4b2c1dc33c9a8
+
+COCOAPODS: 1.10.2
