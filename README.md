@@ -1,2 +1,2 @@
-# resturantreminder
+# Resturant Reminder
 Resturant Reminder 
