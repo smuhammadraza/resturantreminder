@@ -98,9 +98,13 @@
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19g-2e-amy">
+                                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19g-2e-amy">
                                                         <rect key="frame" x="301" y="17" width="53" height="26"/>
                                                         <state key="normal" image="LoginShowPassword"/>
+                                                        <state key="selected" image="LoginHidePassword"/>
+                                                        <connections>
+                                                            <action selector="didTapShowHidePassword:" destination="OMt-eJ-7rT" eventType="touchUpInside" id="hCx-VD-sOP"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -244,6 +248,10 @@
                             <constraint firstItem="Rhn-sd-KQW" firstAttribute="height" secondItem="Bi7-a1-tpG" secondAttribute="height" multiplier="0.667411" id="uhi-1f-C4B"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textFieldEmail" destination="YN4-Hy-Yjc" id="20J-0C-Nhn"/>
+                        <outlet property="textFieldPassword" destination="NqV-uy-YxK" id="Qi9-Os-jTO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Al-A9-cqe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -640,6 +648,7 @@
         <image name="LoginFBIcon" width="78" height="78"/>
         <image name="LoginGoogleIcon" width="78" height="78"/>
         <image name="LoginHeader" width="414" height="321"/>
+        <image name="LoginHidePassword" width="26" height="26"/>
         <image name="LoginInputBg" width="414" height="598"/>
         <image name="LoginLine" width="349" height="1"/>
         <image name="LoginPassword" width="17.5" height="21"/>

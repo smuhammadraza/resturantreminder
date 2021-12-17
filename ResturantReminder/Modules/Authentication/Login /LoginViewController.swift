@@ -11,6 +11,8 @@ import Presentr
 class LoginViewController: UIViewController {
 
     // MARK: - OUTLETS
+    @IBOutlet weak var textFieldEmail: UITextField!
+    @IBOutlet weak var textFieldPassword: UITextField!
     
     // MARK: - VARIABLES
     
@@ -25,6 +27,9 @@ class LoginViewController: UIViewController {
     
     // MARK: - BUTTON ACTIONS
     
+    @IBAction func didTapShowHidePassword(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
     @IBAction func didTapLoginButton(_ sender: UIButton) {
         Bootstrapper.showHome()
     }
