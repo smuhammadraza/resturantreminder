@@ -1,20 +1,41 @@
 PODS:
+  - DropDown (2.3.13)
+  - FBAEMKit (12.2.1):
+    - FBSDKCoreKit_Basics (= 12.2.1)
+  - FBSDKCoreKit (12.2.1):
+    - FBAEMKit (= 12.2.1)
+    - FBSDKCoreKit_Basics (= 12.2.1)
+  - FBSDKCoreKit_Basics (12.2.1)
+  - FBSDKLoginKit (12.2.1):
+    - FBSDKCoreKit (= 12.2.1)
   - IQKeyboardManagerSwift (6.5.9)
   - Presentr (1.9)
 
 DEPENDENCIES:
+  - DropDown
+  - FBSDKLoginKit
   - IQKeyboardManagerSwift
   - Presentr
 
 SPEC REPOS:
   trunk:
+    - DropDown
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
     - IQKeyboardManagerSwift
     - Presentr
 
 SPEC CHECKSUMS:
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  FBAEMKit: 4cea610d0bc1680572f2aad7b25db7a2f2690d82
+  FBSDKCoreKit: 5b1992fe65802ca26be7e68bc4fac5f59fa39908
+  FBSDKCoreKit_Basics: a6a92ca628e05f86f458a4721574c5ddfb058ba3
+  FBSDKLoginKit: 7467b7f988ca4fdf48f12a839bcfce4264752429
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
 
-PODFILE CHECKSUM: 708e8ac964f75a14ac0f810d39e4b2c1dc33c9a8
+PODFILE CHECKSUM: 46cde29e7b6d052b2b6fde3470a23104c8caa6a7
 
 COCOAPODS: 1.10.2

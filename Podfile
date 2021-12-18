@@ -9,5 +9,5 @@ target 'ResturantReminder' do
 pod 'Presentr'
 pod 'IQKeyboardManagerSwift'
 pod 'FBSDKLoginKit'
-
+pod 'DropDown'
 end

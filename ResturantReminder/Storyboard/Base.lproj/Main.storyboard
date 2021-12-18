@@ -879,6 +879,9 @@
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISr-f0-agC">
                                                 <rect key="frame" x="345" y="14.333333333333314" width="51" height="31"/>
                                                 <color key="onTintColor" name="PrimaryColor"/>
+                                                <connections>
+                                                    <action selector="didChangeValueAutoPostToFacebook:" destination="1za-Nw-lKg" eventType="valueChanged" id="8IG-zH-K7R"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -903,6 +906,9 @@
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPN-AG-bfr">
                                                 <rect key="frame" x="345" y="14.333333333333314" width="51" height="31"/>
                                                 <color key="onTintColor" name="PrimaryColor"/>
+                                                <connections>
+                                                    <action selector="didChangeValueAutoTweetToTwitter:" destination="1za-Nw-lKg" eventType="valueChanged" id="G1g-S9-2zY"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -927,6 +933,9 @@
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akc-Le-0L8">
                                                 <rect key="frame" x="345" y="14.333333333333314" width="51" height="31"/>
                                                 <color key="onTintColor" name="PrimaryColor"/>
+                                                <connections>
+                                                    <action selector="didChangeValueAlertWhenNearby:" destination="1za-Nw-lKg" eventType="valueChanged" id="lCM-17-jMy"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -984,6 +993,9 @@
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jkl-0f-DsL">
                                                 <rect key="frame" x="257.33333333333331" y="6" width="136.66666666666669" height="47.666666666666664"/>
+                                                <connections>
+                                                    <action selector="didTapNearbyDistanceButton:" destination="1za-Nw-lKg" eventType="touchUpInside" id="hUp-hk-5m5"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1047,6 +1059,9 @@
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vh-DA-f6V">
                                                 <rect key="frame" x="257.33333333333331" y="6" width="136.66666666666669" height="48"/>
+                                                <connections>
+                                                    <action selector="didTapNumberOfNotificationsButton:" destination="1za-Nw-lKg" eventType="touchUpInside" id="Kk4-Il-no3"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1232,7 +1247,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="14F-tT-pfh"/>
                     <connections>
+                        <outlet property="buttonNearByDistance" destination="jkl-0f-DsL" id="pTg-mc-SIG"/>
+                        <outlet property="buttonNumberOfNotifications" destination="5vh-DA-f6V" id="MeE-y9-fjL"/>
                         <outlet property="collectionView" destination="yZi-Xr-NAO" id="MjQ-AE-C82"/>
+                        <outlet property="labelNearbyDistance" destination="Fee-iR-gT6" id="DG4-XS-ucT"/>
+                        <outlet property="labelNumberOfNotification" destination="TgP-jz-WpQ" id="Rxw-dc-4pf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seU-p8-pfd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
