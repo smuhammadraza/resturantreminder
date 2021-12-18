@@ -12,11 +12,16 @@ class MainTabBarController: UITabBarController {
     
     // MARK: - OUTLETS
     @IBOutlet weak var viewCustomTabBar: UIView!
+    @IBOutlet weak var imageHomeTab: UIImageView!
+    @IBOutlet weak var labelHomeTab: UILabel!
+    @IBOutlet weak var imageProfileTab: UIImageView!
+    @IBOutlet weak var labelProfileTab: UILabel!
     
     // MARK: - VIEW LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomTabbarView()
+        self.tabSelected(at: 0)
     }
     
     // MARK: - SETUP VIEW
@@ -44,10 +49,30 @@ class MainTabBarController: UITabBarController {
     
     @IBAction func didTapHomeTabButton(_ sender: UIButton) {
         self.selectedIndex = 0
+        self.tabSelected(at: self.selectedIndex)
     }
     
     @IBAction func didTapMyProfileTabButton(_ sender: UIButton) {
         self.selectedIndex = 1
+        self.tabSelected(at: self.selectedIndex)
+    }
+    
+    
+    private func tabSelected(at index: Int) {
+        switch index {
+        case 0:
+            self.imageHomeTab.image = UIImage.init(named: "HomeTabSelected")
+            self.labelHomeTab.textColor = UIColor.init(hex: 0x4FA971)
+            
+            self.imageProfileTab.image = UIImage.init(named: "HomeTabProfileUnSelected")
+            self.labelProfileTab.textColor = UIColor.init(named: "DarkGreyTextColor")
+        default:
+            self.imageHomeTab.image = UIImage.init(named: "HomeTabUnselected")
+            self.labelHomeTab.textColor = UIColor.init(named: "DarkGreyTextColor")
+            
+            self.imageProfileTab.image = UIImage.init(named: "HomeTabProfileSelected")
+            self.labelProfileTab.textColor = UIColor.init(hex: 0x4FA971)
+        }
     }
     
 }
