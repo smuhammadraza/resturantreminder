@@ -32,6 +32,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func didTapShowHidePassword(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        self.textFieldPassword.isSecureTextEntry = sender.isSelected
     }
     @IBAction func didTapLoginButton(_ sender: UIButton) {
         Bootstrapper.showHome()
