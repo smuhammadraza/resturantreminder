@@ -711,7 +711,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="KMb-rs-vqf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="KMb-rs-vqf">
                                 <rect key="frame" x="133.33333333333331" y="88.333333333333314" width="147.33333333333331" height="147"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="KMb-rs-vqf" secondAttribute="height" multiplier="1:1" id="Mh5-Zi-6eC"/>
@@ -728,6 +728,9 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXF-qe-mBt">
                                 <rect key="frame" x="133.33333333333331" y="88.333333333333314" width="133.33333333333331" height="140"/>
+                                <connections>
+                                    <action selector="didTapProfileButton:" destination="MbV-zL-V9t" eventType="touchUpInside" id="V7f-Rb-LeT"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uzu-KX-yYn">
                                 <rect key="frame" x="41.333333333333343" y="259" width="331.33333333333326" height="58.666666666666686"/>
@@ -831,6 +834,8 @@
                     <navigationItem key="navigationItem" id="ym9-de-wj6"/>
                     <connections>
                         <outlet property="aboutYourselfTextView" destination="jPl-Q7-THp" id="hwk-4z-H8z"/>
+                        <outlet property="imageProfilePicture" destination="KMb-rs-vqf" id="WQh-1g-zc7"/>
+                        <outlet property="textFieldFirstName" destination="FnI-S7-NFV" id="QMD-1A-cSZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FfD-3x-b7H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
