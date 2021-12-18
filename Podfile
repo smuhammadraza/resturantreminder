@@ -8,8 +8,11 @@ target 'ResturantReminder' do
   # Pods for ResturantReminder
 pod 'Presentr'
 pod 'IQKeyboardManagerSwift'
-pod 'MercariQRScanner'
+#pod 'MercariQRScanner'
+pod 'QRCodeReader.swift', '~> 10.1.0'
 pod 'FBSDKLoginKit'
 pod 'DropDown'
+pod 'Firebase/Auth'
+pod "TTGSnackbar"
 
 end

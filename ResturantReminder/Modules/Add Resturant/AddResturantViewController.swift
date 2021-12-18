@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import MercariQRScanner
+import AVFoundation
+import QRCodeReader
 
 class AddResturantViewController: UIViewController {
 
@@ -18,7 +19,16 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var textFieldNotes: UITextField!
     @IBOutlet weak var addRestaurantView: UIView!
     @IBOutlet weak var qrScannerViewView: UIView!
-    
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    lazy var reader: QRCodeReaderViewController = {
+        let builder = QRCodeReaderViewControllerBuilder {
+            let readerView = QRCodeReaderContainer(displayable: QRScannerView())
+            
+            $0.readerView = readerView
+        }
+        
+        return QRCodeReaderViewController(builder: builder)
+    }()
     // MARK: - VARIABLES
     
     // MARK: - VIEW LIFE CYCLE
@@ -26,6 +36,7 @@ class AddResturantViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.connectFields()
+        self.setupViews()
     }
     
     
@@ -34,12 +45,21 @@ class AddResturantViewController: UIViewController {
         UITextField.connectFields(fields: [self.textFieldName, self.textFieldAddress, self.textFieldPhone, self.textFieldURL, self.textFieldNotes])
     }
     
+    private func setupViews() {
+        self.addRestaurantView.isHidden = self.segmentControl.selectedSegmentIndex == 1
+        self.qrScannerViewView.isHidden = self.segmentControl.selectedSegmentIndex == 0
+    }
+    
     // MARK: - BUTTON ACTION
     
     @IBAction func didTapSaveButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func segmantControlTapped(_ sender: UISegmentedControl) {
+        self.addRestaurantView.isHidden = sender.selectedSegmentIndex == 1
+        self.qrScannerViewView.isHidden = sender.selectedSegmentIndex == 0
+    }
     // MARK: - HELPER METHODS
 
 }

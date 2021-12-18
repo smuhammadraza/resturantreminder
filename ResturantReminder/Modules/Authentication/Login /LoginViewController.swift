@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var textFieldPassword: UITextField!
     
     // MARK: - VARIABLES
+    var viewModel = LoginViewModel()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -35,7 +36,16 @@ class LoginViewController: UIViewController {
         self.textFieldPassword.isSecureTextEntry = sender.isSelected
     }
     @IBAction func didTapLoginButton(_ sender: UIButton) {
-        Bootstrapper.showHome()
+        viewModel.loginUser(email: self.textFieldEmail.text ?? "", password: self.textFieldPassword.text ?? "") { [weak self] (authResult, error) in
+            guard let self = self else { return }
+            if let error = error {
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+                return
+            } else {
+                print("Auth Result: \(authResult)")
+                Bootstrapper.showHome()
+            }
+        }
     }
     
     @IBAction func didTapSignUpButton(_ sender: UIButton) {

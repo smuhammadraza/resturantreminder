@@ -11,6 +11,11 @@
 		1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */; };
 		18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */; };
 		18607535276A85A3000786F8 /* AddResturantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18607534276A85A3000786F8 /* AddResturantViewController.swift */; };
+		187A0F4C276E96F400174C36 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F4B276E96F400174C36 /* SignUpViewModel.swift */; };
+		187A0F52276EA44000174C36 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F51276EA44000174C36 /* LoginViewModel.swift */; };
+		187A0F6B276EA68900174C36 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F6A276EA68900174C36 /* Snackbar.swift */; };
+		18C26DFB276E7D9800D07FA9 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C26DFA276E7D9800D07FA9 /* QRScannerView.swift */; };
+		18C26DFE276E8A5800D07FA9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C26DFD276E8A5800D07FA9 /* GoogleService-Info.plist */; };
 		18CC81A0276E20FE00AC133A /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC819F276E20FE00AC133A /* Alert.swift */; };
 		18D80DF6275E8B86005BCE63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D80DF5275E8B86005BCE63 /* AppDelegate.swift */; };
 		18D80DFD275E8B86005BCE63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D80DFB275E8B86005BCE63 /* Main.storyboard */; };
@@ -52,6 +57,11 @@
 		1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		18607534276A85A3000786F8 /* AddResturantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddResturantViewController.swift; sourceTree = "<group>"; };
+		187A0F4B276E96F400174C36 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		187A0F51276EA44000174C36 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		187A0F6A276EA68900174C36 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		18C26DFA276E7D9800D07FA9 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
+		18C26DFD276E8A5800D07FA9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18CC819F276E20FE00AC133A /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		18D80DF2275E8B86005BCE63 /* ResturantReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResturantReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D80DF5275E8B86005BCE63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +156,44 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		187A0F49276E96D800174C36 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				187A0F4B276E96F400174C36 /* SignUpViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		187A0F4A276E96E100174C36 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		187A0F4F276EA42000174C36 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				187A0F51276EA44000174C36 /* LoginViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		187A0F50276EA42600174C36 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		18C26DF9276E7D8500D07FA9 /* QRScanner */ = {
+			isa = PBXGroup;
+			children = (
+				18C26DFA276E7D9800D07FA9 /* QRScannerView.swift */,
+			);
+			path = QRScanner;
+			sourceTree = "<group>";
+		};
 		18D80DE9275E8B86005BCE63 = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +222,7 @@
 				18D80E0B275E8BA7005BCE63 /* Storyboard */,
 				18D80DF5275E8B86005BCE63 /* AppDelegate.swift */,
 				18D80E03275E8B87005BCE63 /* Info.plist */,
+				18C26DFD276E8A5800D07FA9 /* GoogleService-Info.plist */,
 			);
 			path = ResturantReminder;
 			sourceTree = "<group>";
@@ -199,6 +248,7 @@
 		18D80E0D275E8BB3005BCE63 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				18C26DF9276E7D8500D07FA9 /* QRScanner */,
 				18607532276A858D000786F8 /* Add Resturant */,
 				18607524276A7E62000786F8 /* Settings */,
 				18D80EA4276A6F61005BCE63 /* MyProfile */,
@@ -241,6 +291,8 @@
 		18D80E1D275EA4CE005BCE63 /* Login  */ = {
 			isa = PBXGroup;
 			children = (
+				187A0F50276EA42600174C36 /* Model */,
+				187A0F4F276EA42000174C36 /* ViewModel */,
 				18D80E1E275EA563005BCE63 /* View */,
 			);
 			path = "Login ";
@@ -257,6 +309,8 @@
 		18D80E23275EA5A6005BCE63 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				187A0F4A276E96E100174C36 /* Model */,
+				187A0F49276E96D800174C36 /* ViewModel */,
 				18D80E24275EA5AF005BCE63 /* View */,
 			);
 			path = SignUp;
@@ -303,6 +357,7 @@
 				18D80E72276A5907005BCE63 /* StoryboardInitializable.swift */,
 				18D80E75276A59F8005BCE63 /* Constants.swift */,
 				18D80E8A276A60DB005BCE63 /* Bootstrapper.swift */,
+				187A0F6A276EA68900174C36 /* Snackbar.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -441,6 +496,7 @@
 				18D80DFF275E8B87005BCE63 /* Assets.xcassets in Resources */,
 				18D80E97276A64F4005BCE63 /* HomeTableViewCell.xib in Resources */,
 				18D80DFD275E8B86005BCE63 /* Main.storyboard in Resources */,
+				18C26DFE276E8A5800D07FA9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,10 +555,12 @@
 				88BFE3A127672262004777BC /* Extension+UITextField.swift in Sources */,
 				88BFE3A427672262004777BC /* Extension+Error.swift in Sources */,
 				18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */,
+				187A0F6B276EA68900174C36 /* Snackbar.swift in Sources */,
 				18D80E35275EAAC3005BCE63 /* ForgotPasswordViewController.swift in Sources */,
 				88BFE3A027672262004777BC /* Extension+Data.swift in Sources */,
 				18D80E9B276A671D005BCE63 /* Utilities.swift in Sources */,
 				18D80E26275EA5BB005BCE63 /* SignUpViewController.swift in Sources */,
+				187A0F52276EA44000174C36 /* LoginViewModel.swift in Sources */,
 				18D80E90276A6446005BCE63 /* HomeViewController.swift in Sources */,
 				88BFE39E27672262004777BC /* Extension+UIImageView.swift in Sources */,
 				88BFE39D27672262004777BC /* Extension+UIColor.swift in Sources */,
@@ -515,6 +573,7 @@
 				18D80E3C2760043C005BCE63 /* MainTabBar.swift in Sources */,
 				18D80E96276A64F4005BCE63 /* HomeTableViewCell.swift in Sources */,
 				18D80E76276A59F8005BCE63 /* Constants.swift in Sources */,
+				18C26DFB276E7D9800D07FA9 /* QRScannerView.swift in Sources */,
 				18D80EA0276A67FA005BCE63 /* HomeCollectionViewCell.swift in Sources */,
 				88BFE3A627672262004777BC /* Extension+String.swift in Sources */,
 				18CC81A0276E20FE00AC133A /* Alert.swift in Sources */,
@@ -523,6 +582,7 @@
 				18D80DF6275E8B86005BCE63 /* AppDelegate.swift in Sources */,
 				1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */,
 				18607535276A85A3000786F8 /* AddResturantViewController.swift in Sources */,
+				187A0F4C276E96F400174C36 /* SignUpViewModel.swift in Sources */,
 				18607527276A7E79000786F8 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -672,7 +732,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8LTPJZF6V8;
+				DEVELOPMENT_TEAM = XML5929TVD;
 				INFOPLIST_FILE = ResturantReminder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -680,7 +740,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.resturantreminder.ResturantReminder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.resturantreminder.ResturantReminder1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -694,7 +754,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8LTPJZF6V8;
+				DEVELOPMENT_TEAM = XML5929TVD;
 				INFOPLIST_FILE = ResturantReminder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -702,7 +762,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.resturantreminder.ResturantReminder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.resturantreminder.ResturantReminder1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

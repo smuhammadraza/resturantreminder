@@ -17,6 +17,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var textFieldConfirmPassword: UITextField!
     
     // MARK: - VARIABLES
+    var viewModel = SignUpViewModel()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -32,6 +33,17 @@ class SignUpViewController: UIViewController {
     
     // MARK: - BUTTON ACTIONS
     @IBAction func didTapSignUpButton(_ sender: UIButton) {
+        viewModel.signUpUser(email: self.textFieldEmail.text ?? "", password: self.textFieldPassword.text ?? "") { [weak self] (authResult, error) in
+            guard let self = self else { return }
+            if let error = error {
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+                return
+            } else {
+                print("Auth Result: \(authResult)")
+                Snackbar.showSnackbar(message: authResult?.description ?? "", duration: .short)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func didTapBackToLoginButton(_ sender: UIButton) {
