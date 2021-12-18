@@ -8,5 +8,6 @@ target 'ResturantReminder' do
   # Pods for ResturantReminder
 pod 'Presentr'
 pod 'IQKeyboardManagerSwift'
+pod 'MercariQRScanner'
 
 end

@@ -151,6 +151,31 @@
                                             <segment title="Scan QR"/>
                                         </segments>
                                     </segmentedControl>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWp-vS-sEJ">
+                                        <rect key="frame" x="20" y="108.33333333333331" width="358" height="607.66666666666674"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the QR code of the restaurant to add that restaurant" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="umk-F1-a59">
+                                                <rect key="frame" x="20" y="110.00000000000001" width="318" height="46.666666666666671"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXr-z1-Zmf">
+                                                <rect key="frame" x="0.0" y="181.66666666666669" width="358" height="326"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="umk-F1-a59" secondAttribute="trailing" constant="20" id="5qq-10-yih"/>
+                                            <constraint firstItem="umk-F1-a59" firstAttribute="leading" secondItem="DWp-vS-sEJ" secondAttribute="leading" constant="20" id="Dm2-i8-rLk"/>
+                                            <constraint firstItem="umk-F1-a59" firstAttribute="top" secondItem="DWp-vS-sEJ" secondAttribute="top" constant="110" id="HMZ-r0-SAZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="YXr-z1-Zmf" secondAttribute="trailing" id="TwG-6e-WJK"/>
+                                            <constraint firstAttribute="bottom" secondItem="YXr-z1-Zmf" secondAttribute="bottom" constant="100" id="WAT-n3-Xdy"/>
+                                            <constraint firstItem="YXr-z1-Zmf" firstAttribute="top" secondItem="umk-F1-a59" secondAttribute="bottom" constant="25" id="WQJ-Sz-ZBY"/>
+                                            <constraint firstItem="YXr-z1-Zmf" firstAttribute="leading" secondItem="DWp-vS-sEJ" secondAttribute="leading" id="hJY-vp-LKU"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KSN-Jz-FC3">
                                         <rect key="frame" x="20" y="108.33333333333331" width="358" height="607.66666666666674"/>
                                         <subviews>
@@ -544,17 +569,21 @@
                                 <constraints>
                                     <constraint firstItem="yrj-MI-0w3" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" constant="30" id="585-TT-SsD"/>
                                     <constraint firstAttribute="bottom" secondItem="9nl-EK-u2j" secondAttribute="bottom" id="9qM-Hj-8ap"/>
+                                    <constraint firstItem="DWp-vS-sEJ" firstAttribute="bottom" secondItem="KSN-Jz-FC3" secondAttribute="bottom" id="AL5-1l-ba7"/>
                                     <constraint firstAttribute="trailing" secondItem="9nl-EK-u2j" secondAttribute="trailing" id="Dpk-tx-LVr"/>
                                     <constraint firstItem="9nl-EK-u2j" firstAttribute="top" secondItem="bXU-jq-rE3" secondAttribute="top" id="KrG-UT-ejG"/>
+                                    <constraint firstItem="DWp-vS-sEJ" firstAttribute="top" secondItem="KSN-Jz-FC3" secondAttribute="top" id="MEs-Wx-Hdb"/>
                                     <constraint firstItem="yrj-MI-0w3" firstAttribute="height" secondItem="bXU-jq-rE3" secondAttribute="height" multiplier="0.05" id="Paq-fM-ecD"/>
                                     <constraint firstItem="fft-ar-AOO" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" constant="20" id="Pl5-ET-IIh"/>
                                     <constraint firstAttribute="bottom" secondItem="KSN-Jz-FC3" secondAttribute="bottom" constant="20" symbolic="YES" id="RRH-mw-WNe"/>
+                                    <constraint firstItem="DWp-vS-sEJ" firstAttribute="trailing" secondItem="KSN-Jz-FC3" secondAttribute="trailing" id="W8B-iW-Kh2"/>
                                     <constraint firstItem="yrj-MI-0w3" firstAttribute="top" secondItem="fft-ar-AOO" secondAttribute="bottom" constant="8" symbolic="YES" id="XwD-F7-HGb"/>
                                     <constraint firstAttribute="trailing" secondItem="yrj-MI-0w3" secondAttribute="trailing" constant="30" id="Xy7-hg-n5K"/>
                                     <constraint firstItem="fft-ar-AOO" firstAttribute="top" secondItem="bXU-jq-rE3" secondAttribute="top" constant="20" id="ZST-Ep-Nu3"/>
                                     <constraint firstItem="KSN-Jz-FC3" firstAttribute="top" secondItem="yrj-MI-0w3" secondAttribute="bottom" constant="8" symbolic="YES" id="d37-0Q-E4z"/>
                                     <constraint firstAttribute="trailing" secondItem="KSN-Jz-FC3" secondAttribute="trailing" constant="20" symbolic="YES" id="fEy-SB-FE2"/>
                                     <constraint firstItem="9nl-EK-u2j" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" id="kAd-35-soT"/>
+                                    <constraint firstItem="DWp-vS-sEJ" firstAttribute="leading" secondItem="KSN-Jz-FC3" secondAttribute="leading" id="kgW-Rv-I8Y"/>
                                     <constraint firstItem="KSN-Jz-FC3" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" constant="20" symbolic="YES" id="lNS-NB-yoq"/>
                                 </constraints>
                             </view>
@@ -569,6 +598,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addRestaurantView" destination="KSN-Jz-FC3" id="UEU-h7-deT"/>
+                        <outlet property="qrScannerViewView" destination="DWp-vS-sEJ" id="1sn-SW-6vk"/>
                         <outlet property="textFieldAddress" destination="c6z-q6-sZC" id="wgd-Ic-YkD"/>
                         <outlet property="textFieldName" destination="P7z-DV-vP5" id="Oqz-c7-ISJ"/>
                         <outlet property="textFieldNotes" destination="tRr-fh-9tx" id="hKL-II-Ovb"/>
@@ -579,6 +610,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jH1-Bu-bXC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2834.7826086956525" y="-542.11956521739137"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="00L-Wb-Lfe">
+            <objects>
+                <viewController id="6o4-mA-t8t" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3jK-BK-4e3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jnB-Su-TR6">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the QR code of the restaurant to add that restaurant" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="o8j-JA-kGg">
+                                        <rect key="frame" x="20" y="110.00000000000001" width="374" height="46.666666666666671"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mw4-Ti-db3">
+                                        <rect key="frame" x="0.0" y="181.66666666666666" width="414" height="454.33333333333337"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="o8j-JA-kGg" firstAttribute="top" secondItem="jnB-Su-TR6" secondAttribute="top" constant="110" id="7Qm-Dp-VWA"/>
+                                    <constraint firstItem="Mw4-Ti-db3" firstAttribute="leading" secondItem="jnB-Su-TR6" secondAttribute="leading" id="Ch9-97-18V"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mw4-Ti-db3" secondAttribute="bottom" constant="100" id="GhZ-kX-yAz"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mw4-Ti-db3" secondAttribute="trailing" id="O5l-RM-dSg"/>
+                                    <constraint firstItem="Mw4-Ti-db3" firstAttribute="top" secondItem="o8j-JA-kGg" secondAttribute="bottom" constant="25" id="SjC-Jb-Pha"/>
+                                    <constraint firstItem="o8j-JA-kGg" firstAttribute="leading" secondItem="jnB-Su-TR6" secondAttribute="leading" constant="20" id="VGA-mP-8hB"/>
+                                    <constraint firstAttribute="trailing" secondItem="o8j-JA-kGg" secondAttribute="trailing" constant="20" id="qvc-iz-OZU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2Eg-z2-b6r"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jnB-Su-TR6" firstAttribute="top" secondItem="2Eg-z2-b6r" secondAttribute="top" id="Lmb-bb-PRc"/>
+                            <constraint firstItem="jnB-Su-TR6" firstAttribute="leading" secondItem="2Eg-z2-b6r" secondAttribute="leading" id="SMP-9h-Wq1"/>
+                            <constraint firstItem="2Eg-z2-b6r" firstAttribute="trailing" secondItem="jnB-Su-TR6" secondAttribute="trailing" id="dw5-4K-ssx"/>
+                            <constraint firstItem="2Eg-z2-b6r" firstAttribute="bottom" secondItem="jnB-Su-TR6" secondAttribute="bottom" id="sig-tD-2iK"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SMi-jS-xcY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3584" y="-532"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="ipa-8Z-RjA">

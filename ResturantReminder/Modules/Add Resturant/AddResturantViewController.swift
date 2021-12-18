@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MercariQRScanner
 
 class AddResturantViewController: UIViewController {
 
@@ -15,6 +16,8 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var textFieldPhone: UITextField!
     @IBOutlet weak var textFieldURL: UITextField!
     @IBOutlet weak var textFieldNotes: UITextField!
+    @IBOutlet weak var addRestaurantView: UIView!
+    @IBOutlet weak var qrScannerViewView: UIView!
     
     // MARK: - VARIABLES
     
