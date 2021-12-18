@@ -17,6 +17,14 @@ class MainTabBarController: UITabBarController {
     @IBOutlet weak var imageProfileTab: UIImageView!
     @IBOutlet weak var labelProfileTab: UILabel!
     
+    // MARK: - VARIABLES
+    
+    override var selectedIndex: Int {
+        didSet {
+            self.tabSelected(at: self.selectedIndex)
+        }
+    }
+    
     // MARK: - VIEW LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
