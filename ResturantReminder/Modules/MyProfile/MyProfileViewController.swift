@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class MyProfileViewController: UIViewController {
 
@@ -28,6 +29,11 @@ class MyProfileViewController: UIViewController {
     }
     
     // MARK: - BUTTON ACTIONS
+    
+    @IBAction func didTapSettingsButton(_ sender: UIButton) {
+        let vc = SettingsViewController.initFromStoryboard(name: Constants.Storyboards.main)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     // MARK: - HELPER METHODS
 
