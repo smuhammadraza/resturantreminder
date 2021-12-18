@@ -37,6 +37,9 @@ class HomeViewController: UIViewController {
     
     // MARK: - BUTTON ACTIONS
     
+    @IBAction func profileButtonTapped(_ sender: UIButton) {
+        self.tabBarController?.selectedIndex = 1
+    }
     
     // MARK: - HELPER METHODS
     

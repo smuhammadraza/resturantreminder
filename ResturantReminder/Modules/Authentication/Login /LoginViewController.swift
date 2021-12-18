@@ -20,10 +20,13 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.connectFields()
     }
     
     // MARK: - SETUP VIEW
-    
+    private func connectFields() {
+        UITextField.connectFields(fields: [self.textFieldEmail, self.textFieldPassword])
+    }
     
     // MARK: - BUTTON ACTIONS
     

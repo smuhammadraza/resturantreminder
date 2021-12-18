@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -70,11 +70,21 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpt-4a-PpK">
+                                            <rect key="frame" x="28" y="13" width="72" height="72"/>
+                                            <connections>
+                                                <action selector="profileButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ETl-F3-Jfp"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="Gpt-4a-PpK" firstAttribute="centerY" secondItem="ogD-zs-Pid" secondAttribute="centerY" id="2QQ-Kq-HiH"/>
                                         <constraint firstItem="9f6-pj-odr" firstAttribute="centerY" secondItem="Rqu-sX-1t6" secondAttribute="centerY" id="CoW-jp-u2h"/>
+                                        <constraint firstItem="Gpt-4a-PpK" firstAttribute="height" secondItem="ogD-zs-Pid" secondAttribute="height" multiplier="1.5" id="PO3-Se-v8R"/>
+                                        <constraint firstItem="Gpt-4a-PpK" firstAttribute="centerX" secondItem="ogD-zs-Pid" secondAttribute="centerX" id="TXt-mk-fgQ"/>
                                         <constraint firstItem="9f6-pj-odr" firstAttribute="leading" secondItem="Rqu-sX-1t6" secondAttribute="leading" constant="40" id="fjP-ba-YA8"/>
+                                        <constraint firstItem="Gpt-4a-PpK" firstAttribute="width" secondItem="ogD-zs-Pid" secondAttribute="width" multiplier="1.5" id="rey-9j-H5S"/>
                                     </constraints>
                                 </view>
                                 <connections>
@@ -212,7 +222,7 @@
                                                                 <rect key="frame" x="16" y="0.0" width="310" height="48.666666666666664"/>
                                                                 <color key="textColor" name="DarkGreyTextColor"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                             </textField>
                                                         </subviews>
                                                         <constraints>
@@ -558,6 +568,13 @@
                             <constraint firstItem="bXU-jq-rE3" firstAttribute="top" secondItem="lEv-HI-8ju" secondAttribute="top" id="rlD-RN-U8U"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textFieldAddress" destination="c6z-q6-sZC" id="wgd-Ic-YkD"/>
+                        <outlet property="textFieldName" destination="P7z-DV-vP5" id="Oqz-c7-ISJ"/>
+                        <outlet property="textFieldNotes" destination="tRr-fh-9tx" id="hKL-II-Ovb"/>
+                        <outlet property="textFieldPhone" destination="PLl-fV-iw6" id="NNZ-5K-e13"/>
+                        <outlet property="textFieldURL" destination="aeU-LL-6qz" id="aVU-It-Tlo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jH1-Bu-bXC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -802,6 +819,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ym9-de-wj6"/>
+                    <connections>
+                        <outlet property="aboutYourselfTextView" destination="jPl-Q7-THp" id="hwk-4z-H8z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FfD-3x-b7H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

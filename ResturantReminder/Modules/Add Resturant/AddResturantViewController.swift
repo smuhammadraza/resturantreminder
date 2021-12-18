@@ -10,6 +10,11 @@ import UIKit
 class AddResturantViewController: UIViewController {
 
     // MARK: - OUTLETS
+    @IBOutlet weak var textFieldName: UITextField!
+    @IBOutlet weak var textFieldAddress: UITextField!
+    @IBOutlet weak var textFieldPhone: UITextField!
+    @IBOutlet weak var textFieldURL: UITextField!
+    @IBOutlet weak var textFieldNotes: UITextField!
     
     // MARK: - VARIABLES
     
@@ -17,11 +22,14 @@ class AddResturantViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.connectFields()
     }
     
     
     // MARK: - SETUP VIEW
-    
+    private func connectFields() {
+        UITextField.connectFields(fields: [self.textFieldName, self.textFieldAddress, self.textFieldPhone, self.textFieldURL, self.textFieldNotes])
+    }
     
     // MARK: - BUTTON ACTION
     

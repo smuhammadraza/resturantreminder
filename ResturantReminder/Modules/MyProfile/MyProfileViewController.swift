@@ -10,6 +10,7 @@ import UIKit
 class MyProfileViewController: UIViewController {
 
     // MARK: - OUTLETS
+    @IBOutlet weak var aboutYourselfTextView: UITextView!
     
     // MARK: - VARIABLES
     
@@ -17,9 +18,14 @@ class MyProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupTextView()
     }
     
     // MARK: - SETUP VIEW
+    
+    private func setupTextView() {
+        aboutYourselfTextView.delegate = self
+    }
     
     // MARK: - BUTTON ACTIONS
     
@@ -28,3 +34,21 @@ class MyProfileViewController: UIViewController {
 }
 
 extension MyProfileViewController: StoryboardInitializable {}
+
+extension MyProfileViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView == aboutYourselfTextView {
+            if textView.text == "Tell us about yourself (optional)" {
+                textView.text = ""
+            }
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView == aboutYourselfTextView {
+            if textView.text == "" {
+                textView.text = "Tell us about yourself (optional)"
+            }
+        }
+    }
+}

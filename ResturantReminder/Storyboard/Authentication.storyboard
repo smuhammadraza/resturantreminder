@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OMt-eJ-7rT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OMt-eJ-7rT">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -499,6 +499,13 @@
                             <constraint firstItem="sw3-R5-xfb" firstAttribute="leading" secondItem="CAc-eP-QTa" secondAttribute="leading" id="qeu-VD-RQH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textFieldConfirmPassword" destination="I9C-Eb-CdH" id="67k-fm-DKT"/>
+                        <outlet property="textFieldEmail" destination="oCe-5W-UOQ" id="XLY-9U-GG2"/>
+                        <outlet property="textFieldFullName" destination="LV4-R4-qnU" id="jx7-Ub-X44"/>
+                        <outlet property="textFieldPassword" destination="wa3-Hc-CUN" id="C4R-lM-hdw"/>
+                        <outlet property="textFieldPostalCode" destination="tel-Cb-7gX" id="dPT-2G-rmH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YN-u2-KtA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
