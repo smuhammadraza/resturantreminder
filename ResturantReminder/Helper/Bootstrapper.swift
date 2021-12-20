@@ -48,7 +48,15 @@ struct Bootstrapper {
     
     mutating func bootstrap() {
         if AppDefaults.isUserLoggedIn && AppDefaults.currentUser != nil {
-            UserModel.shared = AppDefaults.currentUser ?? UserModel(fullName: "", postalCode: "", email: "", userID: "")
+            FirebaseManager.shared.fetchUser(userID: AppDefaults.currentUser?.userID ?? "") { error in
+                if let error = error {
+                    Snackbar.showSnackbar(message: error, duration: .middle)
+                    return
+                } else {
+                    AppDefaults.currentUser = UserModel.shared
+                }
+            }
+//            UserModel.shared = AppDefaults.currentUser ?? UserModel(fullName: "", postalCode: "", email: "", userID: "")
             self.showHome()
         } else {
             self.showLogin()

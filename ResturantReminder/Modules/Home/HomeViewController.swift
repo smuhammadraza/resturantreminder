@@ -24,13 +24,15 @@ class HomeViewController: UIViewController {
         setupView()
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.userNameLabel.text = "Hey, \(UserModel.shared.fullName)"
+        //        self.userProfileImageView.setimage
+    }
     // MARK: - SETUP VIEW
     
     private func setupView() {
         registerTableViewCell()
-        self.userNameLabel.text = "Hey, \(UserModel.shared.fullName)"
-//        self.userProfileImageView.setimage
     }
     
     private func registerTableViewCell() {

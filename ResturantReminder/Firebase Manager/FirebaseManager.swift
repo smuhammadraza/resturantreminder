@@ -28,7 +28,7 @@ class FirebaseManager {
             UserModel.shared.email = value?["email"] as? String ?? ""
             UserModel.shared.postalCode = value?["postalCode"] as? String ?? ""
             UserModel.shared.userID = value?["userID"] as? String ?? ""
-            UserModel.shared.about = value?["about"] as? String ?? ""
+            UserModel.shared.about = value?["about"] as? String
             completion(nil)
         }) { error in
             print(error.localizedDescription)
@@ -59,14 +59,15 @@ class FirebaseManager {
     
     func addUserAbout(text: String) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).child("about").setValue(["about": text])
+        ref.child("users").child(UserModel.shared.userID).updateChildValues(["about": text])
     }
     
     func fetchUserAbout(completion: @escaping (String?)->Void) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).child("about").observeSingleEvent(of: .value, with: { snapshot in
+        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
-            UserModel.shared.about = value?["about"] as? String ?? ""
+            UserModel.shared.about = value?["about"] as? String
+            AppDefaults.currentUser?.about = value?["about"] as? String
             completion(nil)
         }) {
             error in
@@ -76,6 +77,6 @@ class FirebaseManager {
     
     func updateName(name: String) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).setValue(["fullName": name])
+        ref.child("users").child(UserModel.shared.userID).updateChildValues(["fullName": name])
     }
 }

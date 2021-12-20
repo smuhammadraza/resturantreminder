@@ -47,6 +47,7 @@ class MyProfileViewController: UIViewController {
     
     private func setupValues() {
         self.textFieldFirstName.text = UserModel.shared.fullName
+        
         viewModel.fetchAbout { [weak self] error in
             guard let self = self else { return }
             if let error = error {
