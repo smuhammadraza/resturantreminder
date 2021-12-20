@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 
 class SignUpViewModel {
 
-    func signUpUser(email: String, password: String, completion: @escaping ((AuthDataResult?, Error?) -> Void)) {
+    func signUpUser(fullName: String, postalCode: String, email: String, password: String, completion: @escaping ((AuthDataResult?, Error?) -> Void)) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] (authResult, error) in
             completion(authResult, error)
         }

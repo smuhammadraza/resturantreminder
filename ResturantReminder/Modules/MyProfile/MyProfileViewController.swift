@@ -18,12 +18,20 @@ class MyProfileViewController: UIViewController {
     
     // MARK: - VARIABLES
     private lazy var imagePicker = UIImagePickerController()
+    var viewModel = MyProfileViewModel()
     
     // MARK: - VIEW LIFE CYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTextView()
+        self.setupTextField()
+//        self.setupValues()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupValues()
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,6 +40,22 @@ class MyProfileViewController: UIViewController {
     }
     
     // MARK: - SETUP VIEW
+    
+    private func setupTextField() {
+        textFieldFirstName.delegate = self
+    }
+    
+    private func setupValues() {
+        self.textFieldFirstName.text = UserModel.shared.fullName
+        viewModel.fetchAbout { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                Snackbar.showSnackbar(message: error, duration: .middle)
+            } else {
+                self.aboutYourselfTextView.text = UserModel.shared.about ?? "Tell us about yourself (optional)"
+            }
+        }
+    }
     
     private func setupTextView() {
         aboutYourselfTextView.delegate = self
@@ -182,7 +206,26 @@ extension MyProfileViewController: UITextViewDelegate {
         if textView == aboutYourselfTextView {
             if textView.text == "" {
                 textView.text = "Tell us about yourself (optional)"
+            } else {
+                viewModel.addAbout(aboutText: aboutYourselfTextView.text ?? "")
+                UserModel.shared.about = aboutYourselfTextView.text ?? ""
             }
+        }
+    }
+}
+
+extension MyProfileViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == self.textFieldFirstName {
+            
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == self.textFieldFirstName && textField.text != "" {
+            viewModel.updateName(name: textFieldFirstName.text ?? "")
+            UserModel.shared.fullName = textFieldFirstName.text ?? ""
         }
     }
 }

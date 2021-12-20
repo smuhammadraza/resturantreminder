@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 
 class LoginViewModel {
     func loginUser(email: String, password: String, completion: @escaping ((AuthDataResult?, Error?) -> Void)) {

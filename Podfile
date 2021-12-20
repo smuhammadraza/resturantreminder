@@ -12,7 +12,9 @@ pod 'IQKeyboardManagerSwift'
 pod 'QRCodeReader.swift', '~> 10.1.0'
 pod 'FBSDKLoginKit'
 pod 'DropDown'
-pod 'Firebase/Auth'
+pod 'Firebase', '~> 7.11.0'
+pod 'Firebase/Database', '~> 7.11.0'
+pod 'Firebase/Auth', '~> 7.11.0'
 pod "TTGSnackbar"
 
 end

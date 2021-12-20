@@ -11,6 +11,8 @@ class HomeViewController: UIViewController {
     
     // MARK: - OUTLETS
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userProfileImageView: UIImageView!
     
     // MARK: - VARIABLES
     
@@ -27,6 +29,8 @@ class HomeViewController: UIViewController {
     
     private func setupView() {
         registerTableViewCell()
+        self.userNameLabel.text = "Hey, \(UserModel.shared.fullName)"
+//        self.userProfileImageView.setimage
     }
     
     private func registerTableViewCell() {

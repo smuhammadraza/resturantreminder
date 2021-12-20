@@ -47,12 +47,12 @@ struct Bootstrapper {
     
     
     mutating func bootstrap() {
-//        if AppDefaults.isUserLoggedIn && AppDefaults.currentUser != nil {
-//            UserModel.shared = AppDefaults.currentUser ?? UserModel()
-//            self.showHome()
-//        } else {
+        if AppDefaults.isUserLoggedIn && AppDefaults.currentUser != nil {
+            UserModel.shared = AppDefaults.currentUser ?? UserModel(fullName: "", postalCode: "", email: "", userID: "")
+            self.showHome()
+        } else {
             self.showLogin()
-//        }
+        }
         window.makeKeyAndVisible()
     }
     private init(window: UIWindow) {

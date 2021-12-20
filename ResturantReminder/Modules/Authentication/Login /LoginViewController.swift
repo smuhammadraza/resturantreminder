@@ -42,8 +42,18 @@ class LoginViewController: UIViewController {
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
                 return
             } else {
-                print("Auth Result: \(authResult)")
-                Bootstrapper.showHome()
+                FirebaseManager.shared.fetchUser(userID: authResult?.user.uid ?? "") { error  in
+                    if let error = error {
+                        Snackbar.showSnackbar(message: error, duration: .middle)
+                        return
+                    } else {
+                        AppDefaults.currentUser = UserModel.shared
+                        AppDefaults.isUserLoggedIn = true
+                        Bootstrapper.showHome()
+                    }
+                }
+//                print("Auth Result: \(authResult)")
+//                Bootstrapper.showHome()
             }
         }
     }

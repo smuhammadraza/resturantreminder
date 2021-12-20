@@ -31,6 +31,9 @@ class AddResturantViewController: UIViewController {
     }()
     // MARK: - VARIABLES
     
+    var viewModel = AddResturantViewModel()
+    var categories = [String]()
+    
     // MARK: - VIEW LIFE CYCLE
     
     override func viewDidLoad() {
@@ -53,6 +56,7 @@ class AddResturantViewController: UIViewController {
     // MARK: - BUTTON ACTION
     
     @IBAction func didTapSaveButton(_ sender: UIButton) {
+        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories)
         self.dismiss(animated: true, completion: nil)
     }
     

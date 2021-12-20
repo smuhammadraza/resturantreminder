@@ -33,12 +33,13 @@ class SignUpViewController: UIViewController {
     
     // MARK: - BUTTON ACTIONS
     @IBAction func didTapSignUpButton(_ sender: UIButton) {
-        viewModel.signUpUser(email: self.textFieldEmail.text ?? "", password: self.textFieldPassword.text ?? "") { [weak self] (authResult, error) in
+        viewModel.signUpUser(fullName: self.textFieldFullName.text ?? "", postalCode: self.textFieldPostalCode.text ?? "", email: self.textFieldEmail.text ?? "", password: self.textFieldPassword.text ?? "") { [weak self] (authResult, error) in
             guard let self = self else { return }
             if let error = error {
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
                 return
             } else {
+                FirebaseManager.shared.addUser(userID: authResult?.user.uid ?? "", fullName: self.textFieldFullName.text ?? "", postalCode: self.textFieldPostalCode.text ?? "", email: self.textFieldEmail.text ?? "")
                 print("Auth Result: \(authResult)")
                 Snackbar.showSnackbar(message: authResult?.description ?? "", duration: .short)
                 self.dismiss(animated: true, completion: nil)
