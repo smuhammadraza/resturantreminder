@@ -17,5 +17,6 @@ struct ResturantModel: Codable {
     var phone = ""
     var url = ""
     var notes = ""
+    var rating = 0.0
     
 }

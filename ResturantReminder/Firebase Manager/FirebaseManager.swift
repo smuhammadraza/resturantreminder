@@ -36,9 +36,9 @@ class FirebaseManager {
         }
     }
     
-    func addRestaurant(userID: String, name: String, address: String, phone: String, url: String, notes: String, categories: [String]) {
+    func addRestaurant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String]) {
         ref = Database.database().reference()
-        self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue(["name": name, "address": address, "phone": phone, "url": url, "notes": notes, "categories": categories])
+        self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue(["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories])
     }
     
     func fetchResturant(userID: String, resturantID: String, completion: @escaping (String?)->Void) {
@@ -50,6 +50,7 @@ class FirebaseManager {
             ResturantModel.shared.phone = value?["phone"] as? String ?? ""
             ResturantModel.shared.url = value?["url"] as? String ?? ""
             ResturantModel.shared.notes = value?["notes"] as? String ?? ""
+            ResturantModel.shared.rating = value?["rating"] as? Double ?? 2.5
             completion(nil)
         }) { error in
             print(error.localizedDescription)

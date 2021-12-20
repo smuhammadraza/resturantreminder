@@ -16,5 +16,6 @@ pod 'Firebase', '~> 7.11.0'
 pod 'Firebase/Database', '~> 7.11.0'
 pod 'Firebase/Auth', '~> 7.11.0'
 pod "TTGSnackbar"
+pod 'Cosmos', '~> 23.0'
 
 end

@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import QRCodeReader
+import Cosmos
 
 class AddResturantViewController: UIViewController {
 
@@ -20,6 +21,7 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var addRestaurantView: UIView!
     @IBOutlet weak var qrScannerViewView: UIView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var ratingView: CosmosView!
     lazy var reader: QRCodeReaderViewController = {
         let builder = QRCodeReaderViewControllerBuilder {
             let readerView = QRCodeReaderContainer(displayable: QRScannerView())
@@ -56,7 +58,7 @@ class AddResturantViewController: UIViewController {
     // MARK: - BUTTON ACTION
     
     @IBAction func didTapSaveButton(_ sender: UIButton) {
-        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories)
+        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories)
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -281,32 +281,54 @@
                                                                 <rect key="frame" x="16" y="0.0" width="310" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m8g-Gh-5Xm">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100.66666666666667" height="50"/>
                                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="M7z-P4-RpM">
-                                                                        <rect key="frame" x="138" y="0.0" width="172" height="50"/>
+                                                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="5xE-fn-Hdd" customClass="CosmosView" customModule="Cosmos">
+                                                                        <rect key="frame" x="108.66666666666664" y="0.0" width="201.33333333333337" height="50"/>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                                                                <integer key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                                                                                <real key="value" value="3"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                                                                <color key="value" name="PrimaryColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                                                <real key="value" value="25"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </view>
+                                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="M7z-P4-RpM">
+                                                                        <rect key="frame" x="314" y="0.0" width="32" height="50"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating" translatesAutoresizingMaskIntoConstraints="NO" id="Qn2-gg-kfL">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="28" height="50"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating" translatesAutoresizingMaskIntoConstraints="NO" id="Vvn-Pg-BQ4">
-                                                                                <rect key="frame" x="36" y="0.0" width="28" height="50"/>
+                                                                                <rect key="frame" x="8" y="0.0" width="0.0" height="50"/>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating" translatesAutoresizingMaskIntoConstraints="NO" id="dJE-Fs-pkQ">
-                                                                                <rect key="frame" x="72" y="0.0" width="28" height="50"/>
+                                                                                <rect key="frame" x="16" y="0.0" width="0.0" height="50"/>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating" translatesAutoresizingMaskIntoConstraints="NO" id="oTb-cZ-Y7c">
-                                                                                <rect key="frame" x="108" y="0.0" width="28" height="50"/>
+                                                                                <rect key="frame" x="24" y="0.0" width="0.0" height="50"/>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating" translatesAutoresizingMaskIntoConstraints="NO" id="v1w-h7-Sv6">
-                                                                                <rect key="frame" x="144" y="0.0" width="28" height="50"/>
+                                                                                <rect key="frame" x="32" y="0.0" width="0.0" height="50"/>
                                                                             </imageView>
                                                                         </subviews>
                                                                     </stackView>
                                                                 </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="5xE-fn-Hdd" firstAttribute="centerY" secondItem="m8g-Gh-5Xm" secondAttribute="centerY" id="Ppf-Ju-H5p"/>
+                                                                    <constraint firstItem="5xE-fn-Hdd" firstAttribute="width" secondItem="yu9-8Q-ODF" secondAttribute="width" multiplier="0.65" id="eS8-jm-9f3"/>
+                                                                </constraints>
                                                             </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -605,6 +627,7 @@
                     <connections>
                         <outlet property="addRestaurantView" destination="KSN-Jz-FC3" id="UEU-h7-deT"/>
                         <outlet property="qrScannerViewView" destination="DWp-vS-sEJ" id="1sn-SW-6vk"/>
+                        <outlet property="ratingView" destination="5xE-fn-Hdd" id="6f7-th-pRh"/>
                         <outlet property="segmentControl" destination="yrj-MI-0w3" id="lhj-qW-lyK"/>
                         <outlet property="textFieldAddress" destination="c6z-q6-sZC" id="wgd-Ic-YkD"/>
                         <outlet property="textFieldName" destination="P7z-DV-vP5" id="Oqz-c7-ISJ"/>
@@ -1385,6 +1408,11 @@
             <point key="canvasLocation" x="1050.7246376811595" y="-542.11956521739137"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="5xE-fn-Hdd">
+            <size key="intrinsicContentSize" width="137" height="25"/>
+        </designable>
+    </designables>
     <resources>
         <image name=" " width="128" height="128"/>
         <image name="AddResturantBg" width="414" height="846"/>
