@@ -19,9 +19,19 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Enable Camera to take photos of Prescription.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Enable microphone to enable voice call.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Enable to allow to save images of prescription to Photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Enable Photo Library to upload photos of Prescription.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -45,15 +55,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-    <key>NSCameraUsageDescription</key>
-    <string>Enable Camera to take photos of Prescription.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Enable microphone to enable voice call.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Enable to allow to save images of prescription to Photos.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Enable Photo Library to upload photos of Prescription.</string>
 </dict>
 </plist>

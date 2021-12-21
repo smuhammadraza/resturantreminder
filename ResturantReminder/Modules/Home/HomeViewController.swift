@@ -34,7 +34,12 @@ class HomeViewController: UIViewController {
             print(restaurantModel)
             if let restaurantModel = restaurantModel {
                 self.restaurant = restaurantModel
-                self.tableView.reloadData()
+                if self.restaurant.isEmpty {
+                    self.tableView.isHidden = true
+                } else {
+                    self.tableView.isHidden = false
+                    self.tableView.reloadData()
+                }
             }
             UIApplication.stopActivityIndicator()
         }
@@ -67,14 +72,14 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.HomeTableViewCell, for: indexPath) as? HomeTableViewCell else {
             return UITableViewCell()
         }
-        cell.configureCell(indexRow: indexPath.row)
+        cell.configureCell(model: self.restaurant)
         return cell
     }
     

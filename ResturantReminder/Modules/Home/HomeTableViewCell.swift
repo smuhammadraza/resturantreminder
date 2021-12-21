@@ -15,7 +15,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - VARIABLES
-    
+    var restaurantModel = [ResturantModel]()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -40,24 +40,26 @@ class HomeTableViewCell: UITableViewCell {
     
     // MARK: - CONFIGURE CELL
     
-    func configureCell(indexRow: Int) {
-        switch indexRow {
-        case 0:
-            self.labelTitle.text = "All Resturants"
-            self.labelSubtitle.text = ""
-            self.labelTitle.isHidden = false
-            self.labelSubtitle.isHidden = true
-        case 1:
-            self.labelTitle.text = "Categories"
-            self.labelSubtitle.text = "Breakfast"
-            self.labelTitle.isHidden = false
-            self.labelSubtitle.isHidden = false
-        default:
-            self.labelTitle.text = ""
-            self.labelSubtitle.text = "Burgers"
-            self.labelTitle.isHidden = true
-            self.labelSubtitle.isHidden = false
-        }
+    func configureCell(model: [ResturantModel]) {
+        self.restaurantModel = model
+        self.collectionView.reloadData()
+//        switch indexRow {
+//        case 0:
+//            self.labelTitle.text = "All Resturants"
+//            self.labelSubtitle.text = ""
+//            self.labelTitle.isHidden = false
+//            self.labelSubtitle.isHidden = true
+//        case 1:
+//            self.labelTitle.text = "Categories"
+//            self.labelSubtitle.text = "Breakfast"
+//            self.labelTitle.isHidden = false
+//            self.labelSubtitle.isHidden = false
+//        default:
+//            self.labelTitle.text = ""
+//            self.labelSubtitle.text = "Burgers"
+//            self.labelTitle.isHidden = true
+//            self.labelSubtitle.isHidden = false
+//        }
     }
     
     
@@ -71,7 +73,7 @@ extension HomeTableViewCell: UICollectionViewDelegate, UICollectionViewDelegateF
 
 extension HomeTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.restaurantModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,6 +81,7 @@ extension HomeTableViewCell: UICollectionViewDataSource {
                                                             for: indexPath) as? HomeCollectionViewCell else {
             fatalError("Cannot find collection view cell")
         }
+        cell.configure(model: self.restaurantModel[indexPath.row])
         return cell
     }
     
