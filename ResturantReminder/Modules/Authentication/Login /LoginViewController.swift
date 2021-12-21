@@ -36,17 +36,21 @@ class LoginViewController: UIViewController {
         self.textFieldPassword.isSecureTextEntry = sender.isSelected
     }
     @IBAction func didTapLoginButton(_ sender: UIButton) {
+        UIApplication.startActivityIndicator(with: "Logging in..")
         viewModel.loginUser(email: self.textFieldEmail.text ?? "", password: self.textFieldPassword.text ?? "") { [weak self] (authResult, error) in
             guard let self = self else { return }
             if let error = error {
+                UIApplication.stopActivityIndicator()
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
                 return
             } else {
                 FirebaseManager.shared.fetchUser(userID: authResult?.user.uid ?? "") { error  in
                     if let error = error {
+                        UIApplication.stopActivityIndicator()
                         Snackbar.showSnackbar(message: error, duration: .middle)
                         return
                     } else {
+                        UIApplication.stopActivityIndicator()
                         AppDefaults.currentUser = UserModel.shared
                         AppDefaults.isUserLoggedIn = true
                         Bootstrapper.showHome()

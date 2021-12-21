@@ -13,9 +13,4 @@ class AddResturantViewModel {
         FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories)
     }
     
-    func fetchResturant(userID: String, resturantID: String, completion: @escaping (String?)->Void) {
-        FirebaseManager.shared.fetchResturant(userID: userID, resturantID: resturantID) { error in
-            completion(error)
-        }
-    }
 }

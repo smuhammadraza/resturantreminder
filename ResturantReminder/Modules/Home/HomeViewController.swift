@@ -15,7 +15,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var userProfileImageView: UIImageView!
     
     // MARK: - VARIABLES
-    
+    var viewModel = HomeViewModel()
+    var restaurant = [ResturantModel]()
     
     // MARK: - VIEW LIFE CYCLE
 
@@ -26,7 +27,18 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userNameLabel.text = "Hey, \(UserModel.shared.fullName)"
+        self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
+        UIApplication.startActivityIndicator(with: "")
+        viewModel.fetchResturant(userID: AppDefaults.currentUser?.userID ?? "", resturantID: "") { restaurantModel, error in
+            print(error)
+            print(restaurantModel)
+            if let restaurantModel = restaurantModel {
+                self.restaurant = restaurantModel
+                self.tableView.reloadData()
+            }
+            UIApplication.stopActivityIndicator()
+        }
+        
         //        self.userProfileImageView.setimage
     }
     // MARK: - SETUP VIEW

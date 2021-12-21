@@ -47,12 +47,14 @@ class MyProfileViewController: UIViewController {
     
     private func setupValues() {
         self.textFieldFirstName.text = UserModel.shared.fullName
-        
+        UIApplication.startActivityIndicator(with: "")
         viewModel.fetchAbout { [weak self] error in
             guard let self = self else { return }
             if let error = error {
+                UIApplication.stopActivityIndicator()
                 Snackbar.showSnackbar(message: error, duration: .middle)
             } else {
+                UIApplication.stopActivityIndicator()
                 self.aboutYourselfTextView.text = UserModel.shared.about ?? "Tell us about yourself (optional)"
             }
         }

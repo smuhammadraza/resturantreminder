@@ -41,31 +41,41 @@ class FirebaseManager {
         self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue(["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories])
     }
     
-    func fetchResturant(userID: String, resturantID: String, completion: @escaping (String?)->Void) {
+    func fetchResturant(userID: String, resturantID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
         ref = Database.database().reference()
-        ref.child("users").child(userID).child(resturantID).observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            ResturantModel.shared.name = value?["name"] as? String ?? ""
-            ResturantModel.shared.address = value?["address"] as? String ?? ""
-            ResturantModel.shared.phone = value?["phone"] as? String ?? ""
-            ResturantModel.shared.url = value?["url"] as? String ?? ""
-            ResturantModel.shared.notes = value?["notes"] as? String ?? ""
-            ResturantModel.shared.rating = value?["rating"] as? Double ?? 2.5
-            completion(nil)
-        }) { error in
-            print(error.localizedDescription)
-            completion(error.localizedDescription)
+//        ref.child("users").child(userID).child("restaurants")
+        ref.child("users").child(userID).child("restaurants").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? NSDictionary else {
+                completion(nil, "No Restaurants Found")
+                return
+            }
+            do {
+                var restaurantModel = [ResturantModel]()
+                for value1 in value {
+                    let json = try JSONSerialization.data(withJSONObject: value1.value)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    if let decodedRestaurants = try decoder.decode(ResturantModel?.self, from: json) {
+                        restaurantModel.append(decodedRestaurants)
+                        print(decodedRestaurants)
+                    }
+                }
+                completion(restaurantModel, nil)
+            } catch {
+                print(error.localizedDescription)
+                completion(nil, error.localizedDescription)
+            }
         }
     }
     
     func addUserAbout(text: String) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).updateChildValues(["about": text])
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").updateChildValues(["about": text])
     }
     
     func fetchUserAbout(completion: @escaping (String?)->Void) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value, with: { snapshot in
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             UserModel.shared.about = value?["about"] as? String
             AppDefaults.currentUser?.about = value?["about"] as? String

@@ -58,7 +58,9 @@ class AddResturantViewController: UIViewController {
     // MARK: - BUTTON ACTION
     
     @IBAction func didTapSaveButton(_ sender: UIButton) {
+        UIApplication.startActivityIndicator(with: "")
         viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories)
+        UIApplication.stopActivityIndicator()
         self.dismiss(animated: true, completion: nil)
     }
     

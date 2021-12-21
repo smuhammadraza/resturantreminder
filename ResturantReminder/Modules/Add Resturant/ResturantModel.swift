@@ -7,16 +7,16 @@
 
 import Foundation
 
+struct ResturantResponse: Codable {
+    let userRestaurant: ResturantModel?
+}
+
 struct ResturantModel: Codable {
     
     private init() {}
     static var shared = ResturantModel()
     
-    var name = ""
-    var address = ""
-    var phone = ""
-    var url = ""
-    var notes = ""
-    var rating = 0.0
+    var name, address, phone, url, notes: String?
+    var rating: Double?
     
 }
