@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -498,6 +498,9 @@
                                                                                 <constraint firstAttribute="width" secondItem="7Wn-xp-NvH" secondAttribute="height" multiplier="1:1" id="neE-C1-vmQ"/>
                                                                             </constraints>
                                                                             <state key="normal" image="SettingsCategoryCrossButton"/>
+                                                                            <connections>
+                                                                                <action selector="crossAction:" destination="N2L-i7-GEY" eventType="touchUpInside" id="OkE-1L-VEX"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -535,6 +538,9 @@
                                                                 <constraint firstItem="xUl-ZL-3ux" firstAttribute="top" secondItem="vWB-M0-BV3" secondAttribute="top" id="uTm-cJ-Juk"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="titleLabel" destination="ovO-pV-oGg" id="o39-eX-muU"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                                 <connections>
@@ -1288,6 +1294,9 @@
                                                                 <constraint firstAttribute="width" secondItem="9CY-3F-s9A" secondAttribute="height" multiplier="1:1" id="TV6-zP-BlD"/>
                                                             </constraints>
                                                             <state key="normal" image="SettingsCategoryCrossButton"/>
+                                                            <connections>
+                                                                <action selector="crossAction:" destination="yZi-1v-SMW" eventType="touchUpInside" id="kYm-uB-mh3"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1325,6 +1334,9 @@
                                                 <constraint firstItem="6CO-2v-hFT" firstAttribute="top" secondItem="AJC-KE-Xeu" secondAttribute="top" id="zbq-5l-LhF"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="JZe-VK-eFs" id="wkb-z1-6qZ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

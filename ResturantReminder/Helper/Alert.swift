@@ -9,6 +9,19 @@
 import UIKit
 
 class Alert {
+    
+    public static func addCategoryAlert(vc: UIViewController, completion: @escaping ((String) -> Void)) {
+        let alert = UIAlertController(title: "Category Name", message: "", preferredStyle: .alert)
+
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter Category"
+        }
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            completion(alert.textFields?[0].text ?? "")
+        }))
+        vc.present(alert, animated: true, completion: nil)
+    }
+    
     public static func showAlert(vc: UIViewController,
                                  title: String,
                                  message: String,

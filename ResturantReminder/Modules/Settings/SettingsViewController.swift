@@ -40,6 +40,7 @@ class SettingsViewController: UIViewController {
         return dropDown
     }()
     
+    var categories = [String]()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -111,7 +112,7 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1 + 2
+        return categories.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -124,10 +125,19 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.CategoryCollectionViewCell, for: indexPath) as? CategoryCollectionViewCell else {
                 fatalError("Unable to find collection view cell")
             }
+            cell.configure(title: self.categories[indexPath.row - 1])
             return cell
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == 0 {
+            Alert.addCategoryAlert(vc: self) { category in
+                self.categories.append(category)
+                self.collectionView.reloadData()
+            }
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: collectionView.frame.width/3 - 8, height: Utilities.convertIphone6ToIphone5(size: 50))
