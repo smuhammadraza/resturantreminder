@@ -41,6 +41,7 @@ class SettingsViewController: UIViewController {
     }()
     
     var categories = [String]()
+    var viewModel = SettingsViewModel()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -49,6 +50,18 @@ class SettingsViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.startActivityIndicator(with: "")
+        viewModel.fetchMeta { fetchedCategories in
+            UIApplication.stopActivityIndicator()
+            guard let fetchedCategories = fetchedCategories else {
+                return
+            }
+            self.categories = fetchedCategories
+            self.collectionView.reloadData()
+        }
+    }
     
     // MARK: - SETUP VIEW
     
@@ -134,6 +147,8 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
         if indexPath.item == 0 {
             Alert.addCategoryAlert(vc: self) { category in
                 self.categories.append(category)
+                UIApplication.startActivityIndicator(with: "")
+                self.viewModel.addMeta(categories: self.categories)
                 self.collectionView.reloadData()
             }
         }

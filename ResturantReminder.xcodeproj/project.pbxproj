@@ -51,6 +51,7 @@
 		88BFE3A527672262004777BC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39927672262004777BC /* Extension+UIView.swift */; };
 		88BFE3A627672262004777BC /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39A27672262004777BC /* Extension+String.swift */; };
 		D0557D3727720476002D303B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0557D3627720476002D303B /* HomeViewModel.swift */; };
+		D063D1F1277457D7008FF0E0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */; };
 		D0A2891C277071B2006CA1D7 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2891B277071B2006CA1D7 /* FirebaseManager.swift */; };
 		D0A2891E27707867006CA1D7 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2891D27707867006CA1D7 /* UserModel.swift */; };
 		D0A2892227709838006CA1D7 /* AddResturantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2892127709838006CA1D7 /* AddResturantViewModel.swift */; };
@@ -108,6 +109,7 @@
 		C1E853AB4F8F3B1E843439F1 /* Pods-ResturantReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.debug.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.debug.xcconfig"; sourceTree = "<group>"; };
 		C48A1E4038EBA2B2D109DFD2 /* Pods-ResturantReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.release.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.release.xcconfig"; sourceTree = "<group>"; };
 		D0557D3627720476002D303B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		D0A2891B277071B2006CA1D7 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		D0A2891D27707867006CA1D7 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D0A2892127709838006CA1D7 /* AddResturantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddResturantViewModel.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		18607524276A7E62000786F8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D063D1EF277457C6008FF0E0 /* ViewModel */,
 				18607525276A7E68000786F8 /* View */,
 			);
 			path = Settings;
@@ -468,6 +471,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		D063D1EF277457C6008FF0E0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
 		D0A2891A277071A2006CA1D7 /* Firebase Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,6 +644,7 @@
 				187A0F52276EA44000174C36 /* LoginViewModel.swift in Sources */,
 				D0A2891C277071B2006CA1D7 /* FirebaseManager.swift in Sources */,
 				18D80E90276A6446005BCE63 /* HomeViewController.swift in Sources */,
+				D063D1F1277457D7008FF0E0 /* SettingsViewModel.swift in Sources */,
 				88BFE39E27672262004777BC /* Extension+UIImageView.swift in Sources */,
 				88BFE39D27672262004777BC /* Extension+UIColor.swift in Sources */,
 				D0A2892227709838006CA1D7 /* AddResturantViewModel.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import UIKit
 
 class FirebaseManager {
     
@@ -89,5 +90,31 @@ class FirebaseManager {
     func updateName(name: String) {
         ref = Database.database().reference()
         ref.child("users").child(UserModel.shared.userID).updateChildValues(["fullName": name])
+    }
+    
+    func addMeta(categories: [String]) {
+        var fetchedCategories = [String]()
+        ref = Database.database().reference()
+        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
+            let value = snapshot.value as? NSDictionary
+            if let fetchedCategoriesUnwrapped = value?["categories"] as? [String] {
+                fetchedCategories = categories + fetchedCategoriesUnwrapped
+            } else {
+                fetchedCategories = categories
+            }
+            let fetchedCategoriesNonRepeating = Array(Set(fetchedCategories))
+            self.ref.child("users").child(UserModel.shared.userID).updateChildValues(["categories": fetchedCategoriesNonRepeating])
+            UIApplication.stopActivityIndicator()
+        }
+    }
+    
+    func fetchMeta(completion: @escaping (([String]?) -> Void)) {
+        ref = Database.database().reference()
+        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let fetchedCategoriesUnwrapped = value?["categories"] as? [String]
+            completion(fetchedCategoriesUnwrapped)
+            
+        }
     }
 }
