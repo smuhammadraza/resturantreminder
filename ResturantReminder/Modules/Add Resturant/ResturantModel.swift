@@ -18,5 +18,6 @@ struct ResturantModel: Codable {
     
     var name, address, phone, url, notes: String?
     var rating: Double?
+    var categories: [String]?
     
 }

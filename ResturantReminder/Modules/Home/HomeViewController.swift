@@ -17,7 +17,8 @@ class HomeViewController: UIViewController {
     // MARK: - VARIABLES
     var viewModel = HomeViewModel()
     var restaurant = [ResturantModel]()
-    
+    var categories = [String]()
+
     // MARK: - VIEW LIFE CYCLE
 
     override func viewDidLoad() {
@@ -28,23 +29,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
-        UIApplication.startActivityIndicator(with: "")
-        viewModel.fetchResturant(userID: AppDefaults.currentUser?.userID ?? "", resturantID: "") { restaurantModel, error in
-            print(error)
-            print(restaurantModel)
-            if let restaurantModel = restaurantModel {
-                self.restaurant = restaurantModel
-                if self.restaurant.isEmpty {
-                    self.tableView.isHidden = true
-                } else {
-                    self.tableView.isHidden = false
-                    self.tableView.reloadData()
-                }
-            }
-            UIApplication.stopActivityIndicator()
-        }
-        
-        //        self.userProfileImageView.setimage
+        self.fetchHomeData()
     }
     // MARK: - SETUP VIEW
     
@@ -56,6 +41,31 @@ class HomeViewController: UIViewController {
         self.tableView.register(UINib.init(nibName: Constants.CellIdentifiers.HomeTableViewCell,
                                            bundle: .main),
                                 forCellReuseIdentifier: Constants.CellIdentifiers.HomeTableViewCell)
+    }
+    
+    // MARK: - FETCH DATA
+    
+    private func fetchHomeData() {
+        UIApplication.startActivityIndicator(with: "")
+        viewModel.fetchResturant(userID: AppDefaults.currentUser?.userID ?? "", resturantID: "") { restaurantModel, error in
+            print(error)
+            print(restaurantModel)
+            if let restaurantModel = restaurantModel {
+                self.restaurant = restaurantModel
+                var categories = [String]()
+                self.restaurant.forEach { object in
+                    categories.append(contentsOf: object.categories ?? [])
+                }
+                self.categories = Array(Set(categories))
+                if self.restaurant.isEmpty {
+                    self.tableView.isHidden = true
+                } else {
+                    self.tableView.isHidden = false
+                    self.tableView.reloadData()
+                }
+            }
+            UIApplication.stopActivityIndicator()
+        }
     }
     
     // MARK: - BUTTON ACTIONS
@@ -72,14 +82,32 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.HomeTableViewCell, for: indexPath) as? HomeTableViewCell else {
             return UITableViewCell()
         }
-        cell.configureCell(model: self.restaurant)
+        if indexPath.row == 0 {
+            cell.configureCell(model: self.restaurant, categoryTitle: "All Restaurants", categorySubTitle: "")
+        } else if indexPath.row == 1 && !(self.categories.isEmpty){
+            var restaurantModel = [ResturantModel]()
+            self.restaurant.forEach { object in
+                if object.categories?.contains(self.categories[indexPath.row]) ?? false {
+                    restaurantModel.append(object)
+                    cell.configureCell(model: restaurantModel, categoryTitle: "All Categories", categorySubTitle: self.categories[indexPath.row])
+                }
+            }
+        } else if !(self.categories.isEmpty) && indexPath.row < self.categories.count {
+            var restaurantModel = [ResturantModel]()
+            self.restaurant.forEach { object in
+                if object.categories?.contains(self.categories[indexPath.row]) ?? false {
+                    restaurantModel.append(object)
+                    cell.configureCell(model: restaurantModel, categoryTitle: "", categorySubTitle: self.categories[indexPath.row])
+                }
+            }
+        }
         return cell
     }
     

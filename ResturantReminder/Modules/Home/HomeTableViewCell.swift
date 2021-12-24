@@ -40,28 +40,14 @@ class HomeTableViewCell: UITableViewCell {
     
     // MARK: - CONFIGURE CELL
     
-    func configureCell(model: [ResturantModel]) {
+    func configureCell(model: [ResturantModel], categoryTitle: String, categorySubTitle: String) {
         self.restaurantModel = model
+        self.labelTitle.isHidden = categoryTitle.isEmpty
+        self.labelTitle.text = categoryTitle
+        self.labelSubtitle.isHidden = categorySubTitle.isEmpty
+        self.labelSubtitle.text = categorySubTitle
         self.collectionView.reloadData()
-//        switch indexRow {
-//        case 0:
-//            self.labelTitle.text = "All Resturants"
-//            self.labelSubtitle.text = ""
-//            self.labelTitle.isHidden = false
-//            self.labelSubtitle.isHidden = true
-//        case 1:
-//            self.labelTitle.text = "Categories"
-//            self.labelSubtitle.text = "Breakfast"
-//            self.labelTitle.isHidden = false
-//            self.labelSubtitle.isHidden = false
-//        default:
-//            self.labelTitle.text = ""
-//            self.labelSubtitle.text = "Burgers"
-//            self.labelTitle.isHidden = true
-//            self.labelSubtitle.isHidden = false
-//        }
     }
-    
     
 }
 
