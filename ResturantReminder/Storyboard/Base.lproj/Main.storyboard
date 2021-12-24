@@ -632,6 +632,7 @@
                     </view>
                     <connections>
                         <outlet property="addRestaurantView" destination="KSN-Jz-FC3" id="UEU-h7-deT"/>
+                        <outlet property="collectionView" destination="u2x-FX-g4d" id="oh0-ay-EmZ"/>
                         <outlet property="qrScannerViewView" destination="DWp-vS-sEJ" id="1sn-SW-6vk"/>
                         <outlet property="ratingView" destination="5xE-fn-Hdd" id="6f7-th-pRh"/>
                         <outlet property="segmentControl" destination="yrj-MI-0w3" id="lhj-qW-lyK"/>

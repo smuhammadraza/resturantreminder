@@ -50,6 +50,7 @@ class MainTabBarController: UITabBarController {
         let vc = AddResturantViewController.initFromStoryboard(name: Constants.Storyboards.main)
         let presenter = Presentr.init(presentationType: .custom(width: .fluid(percentage: 1.0),
                                                                 height: .fluid(percentage: 0.9), center: .center))
+        presenter.dismissOnSwipe = true
         presenter.roundCorners = true
         presenter.cornerRadius = 10.0
         customPresentViewController(presenter, viewController: vc, animated: true)
