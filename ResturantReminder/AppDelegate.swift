@@ -11,6 +11,7 @@ import DropDown
 import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
+import GooglePlaces
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
+        GMSPlacesClient.provideAPIKey(Constants.googleAPIKey)
         IQKeyboardManager.shared.enable = true
         DropDown.startListeningToKeyboard()
         Bootstrapper.initialize()
