@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		184EAFF02777291A002E619D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 184EAFEF2777291A002E619D /* SwiftPackageProductDependency */; };
+		184EAFF02777291A002E619D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 184EAFEF2777291A002E619D /* GoogleSignIn */; };
 		18607527276A7E79000786F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18607526276A7E79000786F8 /* SettingsViewController.swift */; };
 		1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */; };
 		18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */; };
@@ -125,7 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC6813D11E48845865CBF5F /* Pods_ResturantReminder.framework in Frameworks */,
-				184EAFF02777291A002E619D /* BuildFile in Frameworks */,
+				184EAFF02777291A002E619D /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,7 +533,7 @@
 			);
 			name = ResturantReminder;
 			packageProductDependencies = (
-				184EAFEF2777291A002E619D /* SwiftPackageProductDependency */,
+				184EAFEF2777291A002E619D /* GoogleSignIn */,
 			);
 			productName = ResturantReminder;
 			productReference = 18D80DF2275E8B86005BCE63 /* ResturantReminder.app */;
@@ -563,8 +563,8 @@
 			);
 			mainGroup = 18D80DE9275E8B86005BCE63;
 			packageReferences = (
-				184EAFEC27772686002E619D /* RemoteSwiftPackageReference */,
-				184EAFEE2777291A002E619D /* RemoteSwiftPackageReference */,
+				184EAFEC27772686002E619D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				184EAFEE2777291A002E619D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 18D80DF3275E8B86005BCE63 /* Products */;
 			projectDirPath = "";
@@ -847,7 +847,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8LTPJZF6V8;
 				INFOPLIST_FILE = ResturantReminder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -870,7 +870,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8LTPJZF6V8;
 				INFOPLIST_FILE = ResturantReminder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -910,7 +910,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		184EAFEC27772686002E619D /* RemoteSwiftPackageReference */ = {
+		184EAFEC27772686002E619D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
@@ -918,7 +918,7 @@
 				minimumVersion = 12.2.1;
 			};
 		};
-		184EAFEE2777291A002E619D /* RemoteSwiftPackageReference */ = {
+		184EAFEE2777291A002E619D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
 			requirement = {
@@ -929,9 +929,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		184EAFEF2777291A002E619D /* SwiftPackageProductDependency */ = {
+		184EAFEF2777291A002E619D /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 184EAFEE2777291A002E619D /* RemoteSwiftPackageReference */;
+			package = 184EAFEE2777291A002E619D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
 		};
 /* End XCSwiftPackageProductDependency section */

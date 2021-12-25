@@ -20,17 +20,19 @@ class AddResturantViewModel {
         FirebaseManager.shared.addMeta(categories: categories)
     }
     
-    func fetchPlacesAutoComplete(text: String, completion: @escaping ((String?)-> Void)) {
+    func fetchPlacesAutoComplete(text: String, completion: @escaping ((String?, String?)-> Void)) {
         let placeFields: GMSPlaceField = [.name, .formattedAddress]
         placesClient.findAutocompletePredictions(fromQuery: text, filter: nil, sessionToken: nil) { (placesPrediction, error) in
 //            guard let self = self else { return }
             
             guard let place = placesPrediction else {
-                completion(nil)
+                if let error = error {
+                    completion(nil, error.localizedDescription)
+                }
                 return
             }
-            print(place.first)
-//            completion(place.first)
+            print(place.first?.attributedFullText.string)
+            completion(place.first?.attributedFullText.string, nil)
         }
 //        placesClient.findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: placeFields) { [weak self] (placesLikelihoods, error) in
 //            guard let self = self else { return }

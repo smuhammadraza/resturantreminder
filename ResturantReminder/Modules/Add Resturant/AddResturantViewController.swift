@@ -33,7 +33,15 @@ class AddResturantViewController: UIViewController {
         return QRCodeReaderViewController(builder: builder)
     }()
     // MARK: - VARIABLES
-    var placeName = ""
+//    var placeName = ""
+    var placeName: String {
+        get {
+            return placeName
+        }
+        set {
+            textFieldAddress.text = newValue
+        }
+    }
     var viewModel = AddResturantViewModel()
     var categories = [String]()
     
@@ -63,7 +71,11 @@ class AddResturantViewController: UIViewController {
     }
     
     @objc func textFieldDidChange() {
-        viewModel.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "") { (placeName) in
+        viewModel.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "") { (placeName, error) in
+            if let error = error {
+                Snackbar.showSnackbar(message: error, duration: .middle)
+                return
+            }
             guard let placeName = placeName else { return }
             print(placeName)
             self.placeName = placeName
