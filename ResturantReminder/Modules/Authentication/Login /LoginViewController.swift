@@ -7,6 +7,8 @@
 
 import UIKit
 import Presentr
+import GoogleSignIn
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
 
@@ -75,6 +77,38 @@ class LoginViewController: UIViewController {
                                                                 height: .fluid(percentage: 1.0), center: .customOrigin(origin: CGPoint.init(x: 0, y: 40))))
         customPresentViewController(presenter, viewController: vc, animated: true)
     }
+    
+    
+    @IBAction func facebookLoginTapped(_ sender: UIButton) {
+        //        Authentication.sharedInstance().facebookLogin(fromVC: self) { [weak self] (userId, accessToken, check) in
+        //
+        //        }
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { result, error in
+            if let error = error {
+                print("Encountered Erorr: \(error)")
+            } else if let result = result, result.isCancelled {
+                print("Cancelled")
+            } else {
+                print("Logged In")
+            }
+        }
+    }
+    
+    @IBAction func gmailLoginTapped(_ sender: UIButton) {
+        let signInConfig = GIDConfiguration.init(clientID: Constants.googleClientID)
+        
+        GIDSignIn.sharedInstance.signIn(
+            with: signInConfig,
+            presenting: self
+        ) { user, error in
+            guard error == nil else { return }
+            guard let user = user else { return }
+            
+            // Your user is signed in!
+        }
+    }
+    
     // MARK: - HELPER METHODS
     
 }

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184EAFF02777291A002E619D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 184EAFEF2777291A002E619D /* SwiftPackageProductDependency */; };
 		18607527276A7E79000786F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18607526276A7E79000786F8 /* SettingsViewController.swift */; };
 		1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */; };
 		18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */; };
@@ -124,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC6813D11E48845865CBF5F /* Pods_ResturantReminder.framework in Frameworks */,
+				184EAFF02777291A002E619D /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,12 +525,16 @@
 				18D80DEF275E8B86005BCE63 /* Frameworks */,
 				18D80DF0275E8B86005BCE63 /* Resources */,
 				19FA0C2CF1DA0BD34F959A62 /* [CP] Embed Pods Frameworks */,
+				6E4667E221698289ED45FFF1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = ResturantReminder;
+			packageProductDependencies = (
+				184EAFEF2777291A002E619D /* SwiftPackageProductDependency */,
+			);
 			productName = ResturantReminder;
 			productReference = 18D80DF2275E8B86005BCE63 /* ResturantReminder.app */;
 			productType = "com.apple.product-type.application";
@@ -556,6 +562,10 @@
 				Base,
 			);
 			mainGroup = 18D80DE9275E8B86005BCE63;
+			packageReferences = (
+				184EAFEC27772686002E619D /* RemoteSwiftPackageReference */,
+				184EAFEE2777291A002E619D /* RemoteSwiftPackageReference */,
+			);
 			productRefGroup = 18D80DF3275E8B86005BCE63 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -598,6 +608,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6E4667E221698289ED45FFF1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C556452C74E0F88BB54A1AC3 /* [CP] Check Pods Manifest.lock */ = {
@@ -881,6 +908,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		184EAFEC27772686002E619D /* RemoteSwiftPackageReference */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.2.1;
+			};
+		};
+		184EAFEE2777291A002E619D /* RemoteSwiftPackageReference */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		184EAFEF2777291A002E619D /* SwiftPackageProductDependency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 184EAFEE2777291A002E619D /* RemoteSwiftPackageReference */;
+			productName = GoogleSignIn;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 18D80DEA275E8B86005BCE63 /* Project object */;
 }

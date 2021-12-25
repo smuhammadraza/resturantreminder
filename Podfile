@@ -18,5 +18,6 @@ pod 'Firebase/Auth', '~> 7.11.0'
 pod "TTGSnackbar"
 pod 'Cosmos', '~> 23.0'
 pod 'JGProgressHUD'
+pod 'GooglePlaces'
 
 end

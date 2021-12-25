@@ -33,7 +33,7 @@ class AddResturantViewController: UIViewController {
         return QRCodeReaderViewController(builder: builder)
     }()
     // MARK: - VARIABLES
-    
+    var placeName = ""
     var viewModel = AddResturantViewModel()
     var categories = [String]()
     
@@ -59,6 +59,15 @@ class AddResturantViewController: UIViewController {
     private func setupViews() {
         self.addRestaurantView.isHidden = self.segmentControl.selectedSegmentIndex == 1
         self.qrScannerViewView.isHidden = self.segmentControl.selectedSegmentIndex == 0
+        self.textFieldAddress.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    @objc func textFieldDidChange() {
+        viewModel.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "") { (placeName) in
+            guard let placeName = placeName else { return }
+            print(placeName)
+            self.placeName = placeName
+        }
     }
     
     // MARK: - BUTTON ACTION
@@ -121,3 +130,11 @@ extension AddResturantViewController: UICollectionViewDelegate, UICollectionView
 }
 
 extension AddResturantViewController: StoryboardInitializable {}
+
+extension AddResturantViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == textFieldAddress {
+            self.textFieldAddress.text = self.placeName
+        }
+    }
+}

@@ -172,16 +172,22 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="G7e-V8-VmO">
                                         <rect key="frame" x="125.33333333333333" y="373.66666666666663" width="163.33333333333337" height="77.666666666666686"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT8-hv-4sN">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT8-hv-4sN" userLabel="facebook btn">
                                                 <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="77.666666666666671"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="GT8-hv-4sN" secondAttribute="height" multiplier="1:1" id="qOe-DS-5cs"/>
                                                 </constraints>
                                                 <state key="normal" image="LoginFBIcon"/>
+                                                <connections>
+                                                    <action selector="facebookLoginTapped:" destination="OMt-eJ-7rT" eventType="touchUpInside" id="7xI-Vh-YSF"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXM-QN-b87">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXM-QN-b87" userLabel="google btn">
                                                 <rect key="frame" x="85.666666666666657" y="0.0" width="77.666666666666657" height="77.666666666666671"/>
                                                 <state key="normal" image="LoginGoogleIcon"/>
+                                                <connections>
+                                                    <action selector="gmailLoginTapped:" destination="OMt-eJ-7rT" eventType="touchUpInside" id="mWY-Mt-65k"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

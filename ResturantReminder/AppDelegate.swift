@@ -9,6 +9,8 @@ import UIKit
 import IQKeyboardManagerSwift
 import DropDown
 import Firebase
+import FBSDKCoreKit
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
         DropDown.startListeningToKeyboard()
@@ -23,6 +26,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    // MARK: - APPLICATION OPEN URL METHODS
+       
+       // Google and Facebook Sign in
+       func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+           if url.absoluteString.contains("facebook") {
+               return ApplicationDelegate.shared.application(
+                   app,
+                   open: url,
+                   sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                   annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+               )
+           } else {
+               return GIDSignIn.sharedInstance.handle(url)
+           }
+       }
+       
+       
+       private func application(application: UIApplication,
+                                openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+           var _: [String: AnyObject] = [UIApplication.OpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplication.OpenURLOptionsKey.annotation.rawValue: annotation!]
+           return GIDSignIn.sharedInstance.handle(url as URL)
+       }
 
 }
 
