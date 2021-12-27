@@ -108,6 +108,21 @@ class FirebaseManager {
         }
     }
     
+    func removeCategory(category: String) {
+        var fetchedCategories = [String]()
+        ref = Database.database().reference()
+        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
+            let value = snapshot.value as? NSDictionary
+            if var fetchedCategoriesUnwrapped = value?["categories"] as? [String] {
+                fetchedCategoriesUnwrapped.removeAll { $0 == category }
+                fetchedCategories = fetchedCategoriesUnwrapped
+            }
+            let fetchedCategoriesNonRepeating = Array(Set(fetchedCategories))
+            self.ref.child("users").child(UserModel.shared.userID).updateChildValues(["categories": fetchedCategoriesNonRepeating])
+            UIApplication.stopActivityIndicator()
+        }
+    }
+    
     func fetchCategories(completion: @escaping (([String]?) -> Void)) {
         ref = Database.database().reference()
         ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in

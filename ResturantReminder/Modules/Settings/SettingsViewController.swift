@@ -192,6 +192,13 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
                 fatalError("Unable to find collection view cell")
             }
             cell.configure(title: self.categories[indexPath.row - 1])
+            cell.removeCategory = { [weak self] categoryName in
+                guard let self = self else { return }
+                self.categories.removeAll  { $0 == categoryName }
+                UIApplication.startActivityIndicator(with: "")
+                self.viewModel.removeCategory(category: categoryName)
+                self.collectionView.reloadData()
+            }
             return cell
         }
     }
