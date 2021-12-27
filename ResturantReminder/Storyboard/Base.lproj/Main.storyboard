@@ -996,7 +996,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISr-f0-agC">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ISr-f0-agC">
                                                 <rect key="frame" x="345" y="14.333333333333314" width="51" height="31"/>
                                                 <color key="onTintColor" name="PrimaryColor"/>
                                                 <connections>
@@ -1023,7 +1023,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPN-AG-bfr">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BPN-AG-bfr">
                                                 <rect key="frame" x="345" y="14.333333333333314" width="51" height="31"/>
                                                 <color key="onTintColor" name="PrimaryColor"/>
                                                 <connections>
@@ -1050,7 +1050,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akc-Le-0L8">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="akc-Le-0L8">
                                                 <rect key="frame" x="345" y="14.333333333333314" width="51" height="31"/>
                                                 <color key="onTintColor" name="PrimaryColor"/>
                                                 <connections>
@@ -1080,7 +1080,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOw-Cl-2NU">
                                                 <rect key="frame" x="257.33333333333331" y="6" width="136.66666666666669" height="47.666666666666664"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/2 mile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fee-iR-gT6">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- mile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fee-iR-gT6">
                                                         <rect key="frame" x="8" y="8.0000000000000018" width="94.666666666666671" height="31.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -1146,7 +1146,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ve-FP-vxz">
                                                 <rect key="frame" x="257.33333333333331" y="6" width="136.66666666666669" height="48"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/day" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TgP-jz-WpQ">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-/day" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TgP-jz-WpQ">
                                                         <rect key="frame" x="8" y="8" width="94.666666666666671" height="32"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -1373,11 +1373,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="14F-tT-pfh"/>
                     <connections>
+                        <outlet property="alertNearBySwitch" destination="akc-Le-0L8" id="ruH-ht-F6B"/>
                         <outlet property="buttonNearByDistance" destination="jkl-0f-DsL" id="pTg-mc-SIG"/>
                         <outlet property="buttonNumberOfNotifications" destination="5vh-DA-f6V" id="MeE-y9-fjL"/>
                         <outlet property="collectionView" destination="yZi-Xr-NAO" id="MjQ-AE-C82"/>
+                        <outlet property="facebookSwitch" destination="ISr-f0-agC" id="xK2-28-eyP"/>
                         <outlet property="labelNearbyDistance" destination="Fee-iR-gT6" id="DG4-XS-ucT"/>
                         <outlet property="labelNumberOfNotification" destination="TgP-jz-WpQ" id="Rxw-dc-4pf"/>
+                        <outlet property="twitterSwitch" destination="BPN-AG-bfr" id="YNT-Tm-iPr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seU-p8-pfd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

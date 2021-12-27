@@ -6,16 +6,25 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
 class SettingsViewModel {
     
-    func addMeta(categories: [String]) {
-        FirebaseManager.shared.addMeta(categories: categories)
+    func addCategories(categories: [String]) {
+        FirebaseManager.shared.addCategories(categories: categories)
     }
     
-    func fetchMeta(completion: @escaping (([String]?) -> Void)) {
-        FirebaseManager.shared.fetchMeta { fetchedCategories in
+    func fetchCategories(completion: @escaping (([String]?) -> Void)) {
+        FirebaseManager.shared.fetchCategories { fetchedCategories in
             completion(fetchedCategories)
         }
+    }
+    
+    func addSettingsData(postToFacebook: Bool?, postToTwitter: Bool?, alertWhenNearBy: Bool?, distance: Double?, numberOfNotifications: Int?, completion: @escaping ((Error?, DatabaseReference) -> Void)) {
+        FirebaseManager.shared.addSettingsData(postToFacebook: postToFacebook, postToTwitter: postToTwitter, alertWhenNearBy: alertWhenNearBy, distance: distance, numberOfNotifications: numberOfNotifications, completion: completion)
+    }
+    
+    func fetchSettingsData(completion: @escaping ((SettingsModel?, String?)->Void)) {
+        FirebaseManager.shared.fetchSettingsData(completion: completion)
     }
 }

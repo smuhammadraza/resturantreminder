@@ -92,7 +92,7 @@ class FirebaseManager {
         ref.child("users").child(UserModel.shared.userID).updateChildValues(["fullName": name])
     }
     
-    func addMeta(categories: [String]) {
+    func addCategories(categories: [String]) {
         var fetchedCategories = [String]()
         ref = Database.database().reference()
         ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
@@ -108,13 +108,61 @@ class FirebaseManager {
         }
     }
     
-    func fetchMeta(completion: @escaping (([String]?) -> Void)) {
+    func fetchCategories(completion: @escaping (([String]?) -> Void)) {
         ref = Database.database().reference()
         ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
             let value = snapshot.value as? NSDictionary
             let fetchedCategoriesUnwrapped = value?["categories"] as? [String]
             completion(fetchedCategoriesUnwrapped)
             
+        }
+    }
+    
+    func addSettingsData(postToFacebook: Bool?, postToTwitter: Bool?, alertWhenNearBy: Bool?, distance: Double?, numberOfNotifications: Int?, completion: @escaping ((Error?, DatabaseReference) -> Void)) {
+        ref = Database.database().reference()
+        var dict = [String: Any]()
+        if let postToFacebook = postToFacebook {
+            dict["facebook"] = postToFacebook
+        }
+        if let postToTwitter = postToTwitter {
+            dict["twitter"] = postToTwitter
+        }
+        if let alertWhenNearBy = alertWhenNearBy {
+            dict["alert"] = alertWhenNearBy
+        }
+        if let distance = distance {
+            dict["distance"] = distance
+        }
+        if let numberOfNotifications = numberOfNotifications {
+            dict["numberOfNotifications"] = numberOfNotifications
+        }
+        ref.child("users").child(UserModel.shared.userID).child("settings").updateChildValues(dict) { error, ref in
+            print(ref)
+            completion(error, ref)
+        }
+    }
+    
+    func fetchSettingsData(completion: @escaping (SettingsModel?, String?) -> Void) {
+        ref = Database.database().reference()
+        ref.child("users").child(UserModel.shared.userID).child("settings").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? NSDictionary else {
+                completion(nil, "No Settings Found")
+                return
+            }
+            do {
+//                var settingsModel : SettingsModel?
+//                for value1 in value {
+                let json = try JSONSerialization.data(withJSONObject: value)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    if let decodedSettings = try decoder.decode(SettingsModel?.self, from: json) {
+                        completion(decodedSettings, nil)
+                    }
+//                }
+            } catch {
+                print(error.localizedDescription)
+                completion(nil, error.localizedDescription)
+            }
         }
     }
 }

@@ -88,7 +88,7 @@ class AddResturantViewController: UIViewController {
         UIApplication.startActivityIndicator(with: "")
         if validateFields() {
             viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories)
-            self.viewModel.addMeta(categories: self.categories)
+            self.viewModel.addCategories(categories: self.categories)
             UIApplication.stopActivityIndicator()
             self.dismiss(animated: true, completion: nil)
         } else {

@@ -16,8 +16,8 @@ class AddResturantViewModel {
         FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories)
     }
     
-    func addMeta(categories: [String]) {
-        FirebaseManager.shared.addMeta(categories: categories)
+    func addCategories(categories: [String]) {
+        FirebaseManager.shared.addCategories(categories: categories)
     }
     
     func fetchPlacesAutoComplete(text: String, completion: @escaping ((String?, String?)-> Void)) {
