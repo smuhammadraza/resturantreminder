@@ -255,6 +255,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="facebookBtn" destination="GT8-hv-4sN" id="Gqm-GT-Vku"/>
                         <outlet property="textFieldEmail" destination="YN4-Hy-Yjc" id="20J-0C-Nhn"/>
                         <outlet property="textFieldPassword" destination="NqV-uy-YxK" id="Qi9-Os-jTO"/>
                     </connections>

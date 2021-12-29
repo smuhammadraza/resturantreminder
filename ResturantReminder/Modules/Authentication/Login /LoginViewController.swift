@@ -8,21 +8,25 @@
 import UIKit
 import Presentr
 import GoogleSignIn
+import FirebaseAuth
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
-
+    
     // MARK: - OUTLETS
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
+    @IBOutlet weak var facebookBtn: UIButton!
     
     // MARK: - VARIABLES
     var viewModel = LoginViewModel()
-    
+    let loginButton = FBLoginButton()
     // MARK: - VIEW LIFE CYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginButton.frame = facebookBtn.frame
+        loginButton.delegate = self
         self.connectFields()
     }
     
@@ -58,8 +62,8 @@ class LoginViewController: UIViewController {
                         Bootstrapper.showHome()
                     }
                 }
-//                print("Auth Result: \(authResult)")
-//                Bootstrapper.showHome()
+                //                print("Auth Result: \(authResult)")
+                //                Bootstrapper.showHome()
             }
         }
     }
@@ -83,16 +87,16 @@ class LoginViewController: UIViewController {
         //        Authentication.sharedInstance().facebookLogin(fromVC: self) { [weak self] (userId, accessToken, check) in
         //
         //        }
-        let loginManager = LoginManager()
-        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { result, error in
-            if let error = error {
-                print("Encountered Erorr: \(error)")
-            } else if let result = result, result.isCancelled {
-                print("Cancelled")
-            } else {
-                print("Logged In")
-            }
-        }
+//        let loginManager = LoginManager()
+//        loginManager.logIn(permissions: ["public_profile", "email"], from: self) { result, error in
+//            if let error = error {
+//                print("Encountered Erorr: \(error)")
+//            } else if let result = result, result.isCancelled {
+//                print("Cancelled")
+//            } else {
+//                print("Logged In")
+//            }
+//        }
     }
     
     @IBAction func gmailLoginTapped(_ sender: UIButton) {
@@ -102,15 +106,65 @@ class LoginViewController: UIViewController {
             with: signInConfig,
             presenting: self
         ) { user, error in
-            guard error == nil else { return }
-            guard let user = user else { return }
+            if let error = error {
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+                return
+            }
             
-            // Your user is signed in!
+            guard let authentication = user?.authentication,
+                  let idToken = authentication.idToken
+            else {
+                return
+            }
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: authentication.accessToken)
+            Auth.auth().signIn(with: credential) { authResult, error in
+                if let error = error {
+                    let authError = error as NSError
+                    print(error.localizedDescription)
+                    Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+                    return
+                }
+                if let authResult = authResult {
+                    print(authResult.user)
+                }
+            }
+            // User is signed in
+            // ...
+        }
+        // Your user is signed in!
+    }
+}
+
+// MARK: - HELPER METHODS
+
+extension LoginViewController: StoryboardInitializable {}
+
+extension LoginViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
         }
     }
     
-    // MARK: - HELPER METHODS
-    
+    func loginButton(_ loginButton: FBLoginButton!, didCompleteWith result: LoginManagerLoginResult!, error: Error!) {
+      if let error = error {
+        print(error.localizedDescription)
+        Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+        return
+      }
+        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+        Auth.auth().signIn(with: credential) { authResult, error in
+            if let error = error {
+              let authError = error as NSError
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+                return
+            }
+            print(authResult)
+        }
+            
+    }
 }
-
-extension LoginViewController: StoryboardInitializable {}

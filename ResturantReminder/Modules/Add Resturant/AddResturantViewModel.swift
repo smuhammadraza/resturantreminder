@@ -20,7 +20,7 @@ class AddResturantViewModel {
         FirebaseManager.shared.addCategories(categories: categories)
     }
     
-    func fetchPlacesAutoComplete(text: String, completion: @escaping ((String?, String?)-> Void)) {
+    func fetchPlacesAutoComplete(text: String, completion: @escaping (([GMSAutocompletePrediction]?, String?)-> Void)) {
         let placeFields: GMSPlaceField = [.name, .formattedAddress]
         placesClient.findAutocompletePredictions(fromQuery: text, filter: nil, sessionToken: nil) { (placesPrediction, error) in
 //            guard let self = self else { return }
@@ -32,7 +32,7 @@ class AddResturantViewModel {
                 return
             }
             print(place.first?.attributedFullText.string)
-            completion(place.first?.attributedFullText.string, nil)
+            completion(place, nil)
         }
 //        placesClient.findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: placeFields) { [weak self] (placesLikelihoods, error) in
 //            guard let self = self else { return }

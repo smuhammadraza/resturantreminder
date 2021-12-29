@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import QRCodeReader
 import Cosmos
+import DropDown
 
 class AddResturantViewController: UIViewController {
 
@@ -34,16 +35,19 @@ class AddResturantViewController: UIViewController {
     }()
     // MARK: - VARIABLES
 //    var placeName = ""
-    var placeName: String {
-        get {
-            return placeName
-        }
-        set {
-            textFieldAddress.text = newValue
-        }
-    }
+    var placeName = [String]()
+//    {
+//        get {
+//            return placeName
+//        }
+//        set {
+//            textFieldAddress.text = newValue
+//        }
+//    }
     var viewModel = AddResturantViewModel()
     var categories = [String]()
+    var selectionClousureAddress: SelectionClosure?
+    var addressDropDown = DropDown()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -60,6 +64,20 @@ class AddResturantViewController: UIViewController {
     }
     
     // MARK: - SETUP VIEW
+    
+    private func setupDropDown() {
+        addressDropDown.direction = .bottom
+        addressDropDown.anchorView = textFieldAddress
+        addressDropDown.selectionAction = self.selectionClousureAddress
+        self.selectionClousureAddress = { [weak self] (index: Int, item: String) in
+            guard let `self` = self else { return }
+            self.addressDropDown.hide()
+            print("Selected item: \(item) at index: \(index)")
+            self.textFieldAddress.text = "\(item)"
+//            self.placeName = item
+        }
+    }
+    
     private func connectFields() {
         UITextField.connectFields(fields: [self.textFieldName, self.textFieldAddress, self.textFieldPhone, self.textFieldURL, self.textFieldNotes])
     }
@@ -71,14 +89,19 @@ class AddResturantViewController: UIViewController {
     }
     
     @objc func textFieldDidChange() {
-        viewModel.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "") { (placeName, error) in
+        viewModel.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "") { (place, error) in
             if let error = error {
                 Snackbar.showSnackbar(message: error, duration: .middle)
                 return
             }
-            guard let placeName = placeName else { return }
-            print(placeName)
-            self.placeName = placeName
+            guard let place = place else { return }
+            print(place)
+            self.placeName.removeAll()
+            for place in place {
+                self.placeName.append(place.attributedFullText.string)
+            }
+            self.addressDropDown.dataSource = self.placeName
+            self.addressDropDown.show()
         }
     }
     
@@ -143,10 +166,10 @@ extension AddResturantViewController: UICollectionViewDelegate, UICollectionView
 
 extension AddResturantViewController: StoryboardInitializable {}
 
-extension AddResturantViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == textFieldAddress {
-            self.textFieldAddress.text = self.placeName
-        }
-    }
-}
+//extension AddResturantViewController: UITextFieldDelegate {
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if textField == textFieldAddress {
+//            self.textFieldAddress.text = self.placeName
+//        }
+//    }
+//}
