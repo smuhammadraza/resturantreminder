@@ -180,4 +180,10 @@ class FirebaseManager {
             }
         }
     }
+    
+    func updateUserLocation(latitude: String, longitude: String) {
+        ref = Database.database().reference()
+        let coordinates = ["latitude": latitude, "longitude": longitude]
+        ref.child("users").child(UserModel.shared.userID).updateChildValues(["location": coordinates])
+    }
 }

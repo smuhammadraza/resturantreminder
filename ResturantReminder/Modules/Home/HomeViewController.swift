@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class HomeViewController: UIViewController {
     
@@ -18,12 +19,14 @@ class HomeViewController: UIViewController {
     var viewModel = HomeViewModel()
     var restaurant = [ResturantModel]()
     var categories = [String]()
+    let locationManager = CLLocationManager()
 
     // MARK: - VIEW LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupLocationManager()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +38,21 @@ class HomeViewController: UIViewController {
     
     private func setupView() {
         registerTableViewCell()
+    }
+    
+    private func setupLocationManager() {
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            startUpdatingLocation()
+        }
     }
     
     private func registerTableViewCell() {
@@ -76,6 +94,11 @@ class HomeViewController: UIViewController {
     
     // MARK: - HELPER METHODS
     
+    private func startUpdatingLocation() {
+        locationManager.startUpdatingLocation()
+        locationManager.startMonitoringVisits()
+        locationManager.startMonitoringSignificantLocationChanges()
+    }
 }
 
 
@@ -120,3 +143,11 @@ extension HomeViewController: UITableViewDelegate {
 }
 
 extension HomeViewController: StoryboardInitializable {}
+
+extension HomeViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        FirebaseManager.shared.updateUserLocation(latitude: "\(locValue.latitude)", longitude: "\(locValue.longitude)")
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+    }
+}
