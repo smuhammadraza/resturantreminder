@@ -16,18 +16,17 @@ class LoginViewController: UIViewController {
     // MARK: - OUTLETS
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
-    @IBOutlet weak var facebookBtn: UIButton!
+    @IBOutlet weak var facebookBtn: FBLoginButton!
     
     // MARK: - VARIABLES
     var viewModel = LoginViewModel()
-    let loginButton = FBLoginButton()
+    
     // MARK: - VIEW LIFE CYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginButton.frame = facebookBtn.frame
-        loginButton.delegate = self
         self.connectFields()
+        self.setupFacebookCustomBtn()
     }
     
     // MARK: - SETUP VIEW
@@ -35,7 +34,90 @@ class LoginViewController: UIViewController {
         UITextField.connectFields(fields: [self.textFieldEmail, self.textFieldPassword])
     }
     
-    // MARK: - BUTTON ACTIONS
+    private func setupFacebookCustomBtn() {
+        facebookBtn.delegate = self
+        facebookBtn.permissions = ["email", "public_profile"]
+        
+        let customFBBtn = UIButton()
+        customFBBtn.backgroundColor = .clear
+        customFBBtn.setImage(#imageLiteral(resourceName: "LoginFBIcon"), for: .normal)
+        customFBBtn.frame = facebookBtn.frame
+        facebookBtn.addSubview(customFBBtn)
+        
+        customFBBtn.addTarget(self, action: #selector(handleCustomFBBtn), for: .touchUpInside)
+    }
+    
+    // MARK: - FACEBOOK HELPER METHODS
+
+    @objc func handleCustomFBBtn() {
+        UIApplication.startActivityIndicator(with: "")
+        LoginManager().logIn(permissions: ["email", "public_profile"], viewController: self) { [weak self] (result) in
+
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(granted: _, declined: _, token: let accessToken):
+                print(accessToken?.tokenString)
+                if let token = accessToken?.tokenString {
+                    self.FBLoginToFirebase(token: token)
+                } else {
+                    Snackbar.showSnackbar(message: "Couldn't fetch token, Try again later.", duration: .short)
+                    UIApplication.stopActivityIndicator()
+                }
+            case .failed(let error):
+                UIApplication.stopActivityIndicator()
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)
+                print(error.localizedDescription)
+            case .cancelled:
+                UIApplication.stopActivityIndicator()
+                break
+            }
+        }
+        
+    }
+    
+    private func FBLoginToFirebase(token: String) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: token)
+        Auth.auth().signIn(with: credential) { authResult, error in
+            if let error = error {
+                _ = error as NSError
+                UIApplication.stopActivityIndicator()
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+                return
+            }
+            if let authResult = authResult {
+                print(authResult.user)
+                FirebaseManager.shared.addUser(userID: authResult.user.uid, fullName: authResult.user.displayName ?? "", postalCode: "", email: authResult.user.email ?? "")
+                FirebaseManager.shared.fetchUser(userID: authResult.user.uid) { error  in
+                    if let error = error {
+                        UIApplication.stopActivityIndicator()
+                        Snackbar.showSnackbar(message: error, duration: .middle)
+                        return
+                    } else {
+                        UIApplication.stopActivityIndicator()
+                        AppDefaults.currentUser = UserModel.shared
+                        AppDefaults.isUserLoggedIn = true
+                        Bootstrapper.showHome()
+                    }
+                }
+            }
+            print(authResult)
+        }
+    }
+        
+    private func showFBUserData() {
+        GraphRequest(graphPath: "/me", parameters: ["field": "id, name, email"]).start { (connection, result, error) in
+            if let error = error {
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)
+                return
+            }
+            if let result = result {
+                
+            }
+        }
+    }
+    
+    // MARK: - ACTIONS
     
     @IBAction func didTapShowHidePassword(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -101,12 +183,13 @@ class LoginViewController: UIViewController {
     
     @IBAction func gmailLoginTapped(_ sender: UIButton) {
         let signInConfig = GIDConfiguration.init(clientID: Constants.googleClientID)
-        
+        UIApplication.startActivityIndicator(with: "")
         GIDSignIn.sharedInstance.signIn(
             with: signInConfig,
             presenting: self
         ) { user, error in
             if let error = error {
+                UIApplication.stopActivityIndicator()
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
                 return
             }
@@ -114,6 +197,7 @@ class LoginViewController: UIViewController {
             guard let authentication = user?.authentication,
                   let idToken = authentication.idToken
             else {
+                UIApplication.stopActivityIndicator()
                 return
             }
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
@@ -122,21 +206,32 @@ class LoginViewController: UIViewController {
                 if let error = error {
                     let authError = error as NSError
                     print(error.localizedDescription)
+                    UIApplication.stopActivityIndicator()
                     Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
                     return
                 }
                 if let authResult = authResult {
                     print(authResult.user)
+                    FirebaseManager.shared.addUser(userID: authResult.user.uid, fullName: authResult.user.displayName ?? "", postalCode: "", email: authResult.user.email ?? "")
+                    FirebaseManager.shared.fetchUser(userID: authResult.user.uid) { error  in
+                        if let error = error {
+                            UIApplication.stopActivityIndicator()
+                            Snackbar.showSnackbar(message: error, duration: .middle)
+                            return
+                        } else {
+                            UIApplication.stopActivityIndicator()
+                            AppDefaults.currentUser = UserModel.shared
+                            AppDefaults.isUserLoggedIn = true
+                            Bootstrapper.showHome()
+                        }
+                    }
                 }
             }
-            // User is signed in
-            // ...
         }
-        // Your user is signed in!
     }
+    
 }
 
-// MARK: - HELPER METHODS
 
 extension LoginViewController: StoryboardInitializable {}
 
@@ -150,21 +245,39 @@ extension LoginViewController: LoginButtonDelegate {
         }
     }
     
-    func loginButton(_ loginButton: FBLoginButton!, didCompleteWith result: LoginManagerLoginResult!, error: Error!) {
-      if let error = error {
-        print(error.localizedDescription)
-        Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
-        return
-      }
-        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-        Auth.auth().signIn(with: credential) { authResult, error in
-            if let error = error {
-              let authError = error as NSError
-                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
-                return
-            }
-            print(authResult)
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+//            UIApplication.stopActivityIndicator()
+//            Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+            return
         }
-            
+//        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+//        Auth.auth().signIn(with: credential) { authResult, error in
+//            if let error = error {
+//                _ = error as NSError
+//                UIApplication.stopActivityIndicator()
+//                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+//                return
+//            }
+//            if let authResult = authResult {
+//                print(authResult.user)
+//                FirebaseManager.shared.addUser(userID: authResult.user.uid, fullName: authResult.user.displayName ?? "", postalCode: "", email: authResult.user.email ?? "")
+//                FirebaseManager.shared.fetchUser(userID: authResult.user.uid) { error  in
+//                    if let error = error {
+//                        UIApplication.stopActivityIndicator()
+//                        Snackbar.showSnackbar(message: error, duration: .middle)
+//                        return
+//                    } else {
+//                        UIApplication.stopActivityIndicator()
+//                        AppDefaults.currentUser = UserModel.shared
+//                        AppDefaults.isUserLoggedIn = true
+//                        Bootstrapper.showHome()
+//                    }
+//                }
+//            }
+//            print(authResult)
+//        }
+        
     }
 }

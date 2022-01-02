@@ -34,14 +34,24 @@ class AddResturantViewModel {
             print(place.first?.attributedFullText.string)
             completion(place, nil)
         }
-//        placesClient.findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: placeFields) { [weak self] (placesLikelihoods, error) in
-//            guard let self = self else { return }
-//
-//            guard let place = placesLikelihoods?.first?.place else {
-//              completion(nil)
-//              return
-//            }
-//            completion(place.name)
-//        }
+    }
+    
+    func fetchPlaceDetails(with placeID: String, completion: @escaping (CLLocationCoordinate2D? , Error?) -> Void) {
+        // Specify the place data types to return.
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.coordinate.rawValue) |
+                                                    UInt(GMSPlaceField.coordinate.rawValue))
+
+        placesClient.fetchPlace(fromPlaceID: placeID, placeFields: fields, sessionToken: nil, callback: {
+          (place: GMSPlace?, error: Error?) in
+          if let error = error {
+            print("\(error.localizedDescription)")
+            completion(nil, error)
+            return
+          }
+          if let place = place {
+            completion(place.coordinate, nil)
+            print("The selected place is: \(place.name)")
+          }
+        })
     }
 }

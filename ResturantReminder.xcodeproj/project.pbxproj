@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181848712781BEF000A5BB70 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181848702781BEF000A5BB70 /* LocationModel.swift */; };
+		181848762781EC7900A5BB70 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181848752781EC7800A5BB70 /* LocationManager.swift */; };
 		184EAFF02777291A002E619D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 184EAFEF2777291A002E619D /* GoogleSignIn */; };
 		18607527276A7E79000786F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18607526276A7E79000786F8 /* SettingsViewController.swift */; };
 		1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */; };
@@ -64,6 +66,8 @@
 
 /* Begin PBXFileReference section */
 		114F30BE2CCA8A842FB3C38F /* Pods-ResturantReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.debug.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.debug.xcconfig"; sourceTree = "<group>"; };
+		181848702781BEF000A5BB70 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		181848752781EC7800A5BB70 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		18607526276A7E79000786F8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -134,6 +138,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1818486E2781BED200A5BB70 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				1818486F2781BEE300A5BB70 /* Model */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		1818486F2781BEE300A5BB70 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				181848702781BEF000A5BB70 /* LocationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		181848742781EC6800A5BB70 /* Location Manager */ = {
+			isa = PBXGroup;
+			children = (
+				181848752781EC7800A5BB70 /* LocationManager.swift */,
+			);
+			path = "Location Manager";
+			sourceTree = "<group>";
+		};
 		18607524276A7E62000786F8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +268,7 @@
 		18D80DF4275E8B86005BCE63 /* ResturantReminder */ = {
 			isa = PBXGroup;
 			children = (
+				181848742781EC6800A5BB70 /* Location Manager */,
 				D0A2891A277071A2006CA1D7 /* Firebase Manager */,
 				18D80E71276A58F7005BCE63 /* Helper */,
 				18D80E0E275E8BB9005BCE63 /* Extensions */,
@@ -274,6 +303,7 @@
 		18D80E0D275E8BB3005BCE63 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1818486E2781BED200A5BB70 /* Location */,
 				18C26DF9276E7D8500D07FA9 /* QRScanner */,
 				18607532276A858D000786F8 /* Add Resturant */,
 				18607524276A7E62000786F8 /* Settings */,
@@ -680,6 +710,7 @@
 				18D80E9B276A671D005BCE63 /* Utilities.swift in Sources */,
 				18D80E26275EA5BB005BCE63 /* SignUpViewController.swift in Sources */,
 				187A0F52276EA44000174C36 /* LoginViewModel.swift in Sources */,
+				181848712781BEF000A5BB70 /* LocationModel.swift in Sources */,
 				D0A2891C277071B2006CA1D7 /* FirebaseManager.swift in Sources */,
 				18D80E90276A6446005BCE63 /* HomeViewController.swift in Sources */,
 				D063D1F1277457D7008FF0E0 /* SettingsViewModel.swift in Sources */,
@@ -696,6 +727,7 @@
 				88BFE39B27672262004777BC /* Extension+UINavigationController.swift in Sources */,
 				18D80E3C2760043C005BCE63 /* MainTabBar.swift in Sources */,
 				18D80E96276A64F4005BCE63 /* HomeTableViewCell.swift in Sources */,
+				181848762781EC7900A5BB70 /* LocationManager.swift in Sources */,
 				18D80E76276A59F8005BCE63 /* Constants.swift in Sources */,
 				D0A289292770B264006CA1D7 /* MyProfileViewModel.swift in Sources */,
 				D0A2892427709888006CA1D7 /* ResturantModel.swift in Sources */,

@@ -186,4 +186,25 @@ class FirebaseManager {
         let coordinates = ["latitude": latitude, "longitude": longitude]
         ref.child("users").child(UserModel.shared.userID).updateChildValues(["location": coordinates])
     }
+    
+    func fetchLocationData(completion: @escaping (LocationModel?, String?) -> Void) {
+        ref = Database.database().reference()
+        ref.child("users").child(UserModel.shared.userID).child("location").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? NSDictionary else {
+                completion(nil, "No Location Found")
+                return
+            }
+            do {
+                let json = try JSONSerialization.data(withJSONObject: value)
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                if let decodedLocation = try decoder.decode(LocationModel?.self, from: json) {
+                    completion(decodedLocation, nil)
+                }
+            } catch {
+                print(error.localizedDescription)
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
 }

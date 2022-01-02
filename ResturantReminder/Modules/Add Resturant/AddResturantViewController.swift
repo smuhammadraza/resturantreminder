@@ -36,6 +36,8 @@ class AddResturantViewController: UIViewController {
     // MARK: - VARIABLES
 //    var placeName = ""
     var placeName = [String]()
+    var placeID = [String]()
+    var selectedPlaceID = ""
 //    {
 //        get {
 //            return placeName
@@ -74,6 +76,17 @@ class AddResturantViewController: UIViewController {
             self.addressDropDown.hide()
             print("Selected item: \(item) at index: \(index)")
             self.textFieldAddress.text = "\(item)"
+            self.selectedPlaceID = self.placeID[index]
+            self.viewModel.fetchPlaceDetails(with: self.selectedPlaceID) { [weak self] (coordinates, error) in
+                guard let self = self else { return }
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                if let coordinates = coordinates {
+                    LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedPlaceID)
+                }
+            }
 //            self.placeName = item
         }
     }
@@ -96,8 +109,10 @@ class AddResturantViewController: UIViewController {
             }
             guard let place = place else { return }
             print(place)
+            self.placeID.removeAll()
             self.placeName.removeAll()
             for place in place {
+                self.placeID.append(place.placeID)
                 self.placeName.append(place.attributedFullText.string)
             }
             self.addressDropDown.dataSource = self.placeName

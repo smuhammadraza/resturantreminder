@@ -19,14 +19,17 @@ class HomeViewController: UIViewController {
     var viewModel = HomeViewModel()
     var restaurant = [ResturantModel]()
     var categories = [String]()
-    let locationManager = CLLocationManager()
-
+    let locationManagerSingleton = LocationManager.shared
+    let locationManager = LocationManager.shared.locationManager
+    
     // MARK: - VIEW LIFE CYCLE
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupLocationManager()
+        locationManager.delegate = self
+        locationManagerSingleton.startUpdatingLocation()
+//        setupLocationManager()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,20 +43,20 @@ class HomeViewController: UIViewController {
         registerTableViewCell()
     }
     
-    private func setupLocationManager() {
-        // Ask for Authorisation from the User.
-        self.locationManager.requestAlwaysAuthorization()
-
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-            startUpdatingLocation()
-        }
-    }
+//    private func setupLocationManager() {
+//        // Ask for Authorisation from the User.
+//        self.locationManager.requestAlwaysAuthorization()
+//
+//        // For use in foreground
+//        self.locationManager.requestWhenInUseAuthorization()
+//
+//        if CLLocationManager.locationServicesEnabled() {
+//            locationManager.delegate = self
+//            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+//            locationManager.startUpdatingLocation()
+//            startUpdatingLocation()
+//        }
+//    }
     
     private func registerTableViewCell() {
         self.tableView.register(UINib.init(nibName: Constants.CellIdentifiers.HomeTableViewCell,
@@ -94,11 +97,11 @@ class HomeViewController: UIViewController {
     
     // MARK: - HELPER METHODS
     
-    private func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
-        locationManager.startMonitoringVisits()
-        locationManager.startMonitoringSignificantLocationChanges()
-    }
+//    private func startUpdatingLocation() {
+//        locationManager.startUpdatingLocation()
+//        locationManager.startMonitoringVisits()
+//        locationManager.startMonitoringSignificantLocationChanges()
+//    }
 }
 
 
