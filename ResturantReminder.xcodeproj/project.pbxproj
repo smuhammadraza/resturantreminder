@@ -55,6 +55,7 @@
 		B50271D66FDA8DFE30EF1899 /* Pods_ResturantReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F31EA9836271305ADFCC16E1 /* Pods_ResturantReminder.framework */; };
 		D0557D3727720476002D303B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0557D3627720476002D303B /* HomeViewModel.swift */; };
 		D063D1F1277457D7008FF0E0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */; };
+		D086CE9E27843FC20093877F /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086CE9D27843FC20093877F /* ScannerViewController.swift */; };
 		D0A2891C277071B2006CA1D7 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2891B277071B2006CA1D7 /* FirebaseManager.swift */; };
 		D0A2891E27707867006CA1D7 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2891D27707867006CA1D7 /* UserModel.swift */; };
 		D0A2892227709838006CA1D7 /* AddResturantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2892127709838006CA1D7 /* AddResturantViewModel.swift */; };
@@ -115,6 +116,7 @@
 		88BFE39A27672262004777BC /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		D0557D3627720476002D303B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		D086CE9D27843FC20093877F /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		D0A2891B277071B2006CA1D7 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		D0A2891D27707867006CA1D7 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D0A2892127709838006CA1D7 /* AddResturantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddResturantViewModel.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 		18C26DF9276E7D8500D07FA9 /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
+				D086CE9C27843FAD0093877F /* View */,
 				18C26DFA276E7D9800D07FA9 /* QRScannerView.swift */,
 			);
 			path = QRScanner;
@@ -514,6 +517,14 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
+		D086CE9C27843FAD0093877F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D086CE9D27843FC20093877F /* ScannerViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D0A2891A277071A2006CA1D7 /* Firebase Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +715,7 @@
 				88BFE3A427672262004777BC /* Extension+Error.swift in Sources */,
 				18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */,
 				187A0F6B276EA68900174C36 /* Snackbar.swift in Sources */,
+				D086CE9E27843FC20093877F /* ScannerViewController.swift in Sources */,
 				D0A2891E27707867006CA1D7 /* UserModel.swift in Sources */,
 				18D80E35275EAAC3005BCE63 /* ForgotPasswordViewController.swift in Sources */,
 				88BFE3A027672262004777BC /* Extension+Data.swift in Sources */,

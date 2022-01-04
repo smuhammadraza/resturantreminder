@@ -7,7 +7,6 @@
 
 import UIKit
 import AVFoundation
-import QRCodeReader
 import Cosmos
 import DropDown
 
@@ -24,15 +23,16 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var qrScannerViewView: UIView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var ratingView: CosmosView!
-    lazy var reader: QRCodeReaderViewController = {
-        let builder = QRCodeReaderViewControllerBuilder {
-            let readerView = QRCodeReaderContainer(displayable: QRScannerView())
-            
-            $0.readerView = readerView
-        }
-        
-        return QRCodeReaderViewController(builder: builder)
-    }()
+    @IBOutlet weak var containerView: UIView!
+    //    lazy var reader: QRCodeReaderViewController = {
+//        let builder = QRCodeReaderViewControllerBuilder {
+//            let readerView = QRCodeReaderContainer(displayable: QRScannerView())
+//
+//            $0.readerView = readerView
+//        }
+//
+//        return QRCodeReaderViewController(builder: builder)
+//    }()
     // MARK: - VARIABLES
 //    var placeName = ""
     var placeName = [String]()
@@ -51,12 +51,15 @@ class AddResturantViewController: UIViewController {
     var selectionClousureAddress: SelectionClosure?
     var addressDropDown = DropDown()
     
+    var scannerVC = ScannerViewController.initFromStoryboard(name: Constants.Storyboards.main)
+    
     // MARK: - VIEW LIFE CYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.connectFields()
         self.setupViews()
+        self.setupDropDown()
     }
     
     //MARK: - VALIDATION
@@ -70,25 +73,16 @@ class AddResturantViewController: UIViewController {
     private func setupDropDown() {
         addressDropDown.direction = .bottom
         addressDropDown.anchorView = textFieldAddress
-        addressDropDown.selectionAction = self.selectionClousureAddress
         self.selectionClousureAddress = { [weak self] (index: Int, item: String) in
             guard let `self` = self else { return }
             self.addressDropDown.hide()
             print("Selected item: \(item) at index: \(index)")
             self.textFieldAddress.text = "\(item)"
             self.selectedPlaceID = self.placeID[index]
-            self.viewModel.fetchPlaceDetails(with: self.selectedPlaceID) { [weak self] (coordinates, error) in
-                guard let self = self else { return }
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-                if let coordinates = coordinates {
-                    LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedPlaceID)
-                }
-            }
 //            self.placeName = item
         }
+        addressDropDown.selectionAction = self.selectionClousureAddress
+        
     }
     
     private func connectFields() {
@@ -136,11 +130,30 @@ class AddResturantViewController: UIViewController {
     }
     
     @IBAction func segmantControlTapped(_ sender: UISegmentedControl) {
+        
         self.addRestaurantView.isHidden = sender.selectedSegmentIndex == 1
+//        remove(asChildViewController: scannerVC)
+        self.containerView.add(asChildViewController: scannerVC)
         self.qrScannerViewView.isHidden = sender.selectedSegmentIndex == 0
     }
     // MARK: - HELPER METHODS
+    
+    private func fetchSelectedPlaceDetails() {
+        self.viewModel.fetchPlaceDetails(with: self.selectedPlaceID) { [weak self] (coordinates, error) in
+            guard let self = self else { return }
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            if let coordinates = coordinates {
+                self.startRegionMonitoring(with: coordinates)
+            }
+        }
+    }
 
+    private func startRegionMonitoring(with coordinates: CLLocationCoordinate2D) {
+        LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedPlaceID)
+    }
 }
 
 extension AddResturantViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

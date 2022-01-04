@@ -7,7 +7,6 @@
 
 import Foundation
 import AVFoundation
-import QRCodeReader
 
 class QRScannerView: UIView, QRCodeReaderDisplayable {
     var overlayView: QRCodeReaderViewOverlay?
