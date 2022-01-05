@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import Cosmos
 import DropDown
+import CoreLocation
 
 class AddResturantViewController: UIViewController {
 
@@ -91,7 +92,7 @@ class AddResturantViewController: UIViewController {
     
     private func setupViews() {
         self.addRestaurantView.isHidden = self.segmentControl.selectedSegmentIndex == 1
-        self.qrScannerViewView.isHidden = self.segmentControl.selectedSegmentIndex == 0
+        self.containerView.isHidden = self.segmentControl.selectedSegmentIndex == 0
         self.textFieldAddress.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
@@ -114,6 +115,8 @@ class AddResturantViewController: UIViewController {
         }
     }
     
+    // MARK: - QR CALLBACK
+    
     // MARK: - BUTTON ACTION
     
     @IBAction func didTapSaveButton(_ sender: UIButton) {
@@ -132,9 +135,14 @@ class AddResturantViewController: UIViewController {
     @IBAction func segmantControlTapped(_ sender: UISegmentedControl) {
         
         self.addRestaurantView.isHidden = sender.selectedSegmentIndex == 1
+        self.containerView.isHidden = self.segmentControl.selectedSegmentIndex == 0
 //        remove(asChildViewController: scannerVC)
-        self.containerView.add(asChildViewController: scannerVC)
-        self.qrScannerViewView.isHidden = sender.selectedSegmentIndex == 0
+//        self.view.translatesAutoresizingMaskIntoConstraints = false
+//        containerView.addSubview(scannerVC)
+        containerView.addSubview(scannerVC.view)
+
+//        self.containerView.add(asChildViewController: scannerVC)
+//        self.qrScannerViewView.isHidden = sender.selectedSegmentIndex == 0
     }
     // MARK: - HELPER METHODS
     

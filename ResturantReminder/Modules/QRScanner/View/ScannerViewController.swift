@@ -11,6 +11,8 @@ import UIKit
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    
+    var sendQRDataBackwards: ((String?) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +94,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 
     func found(code: String) {
         print(code)
+        self.sendQRDataBackwards?(code)
     }
 
     override var prefersStatusBarHidden: Bool {
