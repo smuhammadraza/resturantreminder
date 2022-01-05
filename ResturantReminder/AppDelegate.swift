@@ -12,6 +12,7 @@ import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
 import GooglePlaces
+import CoreLocation
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        if let launchOptions = launchOptions {
+            if launchOptions.keys.contains(.location) {
+                LocationManager.shared.locationManager.delegate = self
+            }
+        }
+        
         FirebaseApp.configure()
+        setupNotification(application)
         GMSPlacesClient.provideAPIKey(Constants.googleAPIKey)
         IQKeyboardManager.shared.enable = true
         DropDown.startListeningToKeyboard()
@@ -50,6 +58,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            var _: [String: AnyObject] = [UIApplication.OpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplication.OpenURLOptionsKey.annotation.rawValue: annotation!]
            return GIDSignIn.sharedInstance.handle(url as URL)
        }
-
+    
+    
+    // MARK: - SETUP NOTIFICATION
+    private func setupNotification(_ application: UIApplication) {
+           //MARK: - Firebase Push Notification
+           if #available(iOS 10.0, *) {
+               // For iOS 10 display notification (sent via APNS)
+               UNUserNotificationCenter.current().delegate = self
+               
+               let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+               UNUserNotificationCenter.current().requestAuthorization(
+                   options: authOptions,
+                   completionHandler: {_, _ in })
+           } else {
+               let settings: UIUserNotificationSettings =
+                   UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+               application.registerUserNotificationSettings(settings)
+           }
+           application.registerForRemoteNotifications()
+       }
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    }
+}
+
+extension AppDelegate: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if let region = region as? CLCircularRegion {
+            let identifier = region.identifier
+            NotificationManager.shared.triggerReminderNotification(message: "")
+//            triggerTaskAssociatedWithRegionIdentifier(regionID: identifier)
+        }
+    }
+}

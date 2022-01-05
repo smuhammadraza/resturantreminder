@@ -206,10 +206,12 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
             Alert.addCategoryAlert(vc: self) { category in
-                self.categories.append(category)
-                UIApplication.startActivityIndicator(with: "")
-                self.viewModel.addCategories(categories: self.categories)
-                self.collectionView.reloadData()
+                if !(category.isEmpty) {
+                    self.categories.append(category)
+                    UIApplication.startActivityIndicator(with: "")
+                    self.viewModel.addCategories(categories: self.categories)
+                    self.collectionView.reloadData()
+                }
             }
         }
     }

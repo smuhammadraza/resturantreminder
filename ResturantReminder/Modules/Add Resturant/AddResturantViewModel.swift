@@ -7,17 +7,24 @@
 
 import Foundation
 import GooglePlaces
+import FirebaseDatabase
 
 class AddResturantViewModel {
     
     private var placesClient: GMSPlacesClient = GMSPlacesClient.shared()
 
-    func addResturant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String]) {
-        FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories)
+    func addResturant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
+        FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, completion: completion)
     }
     
     func addCategories(categories: [String]) {
         FirebaseManager.shared.addCategories(categories: categories)
+    }
+    
+    func fetchCategories(completion: @escaping (([String]?) -> Void)) {
+        FirebaseManager.shared.fetchCategories { fetchedCategories in
+            completion(fetchedCategories)
+        }
     }
     
     func fetchPlacesAutoComplete(text: String, completion: @escaping (([GMSAutocompletePrediction]?, String?)-> Void)) {

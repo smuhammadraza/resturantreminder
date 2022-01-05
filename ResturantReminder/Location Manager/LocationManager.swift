@@ -8,11 +8,12 @@
 import Foundation
 import CoreLocation
 
-class LocationManager {
+class LocationManager: NSObject {
     
     var locationManager = CLLocationManager()
     static let shared = LocationManager()
-    private init() {
+    private override init() {
+        super.init()
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
 
@@ -37,7 +38,6 @@ class LocationManager {
             region.notifyOnExit = false
        
             locationManager.startMonitoring(for: region)
-            
         }
     }
     
@@ -47,3 +47,5 @@ class LocationManager {
         locationManager.startMonitoringSignificantLocationChanges()
     }
 }
+
+//extension LocationManager: 

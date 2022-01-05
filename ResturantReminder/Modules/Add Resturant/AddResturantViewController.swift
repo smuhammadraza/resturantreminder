@@ -25,6 +25,7 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var previousCategoriesButton: UIButton!
     //    lazy var reader: QRCodeReaderViewController = {
 //        let builder = QRCodeReaderViewControllerBuilder {
 //            let readerView = QRCodeReaderContainer(displayable: QRScannerView())
@@ -49,29 +50,54 @@ class AddResturantViewController: UIViewController {
 //    }
     var viewModel = AddResturantViewModel()
     var categories = [String]()
+    var fetchedCategories = [String]()
     var selectionClousureAddress: SelectionClosure?
+    var selectionClousureCategories: SelectionClosure?
     var addressDropDown = DropDown()
-    
+    var categoriesDropDown = DropDown()
+    var selectedRestaurantCoordinates: CLLocationCoordinate2D?
+
     var scannerVC = ScannerViewController.initFromStoryboard(name: Constants.Storyboards.main)
-    
+    var selectedRestaurantRef = ""
     // MARK: - VIEW LIFE CYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.connectFields()
+        self.fetchCategories()
         self.setupViews()
-        self.setupDropDown()
+        self.setupDropDowns()
     }
     
     //MARK: - VALIDATION
     
-    func validateFields() -> Bool {
-        return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && !((self.textFieldPhone.text ?? "").isEmpty))
+    private func validateFields() -> Bool {
+        return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && !((self.textFieldPhone.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
+    }
+    
+    private func validatePhoneNumber() -> Bool {
+        let phoneNumber = self.textFieldPhone.text ?? ""
+        let range = NSRange(location: 0, length: phoneNumber.count)
+        let regex = try! NSRegularExpression(pattern: "(\\([0-9]{3}\\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}")
+        return regex.firstMatch(in: phoneNumber, options: [], range: range) != nil
+    }
+    
+    private func validateWebsite() -> Bool {
+        if let websiteString = self.textFieldURL.text {
+            return websiteString.isValidURL
+        } else {
+            return false
+        }
     }
     
     // MARK: - SETUP VIEW
     
-    private func setupDropDown() {
+    private func setupDropDowns() {
+        self.setupAddressDropDown()
+        self.setupCategoriesDropDown()
+    }
+    
+    private func setupAddressDropDown() {
         addressDropDown.direction = .bottom
         addressDropDown.anchorView = textFieldAddress
         self.selectionClousureAddress = { [weak self] (index: Int, item: String) in
@@ -83,7 +109,19 @@ class AddResturantViewController: UIViewController {
 //            self.placeName = item
         }
         addressDropDown.selectionAction = self.selectionClousureAddress
-        
+    }
+    
+    private func setupCategoriesDropDown() {
+        categoriesDropDown.direction = .bottom
+        categoriesDropDown.anchorView = self.previousCategoriesButton
+        self.selectionClousureCategories = { [weak self] (index: Int, item: String) in
+            guard let `self` = self else { return }
+            self.categoriesDropDown.hide()
+            print("Selected item: \(item) at index: \(index)")
+            self.categories.append(item)
+            self.collectionView.reloadData()
+        }
+        categoriesDropDown.selectionAction = self.selectionClousureCategories
     }
     
     private func connectFields() {
@@ -117,15 +155,40 @@ class AddResturantViewController: UIViewController {
     
     // MARK: - QR CALLBACK
     
+    
+    //MARK: - FETCH DATA
+    
+    private func fetchCategories() {
+        self.fetchedCategories.removeAll()
+        UIApplication.startActivityIndicator(with: "")
+        viewModel.fetchCategories { fetchedCategories in
+            UIApplication.stopActivityIndicator()
+            guard let fetchedCategories = fetchedCategories else {
+                self.previousCategoriesButton.isHidden = true
+                return
+            }
+            self.fetchedCategories = fetchedCategories
+            self.previousCategoriesButton.isHidden = self.fetchedCategories.isEmpty
+            self.categoriesDropDown.dataSource = self.fetchedCategories
+        }
+    }
+    
     // MARK: - BUTTON ACTION
     
     @IBAction func didTapSaveButton(_ sender: UIButton) {
         UIApplication.startActivityIndicator(with: "")
         if validateFields() {
-            viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories)
-            self.viewModel.addCategories(categories: self.categories)
-            UIApplication.stopActivityIndicator()
-            self.dismiss(animated: true, completion: nil)
+            if !(validatePhoneNumber()) {
+                UIApplication.stopActivityIndicator()
+                Snackbar.showSnackbar(message: "Phone Number is not valid", duration: .middle)
+            } else if !(validateWebsite()) {
+                UIApplication.stopActivityIndicator()
+                Snackbar.showSnackbar(message: "Website is not valid", duration: .middle)
+            } else {
+                self.addRestaurant()
+                UIApplication.stopActivityIndicator()
+                self.dismiss(animated: true, completion: nil)
+            }
         } else {
             UIApplication.stopActivityIndicator()
             Snackbar.showSnackbar(message: "Please fill all fields", duration: .middle)
@@ -144,7 +207,28 @@ class AddResturantViewController: UIViewController {
 //        self.containerView.add(asChildViewController: scannerVC)
 //        self.qrScannerViewView.isHidden = sender.selectedSegmentIndex == 0
     }
+    
+    @IBAction func categoriesDropDownTapped(_ sender: UIButton) {
+        self.categoriesDropDown.show()
+    }
+    
     // MARK: - HELPER METHODS
+    
+    private func addRestaurant() {
+        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories) {
+            [weak self] (error, databaseRef) in
+            guard let self = self else { return }
+            if let error = error {
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)
+            }
+            print(databaseRef)
+//            self.selectedRestaurantRef = databaseRef
+        }
+        self.viewModel.addCategories(categories: self.categories)
+        if let selectedRestaurantCoordinates = self.selectedRestaurantCoordinates {
+            self.startRegionMonitoring(with: selectedRestaurantCoordinates)
+        }
+    }
     
     private func fetchSelectedPlaceDetails() {
         self.viewModel.fetchPlaceDetails(with: self.selectedPlaceID) { [weak self] (coordinates, error) in
@@ -154,7 +238,8 @@ class AddResturantViewController: UIViewController {
                 return
             }
             if let coordinates = coordinates {
-                self.startRegionMonitoring(with: coordinates)
+                self.selectedRestaurantCoordinates = coordinates
+//                self.startRegionMonitoring(with: coordinates)
             }
         }
     }
@@ -188,8 +273,10 @@ extension AddResturantViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
             Alert.addCategoryAlert(vc: self) { category in
-                self.categories.append(category)
-                self.collectionView.reloadData()
+                if !(category.isEmpty) {
+                    self.categories.append(category)
+                    self.collectionView.reloadData()
+                }
             }
         }
     }
