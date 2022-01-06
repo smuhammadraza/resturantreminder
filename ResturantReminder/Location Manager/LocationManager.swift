@@ -27,17 +27,24 @@ class LocationManager: NSObject {
         }
     }
     
-    func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String ) {
-        // Make sure the devices supports region monitoring.
-        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
-            // Register the region.
-            let maxDistance = locationManager.maximumRegionMonitoringDistance
-            let region = CLCircularRegion(center: center,
-                 radius: maxDistance, identifier: identifier)
-            region.notifyOnEntry = true
-            region.notifyOnExit = false
-       
-            locationManager.startMonitoring(for: region)
+    func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String) {
+        
+        var restaurantName = ""
+        FirebaseManager.shared.fetchSingleResturant(userID: UserModel.shared.userID, resturantID: identifier) { (singleRestaurant, _) in
+            if let singleRestaurant = singleRestaurant {
+                restaurantName = singleRestaurant.name ?? "Restaurant"
+            }
+            // Make sure the devices supports region monitoring.
+            if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
+                // Register the region.
+                let maxDistance = self.locationManager.maximumRegionMonitoringDistance
+                let region = CLCircularRegion(center: center,
+                                              radius: maxDistance, identifier: identifier)
+                region.notifyOnEntry = true
+                region.notifyOnExit = false
+                Snackbar.showSnackbar(message: "Reminder added for \(restaurantName).", duration: .short)
+                self.locationManager.startMonitoring(for: region)
+            }
         }
     }
     

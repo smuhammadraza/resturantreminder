@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow location to have full experience of the app</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow location to have full experience of the app</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -57,6 +53,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Enable Camera to take photos of Prescription.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow location to have full experience of the app</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow location to have full experience of the app</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Enable microphone to enable voice call.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

@@ -78,7 +78,7 @@ class AddResturantViewController: UIViewController {
     private func validatePhoneNumber() -> Bool {
         let phoneNumber = self.textFieldPhone.text ?? ""
         let range = NSRange(location: 0, length: phoneNumber.count)
-        let regex = try! NSRegularExpression(pattern: "(\\([0-9]{3}\\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}")
+        let regex = try! NSRegularExpression(pattern: "(\\([0-9]{3}\\) |[0-9]{3})[0-9]{3}[0-9]{4}")
         return regex.firstMatch(in: phoneNumber, options: [], range: range) != nil
     }
     
@@ -106,6 +106,7 @@ class AddResturantViewController: UIViewController {
             print("Selected item: \(item) at index: \(index)")
             self.textFieldAddress.text = "\(item)"
             self.selectedPlaceID = self.placeID[index]
+            self.fetchSelectedPlaceDetails()
 //            self.placeName = item
         }
         addressDropDown.selectionAction = self.selectionClousureAddress
@@ -222,12 +223,23 @@ class AddResturantViewController: UIViewController {
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)
             }
             print(databaseRef)
-//            self.selectedRestaurantRef = databaseRef
+            let dbURL = databaseRef.url
+
+            let index = dbURL.range(of: "/", options: .backwards)?.upperBound
+            if let index = index {
+                let restaurantNodeString = dbURL.substring(from: index)
+                print(restaurantNodeString)
+                self.selectedRestaurantRef = restaurantNodeString
+                if let selectedRestaurantCoordinates = self.selectedRestaurantCoordinates,
+                   !(self.selectedRestaurantRef.isEmpty) {
+                    self.viewModel.addCategories(categories: self.categories)
+                    self.startRegionMonitoring(with: selectedRestaurantCoordinates)
+                }
+            } else {
+                return
+            }
         }
-        self.viewModel.addCategories(categories: self.categories)
-        if let selectedRestaurantCoordinates = self.selectedRestaurantCoordinates {
-            self.startRegionMonitoring(with: selectedRestaurantCoordinates)
-        }
+        
     }
     
     private func fetchSelectedPlaceDetails() {
@@ -245,7 +257,7 @@ class AddResturantViewController: UIViewController {
     }
 
     private func startRegionMonitoring(with coordinates: CLLocationCoordinate2D) {
-        LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedPlaceID)
+        LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedRestaurantRef)
     }
 }
 

@@ -69,6 +69,28 @@ class FirebaseManager {
         }
     }
     
+    func fetchSingleResturant(userID: String, resturantID: String, completion: @escaping (ResturantModel?, String?)->Void) {
+        ref = Database.database().reference()
+        ref.child("users").child(userID).child("restaurants").child(resturantID).observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? NSDictionary else {
+                completion(nil, "No Restaurants Found")
+                return
+            }
+            do {
+                let json = try JSONSerialization.data(withJSONObject: value)
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                if let decodedRestaurant = try decoder.decode(ResturantModel?.self, from: json) {
+                    print(decodedRestaurant)
+                    completion(decodedRestaurant, nil)
+                }
+            } catch {
+                print(error.localizedDescription)
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
     func addUserAbout(text: String) {
         ref = Database.database().reference()
         ref.child("users").child(AppDefaults.currentUser?.userID ?? "").updateChildValues(["about": text])
