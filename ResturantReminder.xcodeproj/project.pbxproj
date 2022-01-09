@@ -14,10 +14,10 @@
 		1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */; };
 		18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */; };
 		18607535276A85A3000786F8 /* AddResturantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18607534276A85A3000786F8 /* AddResturantViewController.swift */; };
+		18718423278AF0B600B33AFD /* AddRestaurantNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18718422278AF0B600B33AFD /* AddRestaurantNetwork.swift */; };
 		187A0F4C276E96F400174C36 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F4B276E96F400174C36 /* SignUpViewModel.swift */; };
 		187A0F52276EA44000174C36 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F51276EA44000174C36 /* LoginViewModel.swift */; };
 		187A0F6B276EA68900174C36 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F6A276EA68900174C36 /* Snackbar.swift */; };
-		18C26DFB276E7D9800D07FA9 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C26DFA276E7D9800D07FA9 /* QRScannerView.swift */; };
 		18C26DFE276E8A5800D07FA9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C26DFD276E8A5800D07FA9 /* GoogleService-Info.plist */; };
 		18C49B07278659CA001D9F2D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C49B06278659CA001D9F2D /* NotificationManager.swift */; };
 		18CC81A0276E20FE00AC133A /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC819F276E20FE00AC133A /* Alert.swift */; };
@@ -53,7 +53,7 @@
 		88BFE3A427672262004777BC /* Extension+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39827672262004777BC /* Extension+Error.swift */; };
 		88BFE3A527672262004777BC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39927672262004777BC /* Extension+UIView.swift */; };
 		88BFE3A627672262004777BC /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39A27672262004777BC /* Extension+String.swift */; };
-		B50271D66FDA8DFE30EF1899 /* Pods_ResturantReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F31EA9836271305ADFCC16E1 /* Pods_ResturantReminder.framework */; };
+		CE529DCD6D94858D7E0B1B5F /* Pods_ResturantReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BA98DF94E5B1EA6BFE1554 /* Pods_ResturantReminder.framework */; };
 		D0557D3727720476002D303B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0557D3627720476002D303B /* HomeViewModel.swift */; };
 		D063D1F1277457D7008FF0E0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */; };
 		D086CE9E27843FC20093877F /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086CE9D27843FC20093877F /* ScannerViewController.swift */; };
@@ -67,17 +67,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		114F30BE2CCA8A842FB3C38F /* Pods-ResturantReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.debug.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.debug.xcconfig"; sourceTree = "<group>"; };
 		181848702781BEF000A5BB70 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		181848752781EC7800A5BB70 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		18607526276A7E79000786F8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		18607534276A85A3000786F8 /* AddResturantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddResturantViewController.swift; sourceTree = "<group>"; };
+		18718422278AF0B600B33AFD /* AddRestaurantNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRestaurantNetwork.swift; sourceTree = "<group>"; };
 		187A0F4B276E96F400174C36 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		187A0F51276EA44000174C36 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		187A0F6A276EA68900174C36 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
-		18C26DFA276E7D9800D07FA9 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		18C26DFD276E8A5800D07FA9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18C49B06278659CA001D9F2D /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		18CC819F276E20FE00AC133A /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -103,7 +102,7 @@
 		18D80E9E276A67FA005BCE63 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		18D80E9F276A67FA005BCE63 /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		18D80EA6276A6F7C005BCE63 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
-		63A3AD1DA325E6D80C19BFFF /* Pods-ResturantReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.release.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.release.xcconfig"; sourceTree = "<group>"; };
+		27BA98DF94E5B1EA6BFE1554 /* Pods_ResturantReminder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResturantReminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88BFE38F27672262004777BC /* Extension+UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UINavigationController.swift"; sourceTree = "<group>"; };
 		88BFE39027672262004777BC /* Extension+NotificationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+NotificationName.swift"; sourceTree = "<group>"; };
 		88BFE39127672262004777BC /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
@@ -116,6 +115,8 @@
 		88BFE39827672262004777BC /* Extension+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Error.swift"; sourceTree = "<group>"; };
 		88BFE39927672262004777BC /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		88BFE39A27672262004777BC /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
+		9E024A0EFC294F831236F33A /* Pods-ResturantReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.debug.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.debug.xcconfig"; sourceTree = "<group>"; };
+		BE4519A7C9D391AA9B593008 /* Pods-ResturantReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.release.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.release.xcconfig"; sourceTree = "<group>"; };
 		D0557D3627720476002D303B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		D086CE9D27843FC20093877F /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +127,6 @@
 		D0A289252770AD90006CA1D7 /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		D0A289282770B264006CA1D7 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
 		D0A685192779E16D000D7097 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
-		F31EA9836271305ADFCC16E1 /* Pods_ResturantReminder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResturantReminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				184EAFF02777291A002E619D /* GoogleSignIn in Frameworks */,
-				B50271D66FDA8DFE30EF1899 /* Pods_ResturantReminder.framework in Frameworks */,
+				CE529DCD6D94858D7E0B1B5F /* Pods_ResturantReminder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +205,7 @@
 		18607532276A858D000786F8 /* Add Resturant */ = {
 			isa = PBXGroup;
 			children = (
+				18718421278AF09F00B33AFD /* Network */,
 				D0A2892027709828006CA1D7 /* Model */,
 				D0A2891F27709821006CA1D7 /* ViewModel */,
 				18607533276A8594000786F8 /* View */,
@@ -218,6 +219,14 @@
 				18607534276A85A3000786F8 /* AddResturantViewController.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		18718421278AF09F00B33AFD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				18718422278AF0B600B33AFD /* AddRestaurantNetwork.swift */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 		187A0F49276E96D800174C36 /* ViewModel */ = {
@@ -255,7 +264,6 @@
 			isa = PBXGroup;
 			children = (
 				D086CE9C27843FAD0093877F /* View */,
-				18C26DFA276E7D9800D07FA9 /* QRScannerView.swift */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";
@@ -266,7 +274,7 @@
 				18D80DF4275E8B86005BCE63 /* ResturantReminder */,
 				18D80DF3275E8B86005BCE63 /* Products */,
 				32C8E490C5D5A597E598AFFB /* Pods */,
-				4A9D383D5F8DA449D666BA5F /* Frameworks */,
+				31558418C6A50011CE447F33 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -488,21 +496,21 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		31558418C6A50011CE447F33 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27BA98DF94E5B1EA6BFE1554 /* Pods_ResturantReminder.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		32C8E490C5D5A597E598AFFB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				114F30BE2CCA8A842FB3C38F /* Pods-ResturantReminder.debug.xcconfig */,
-				63A3AD1DA325E6D80C19BFFF /* Pods-ResturantReminder.release.xcconfig */,
+				9E024A0EFC294F831236F33A /* Pods-ResturantReminder.debug.xcconfig */,
+				BE4519A7C9D391AA9B593008 /* Pods-ResturantReminder.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		4A9D383D5F8DA449D666BA5F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F31EA9836271305ADFCC16E1 /* Pods_ResturantReminder.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D0557D3427720466002D303B /* ViewModel */ = {
@@ -583,12 +591,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18D80E06275E8B87005BCE63 /* Build configuration list for PBXNativeTarget "ResturantReminder" */;
 			buildPhases = (
-				832518123DFA317ADEB0FF1A /* [CP] Check Pods Manifest.lock */,
+				9C370832E21B687B13DE0FB1 /* [CP] Check Pods Manifest.lock */,
 				18D80DEE275E8B86005BCE63 /* Sources */,
 				18D80DEF275E8B86005BCE63 /* Frameworks */,
 				18D80DF0275E8B86005BCE63 /* Resources */,
-				8A710B6B17F260D58E5172B0 /* [CP] Embed Pods Frameworks */,
-				29CF5113DCD41928F431FA2A /* [CP] Copy Pods Resources */,
+				66FF99FCF8A472DAD43C4C2A /* [CP] Embed Pods Frameworks */,
+				692B76F4AD35B22F1500A519 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -656,7 +664,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		29CF5113DCD41928F431FA2A /* [CP] Copy Pods Resources */ = {
+		66FF99FCF8A472DAD43C4C2A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		692B76F4AD35B22F1500A519 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -673,7 +698,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		832518123DFA317ADEB0FF1A /* [CP] Check Pods Manifest.lock */ = {
+		9C370832E21B687B13DE0FB1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -693,23 +718,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8A710B6B17F260D58E5172B0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -752,10 +760,10 @@
 				18D80E3C2760043C005BCE63 /* MainTabBar.swift in Sources */,
 				18D80E96276A64F4005BCE63 /* HomeTableViewCell.swift in Sources */,
 				181848762781EC7900A5BB70 /* LocationManager.swift in Sources */,
+				18718423278AF0B600B33AFD /* AddRestaurantNetwork.swift in Sources */,
 				18D80E76276A59F8005BCE63 /* Constants.swift in Sources */,
 				D0A289292770B264006CA1D7 /* MyProfileViewModel.swift in Sources */,
 				D0A2892427709888006CA1D7 /* ResturantModel.swift in Sources */,
-				18C26DFB276E7D9800D07FA9 /* QRScannerView.swift in Sources */,
 				18D80EA0276A67FA005BCE63 /* HomeCollectionViewCell.swift in Sources */,
 				88BFE3A627672262004777BC /* Extension+String.swift in Sources */,
 				18CC81A0276E20FE00AC133A /* Alert.swift in Sources */,
@@ -910,7 +918,7 @@
 		};
 		18D80E07275E8B87005BCE63 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 114F30BE2CCA8A842FB3C38F /* Pods-ResturantReminder.debug.xcconfig */;
+			baseConfigurationReference = 9E024A0EFC294F831236F33A /* Pods-ResturantReminder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -933,7 +941,7 @@
 		};
 		18D80E08275E8B87005BCE63 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63A3AD1DA325E6D80C19BFFF /* Pods-ResturantReminder.release.xcconfig */;
+			baseConfigurationReference = BE4519A7C9D391AA9B593008 /* Pods-ResturantReminder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

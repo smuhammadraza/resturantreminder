@@ -111,13 +111,13 @@ class FirebaseManager {
     
     func updateName(name: String) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).updateChildValues(["fullName": name])
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").updateChildValues(["fullName": name])
     }
     
     func addCategories(categories: [String]) {
         var fetchedCategories = [String]()
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").observeSingleEvent(of: .value) { snapshot in
             let value = snapshot.value as? NSDictionary
             if let fetchedCategoriesUnwrapped = value?["categories"] as? [String] {
                 fetchedCategories = categories + fetchedCategoriesUnwrapped
@@ -125,7 +125,7 @@ class FirebaseManager {
                 fetchedCategories = categories
             }
             let fetchedCategoriesNonRepeating = Array(Set(fetchedCategories))
-            self.ref.child("users").child(UserModel.shared.userID).updateChildValues(["categories": fetchedCategoriesNonRepeating])
+            self.ref.child("users").child(AppDefaults.currentUser?.userID ?? "").updateChildValues(["categories": fetchedCategoriesNonRepeating])
             UIApplication.stopActivityIndicator()
         }
     }
@@ -133,21 +133,21 @@ class FirebaseManager {
     func removeCategory(category: String) {
         var fetchedCategories = [String]()
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").observeSingleEvent(of: .value) { snapshot in
             let value = snapshot.value as? NSDictionary
             if var fetchedCategoriesUnwrapped = value?["categories"] as? [String] {
                 fetchedCategoriesUnwrapped.removeAll { $0 == category }
                 fetchedCategories = fetchedCategoriesUnwrapped
             }
             let fetchedCategoriesNonRepeating = Array(Set(fetchedCategories))
-            self.ref.child("users").child(UserModel.shared.userID).updateChildValues(["categories": fetchedCategoriesNonRepeating])
+            self.ref.child("users").child(AppDefaults.currentUser?.userID ?? "").updateChildValues(["categories": fetchedCategoriesNonRepeating])
             UIApplication.stopActivityIndicator()
         }
     }
     
     func fetchCategories(completion: @escaping (([String]?) -> Void)) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).observeSingleEvent(of: .value) { snapshot in
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").observeSingleEvent(of: .value) { snapshot in
             let value = snapshot.value as? NSDictionary
             let fetchedCategoriesUnwrapped = value?["categories"] as? [String]
             completion(fetchedCategoriesUnwrapped)
@@ -173,7 +173,7 @@ class FirebaseManager {
         if let numberOfNotifications = numberOfNotifications {
             dict["numberOfNotifications"] = numberOfNotifications
         }
-        ref.child("users").child(UserModel.shared.userID).child("settings").updateChildValues(dict) { error, ref in
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("settings").updateChildValues(dict) { error, ref in
             print(ref)
             completion(error, ref)
         }
@@ -181,7 +181,7 @@ class FirebaseManager {
     
     func fetchSettingsData(completion: @escaping (SettingsModel?, String?) -> Void) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).child("settings").observeSingleEvent(of: .value) { snapshot in
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("settings").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? NSDictionary else {
                 completion(nil, "No Settings Found")
                 return
@@ -206,12 +206,12 @@ class FirebaseManager {
     func updateUserLocation(latitude: String, longitude: String) {
         ref = Database.database().reference()
         let coordinates = ["latitude": latitude, "longitude": longitude]
-        ref.child("users").child(UserModel.shared.userID).updateChildValues(["location": coordinates])
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").updateChildValues(["location": coordinates])
     }
     
     func fetchLocationData(completion: @escaping (LocationModel?, String?) -> Void) {
         ref = Database.database().reference()
-        ref.child("users").child(UserModel.shared.userID).child("location").observeSingleEvent(of: .value) { snapshot in
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("location").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? NSDictionary else {
                 completion(nil, "No Location Found")
                 return

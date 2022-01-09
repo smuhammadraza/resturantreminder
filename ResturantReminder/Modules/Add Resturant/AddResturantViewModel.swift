@@ -12,6 +12,7 @@ import FirebaseDatabase
 class AddResturantViewModel {
     
     private var placesClient: GMSPlacesClient = GMSPlacesClient.shared()
+    private let networkObj = AddRestaurantNetwork()
 
     func addResturant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
         FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, completion: completion)
@@ -60,5 +61,9 @@ class AddResturantViewModel {
             print("The selected place is: \(place.name)")
           }
         })
+    }
+    
+    func getScannedData(url: String, completion: @escaping ((String?, String?) -> Void)) {
+        networkObj.getScannedData(url: url, completion: completion)
     }
 }

@@ -14,6 +14,7 @@ import CoreLocation
 class AddResturantViewController: UIViewController {
 
     // MARK: - OUTLETS
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var textFieldName: UITextField!
     @IBOutlet weak var textFieldAddress: UITextField!
@@ -26,28 +27,12 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var previousCategoriesButton: UIButton!
-    //    lazy var reader: QRCodeReaderViewController = {
-//        let builder = QRCodeReaderViewControllerBuilder {
-//            let readerView = QRCodeReaderContainer(displayable: QRScannerView())
-//
-//            $0.readerView = readerView
-//        }
-//
-//        return QRCodeReaderViewController(builder: builder)
-//    }()
+    
     // MARK: - VARIABLES
-//    var placeName = ""
+    
     var placeName = [String]()
     var placeID = [String]()
     var selectedPlaceID = ""
-//    {
-//        get {
-//            return placeName
-//        }
-//        set {
-//            textFieldAddress.text = newValue
-//        }
-//    }
     var viewModel = AddResturantViewModel()
     var categories = [String]()
     var fetchedCategories = [String]()
@@ -59,6 +44,7 @@ class AddResturantViewController: UIViewController {
 
     var scannerVC = ScannerViewController.initFromStoryboard(name: Constants.Storyboards.main)
     var selectedRestaurantRef = ""
+    
     // MARK: - VIEW LIFE CYCLE
     
     override func viewDidLoad() {
@@ -67,6 +53,7 @@ class AddResturantViewController: UIViewController {
         self.fetchCategories()
         self.setupViews()
         self.setupDropDowns()
+        self.qrCallback()
     }
     
     //MARK: - VALIDATION
@@ -107,7 +94,6 @@ class AddResturantViewController: UIViewController {
             self.textFieldAddress.text = "\(item)"
             self.selectedPlaceID = self.placeID[index]
             self.fetchSelectedPlaceDetails()
-//            self.placeName = item
         }
         addressDropDown.selectionAction = self.selectionClousureAddress
     }
@@ -156,6 +142,45 @@ class AddResturantViewController: UIViewController {
     
     // MARK: - QR CALLBACK
     
+    private func qrCallback() {
+        scannerVC.sendQRDataBackwards = { [weak self] url in
+            DispatchQueue.main.async {
+                UIApplication.startActivityIndicator(with: "Please wait...")
+            }
+            guard let self = self else { return }
+            guard let url = url else {
+                DispatchQueue.main.async {
+                    UIApplication.stopActivityIndicator()
+                    Snackbar.showSnackbar(message: "Unable to fetch URL, please try again later.", duration: .middle)
+                    self.segmentControl.selectedSegmentIndex = 0
+                    self.scannerVC.view.removeFromSuperview()
+                    self.addRestaurantView.isHidden = false
+                }
+                return
+            }
+            self.viewModel.getScannedData(url: url) { (responseString, errorString) in
+                if let errorString = errorString {
+                    DispatchQueue.main.async {
+                        UIApplication.stopActivityIndicator()
+                        Snackbar.showSnackbar(message: errorString, duration: .middle)
+                        self.segmentControl.selectedSegmentIndex = 0
+                        self.scannerVC.view.removeFromSuperview()
+                    }
+                    return
+                }
+                
+                if let responseString = responseString {
+                    DispatchQueue.main.async {
+                        UIApplication.stopActivityIndicator()
+                        self.segmentControl.selectedSegmentIndex = 0
+                        self.scannerVC.view.removeFromSuperview()
+                    }
+                    print(responseString) // FIXME: - Parse HTML here
+                }
+                
+            }
+        }
+    }
     
     //MARK: - FETCH DATA
     
@@ -196,24 +221,22 @@ class AddResturantViewController: UIViewController {
         }
     }
     
-    @IBAction func segmantControlTapped(_ sender: UISegmentedControl) {
-        
+    @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
         self.addRestaurantView.isHidden = sender.selectedSegmentIndex == 1
         self.containerView.isHidden = self.segmentControl.selectedSegmentIndex == 0
-//        remove(asChildViewController: scannerVC)
-//        self.view.translatesAutoresizingMaskIntoConstraints = false
-//        containerView.addSubview(scannerVC)
-        containerView.addSubview(scannerVC.view)
-
-//        self.containerView.add(asChildViewController: scannerVC)
-//        self.qrScannerViewView.isHidden = sender.selectedSegmentIndex == 0
+        if self.containerView.isHidden {
+            scannerVC.view.removeFromSuperview()
+        } else {
+            containerView.addSubview(scannerVC.view)
+        }
     }
+ 
     
     @IBAction func categoriesDropDownTapped(_ sender: UIButton) {
         self.categoriesDropDown.show()
     }
     
-    // MARK: - HELPER METHODS
+    // MARK: - HELPER METHOD
     
     private func addRestaurant() {
         viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories) {
