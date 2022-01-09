@@ -65,7 +65,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         if (captureSession?.isRunning == false) {
             captureSession.startRunning()
         }
@@ -94,7 +94,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 
     func found(code: String) {
         print(code)
+        captureSession.stopRunning()
         self.sendQRDataBackwards?(code)
+        captureSession.startRunning()
     }
 
     override var prefersStatusBarHidden: Bool {

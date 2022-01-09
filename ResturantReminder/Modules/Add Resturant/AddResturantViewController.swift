@@ -140,6 +140,14 @@ class AddResturantViewController: UIViewController {
         }
     }
     
+    //MARK: - UPDATE VIEWS
+    
+    private func updateViews(accordingTo QRdata: [String]) {
+        self.textFieldName.text = QRdata[0]
+        self.textFieldAddress.text = QRdata[1]
+        self.textFieldPhone.text = QRdata[2]
+    }
+    
     // MARK: - QR CALLBACK
     
     private func qrCallback() {
@@ -153,7 +161,8 @@ class AddResturantViewController: UIViewController {
                     UIApplication.stopActivityIndicator()
                     Snackbar.showSnackbar(message: "Unable to fetch URL, please try again later.", duration: .middle)
                     self.segmentControl.selectedSegmentIndex = 0
-                    self.scannerVC.view.removeFromSuperview()
+//                    self.scannerVC.view.removeFromSuperview()
+                    self.containerView.isHidden = true
                     self.addRestaurantView.isHidden = false
                 }
                 return
@@ -164,7 +173,9 @@ class AddResturantViewController: UIViewController {
                         UIApplication.stopActivityIndicator()
                         Snackbar.showSnackbar(message: errorString, duration: .middle)
                         self.segmentControl.selectedSegmentIndex = 0
-                        self.scannerVC.view.removeFromSuperview()
+//                        self.scannerVC.view.removeFromSuperview()
+                        self.containerView.isHidden = true
+                        self.addRestaurantView.isHidden = false
                     }
                     return
                 }
@@ -173,13 +184,34 @@ class AddResturantViewController: UIViewController {
                     DispatchQueue.main.async {
                         UIApplication.stopActivityIndicator()
                         self.segmentControl.selectedSegmentIndex = 0
-                        self.scannerVC.view.removeFromSuperview()
+//                        self.containerView.removeFromSuperview()
+                        self.containerView.isHidden = true
+                        self.addRestaurantView.isHidden = false
+//                        self.view.addSubview(self.addRestaurantView)
+                        let parsedData = self.parseHTML(string: self.removeHTMLTags(string: responseString))
+                        self.updateViews(accordingTo: parsedData)
                     }
-                    print(responseString) // FIXME: - Parse HTML here
                 }
-                
             }
         }
+    }
+    
+    //MARK: - PARSE HTML
+    
+    private func removeHTMLTags(string: String) -> String {
+        let wordsToRemove = ["<HTML>", "</HTML>", "<BODY>", "</BODY>", "\r", "\""]
+        var updatedString = string
+        for word in wordsToRemove {
+            updatedString = updatedString.replacingOccurrences(of: word, with: "")
+        }
+        return updatedString
+    }
+    
+    private func parseHTML(string: String) -> [String] {
+        let delimiter = "<BR>"
+        let parsedValues = string.components(separatedBy: delimiter)
+        print(parsedValues)
+        return Array(parsedValues.prefix(3))
     }
     
     //MARK: - FETCH DATA
@@ -224,9 +256,7 @@ class AddResturantViewController: UIViewController {
     @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
         self.addRestaurantView.isHidden = sender.selectedSegmentIndex == 1
         self.containerView.isHidden = self.segmentControl.selectedSegmentIndex == 0
-        if self.containerView.isHidden {
-            scannerVC.view.removeFromSuperview()
-        } else {
+        if !(self.containerView.isHidden) {
             containerView.addSubview(scannerVC.view)
         }
     }

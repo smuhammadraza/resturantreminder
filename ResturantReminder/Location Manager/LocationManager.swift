@@ -42,7 +42,7 @@ class LocationManager: NSObject {
                                               radius: maxDistance, identifier: identifier)
                 region.notifyOnEntry = true
                 region.notifyOnExit = false
-                Snackbar.showSnackbar(message: "Reminder added for \(restaurantName).", duration: .short)
+                Snackbar.showSnackbar(message: "Reminder added for \(restaurantName).", duration: .middle)
                 self.locationManager.startMonitoring(for: region)
             }
         }
