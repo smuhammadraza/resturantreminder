@@ -10,6 +10,9 @@ import AVFoundation
 import Cosmos
 import DropDown
 import CoreLocation
+import FBSDKCoreKit
+import FBSDKShareKit
+import Social
 
 class AddResturantViewController: UIViewController {
 
@@ -122,6 +125,10 @@ class AddResturantViewController: UIViewController {
     }
     
     @objc func textFieldDidChange() {
+        self.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "")
+    }
+    
+    private func fetchPlacesAutoComplete(text: String) {
         viewModel.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "") { (place, error) in
             if let error = error {
                 Snackbar.showSnackbar(message: error, duration: .middle)
@@ -143,9 +150,17 @@ class AddResturantViewController: UIViewController {
     //MARK: - UPDATE VIEWS
     
     private func updateViews(accordingTo QRdata: [String]) {
-        self.textFieldName.text = QRdata[0]
-        self.textFieldAddress.text = QRdata[1]
-        self.textFieldPhone.text = QRdata[2]
+        if QRdata.count >= 3 {
+            self.textFieldName.text = QRdata[0]
+            self.textFieldAddress.text = QRdata[1]
+            self.textFieldPhone.text = QRdata[2]
+            self.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "")
+        } else {
+            self.segmentControl.selectedSegmentIndex = 0
+            self.containerView.isHidden = true
+            self.addRestaurantView.isHidden = false
+            Snackbar.showSnackbar(message: "Unable to fetch Data from QR Code, please try again later.", duration: .middle)
+        }
     }
     
     // MARK: - QR CALLBACK
@@ -161,38 +176,45 @@ class AddResturantViewController: UIViewController {
                     UIApplication.stopActivityIndicator()
                     Snackbar.showSnackbar(message: "Unable to fetch URL, please try again later.", duration: .middle)
                     self.segmentControl.selectedSegmentIndex = 0
-//                    self.scannerVC.view.removeFromSuperview()
                     self.containerView.isHidden = true
                     self.addRestaurantView.isHidden = false
                 }
                 return
             }
-            self.viewModel.getScannedData(url: url) { (responseString, errorString) in
-                if let errorString = errorString {
-                    DispatchQueue.main.async {
-                        UIApplication.stopActivityIndicator()
-                        Snackbar.showSnackbar(message: errorString, duration: .middle)
-                        self.segmentControl.selectedSegmentIndex = 0
-//                        self.scannerVC.view.removeFromSuperview()
-                        self.containerView.isHidden = true
-                        self.addRestaurantView.isHidden = false
+            if url.contains("restaurantreminder") {
+                self.viewModel.getScannedData(url: url) { (responseString, errorString) in
+                    if let errorString = errorString {
+                        DispatchQueue.main.async {
+                            UIApplication.stopActivityIndicator()
+                            Snackbar.showSnackbar(message: errorString, duration: .middle)
+                            self.segmentControl.selectedSegmentIndex = 0
+                            self.containerView.isHidden = true
+                            self.addRestaurantView.isHidden = false
+                        }
+                        return
                     }
-                    return
+                    
+                    if let responseString = responseString {
+                        DispatchQueue.main.async {
+                            UIApplication.stopActivityIndicator()
+                            self.segmentControl.selectedSegmentIndex = 0
+                            self.containerView.isHidden = true
+                            self.addRestaurantView.isHidden = false
+                            let parsedData = self.parseHTML(string: self.removeHTMLTags(string: responseString))
+                            self.updateViews(accordingTo: parsedData)
+                        }
+                    }
                 }
-                
-                if let responseString = responseString {
-                    DispatchQueue.main.async {
-                        UIApplication.stopActivityIndicator()
-                        self.segmentControl.selectedSegmentIndex = 0
-//                        self.containerView.removeFromSuperview()
-                        self.containerView.isHidden = true
-                        self.addRestaurantView.isHidden = false
-//                        self.view.addSubview(self.addRestaurantView)
-                        let parsedData = self.parseHTML(string: self.removeHTMLTags(string: responseString))
-                        self.updateViews(accordingTo: parsedData)
-                    }
+            } else {
+                DispatchQueue.main.async {
+                    UIApplication.stopActivityIndicator()
+                    self.segmentControl.selectedSegmentIndex = 0
+                    self.containerView.isHidden = true
+                    self.addRestaurantView.isHidden = false
+                    Snackbar.showSnackbar(message: "Please scan a valid QR Code.", duration: .middle)
                 }
             }
+            
         }
     }
     
@@ -268,6 +290,24 @@ class AddResturantViewController: UIViewController {
     
     // MARK: - HELPER METHOD
     
+    private func facebookShare(url: String) {
+        guard let url = URL(string: url) else {
+            // handle and return
+            return
+        }
+
+        var content = SharePhotoContent()
+        content.photos = [SharePhoto.init(image: UIImage(named: "HomeProfile")!, userGenerated: true)]
+        
+//        let request = GraphRequest(graphPath: <#T##String#>, parameters: <#T##[String : Any]#>)
+
+//        ShareLinkContent.init
+        //        let content = ShareLinkContent()
+//        content.contentURL = url
+//        content.quote = "Hi, I am adding \(textFieldName.text ?? "") in Restaurant Reminder."
+//        content.
+    }
+    
     private func addRestaurant() {
         viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories) {
             [weak self] (error, databaseRef) in
@@ -287,6 +327,7 @@ class AddResturantViewController: UIViewController {
                    !(self.selectedRestaurantRef.isEmpty) {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
+                    self.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                 }
             } else {
                 return
@@ -354,10 +395,16 @@ extension AddResturantViewController: UICollectionViewDelegate, UICollectionView
 
 extension AddResturantViewController: StoryboardInitializable {}
 
-//extension AddResturantViewController: UITextFieldDelegate {
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        if textField == textFieldAddress {
-//            self.textFieldAddress.text = self.placeName
-//        }
-//    }
-//}
+extension AddResturantViewController: SharingDelegate {
+    func sharer(_ sharer: Sharing, didCompleteWithResults results: [String : Any]) {
+        print("share results: \(results)")
+    }
+    
+    func sharer(_ sharer: Sharing, didFailWithError error: Error) {
+        print("share failed with: \(error.localizedDescription)")
+    }
+    
+    func sharerDidCancel(_ sharer: Sharing) {
+        print("share cancel with: \(sharer.description)")
+    }
+}

@@ -95,7 +95,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
-            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+//            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
         }
     }
 }

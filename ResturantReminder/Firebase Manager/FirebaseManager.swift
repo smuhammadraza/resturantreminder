@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseDatabase
 import UIKit
+import CoreMedia
 
 class FirebaseManager {
     
@@ -56,7 +57,8 @@ class FirebaseManager {
                     let json = try JSONSerialization.data(withJSONObject: value1.value)
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    if let decodedRestaurants = try decoder.decode(ResturantModel?.self, from: json) {
+                    if var decodedRestaurants = try decoder.decode(ResturantModel?.self, from: json) {
+                        decodedRestaurants.restaurantID = value1.key as? String
                         restaurantModel.append(decodedRestaurants)
                         print(decodedRestaurants)
                     }
@@ -87,6 +89,17 @@ class FirebaseManager {
             } catch {
                 print(error.localizedDescription)
                 completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    func deleteRestaurant(userID: String, restaurantID: String) {
+        ref = Database.database().reference()
+        ref.child("users").child(userID).child("restaurants").child(restaurantID).removeValue { error, _ in
+            if let error = error {
+                Snackbar.showSnackbar(message: "Error: \(error.localizedDescription).", duration: .short)
+            } else {
+                Snackbar.showSnackbar(message: "Restaurant Deleted Successfully.", duration: .short)
             }
         }
     }

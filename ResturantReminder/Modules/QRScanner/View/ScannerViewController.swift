@@ -83,8 +83,15 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         captureSession.stopRunning()
 
         if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
+            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else {
+                print("Unable to fetch ReadableObject")
+                return
+            }
+            guard let stringValue = readableObject.stringValue else {
+                print("Unable to fetch StringValue")
+                return
+            }
+            print("ReadableObject & StringValue fetched successfully.")
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
@@ -94,9 +101,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 
     func found(code: String) {
         print(code)
-        captureSession.stopRunning()
-        self.sendQRDataBackwards?(code)
+//        captureSession.stopRunning()
         captureSession.startRunning()
+        self.sendQRDataBackwards?(code)
     }
 
     override var prefersStatusBarHidden: Bool {

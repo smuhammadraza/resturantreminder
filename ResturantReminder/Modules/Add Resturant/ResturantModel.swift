@@ -16,6 +16,7 @@ struct ResturantModel: Codable {
     private init() {}
     static var shared = ResturantModel()
     
+    var restaurantID: String?
     var name, address, phone, url, notes: String?
     var rating: Double?
     var categories: [String]?

@@ -19,7 +19,6 @@
 		187A0F52276EA44000174C36 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F51276EA44000174C36 /* LoginViewModel.swift */; };
 		187A0F6B276EA68900174C36 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A0F6A276EA68900174C36 /* Snackbar.swift */; };
 		18C26DFE276E8A5800D07FA9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C26DFD276E8A5800D07FA9 /* GoogleService-Info.plist */; };
-		18C49B07278659CA001D9F2D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C49B06278659CA001D9F2D /* NotificationManager.swift */; };
 		18CC81A0276E20FE00AC133A /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC819F276E20FE00AC133A /* Alert.swift */; };
 		18D80DF6275E8B86005BCE63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D80DF5275E8B86005BCE63 /* AppDelegate.swift */; };
 		18D80DFD275E8B86005BCE63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D80DFB275E8B86005BCE63 /* Main.storyboard */; };
@@ -56,6 +55,7 @@
 		CE529DCD6D94858D7E0B1B5F /* Pods_ResturantReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BA98DF94E5B1EA6BFE1554 /* Pods_ResturantReminder.framework */; };
 		D0557D3727720476002D303B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0557D3627720476002D303B /* HomeViewModel.swift */; };
 		D063D1F1277457D7008FF0E0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */; };
+		D0652241278C78E400FD73AE /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0652240278C78E400FD73AE /* RestaurantDetailViewController.swift */; };
 		D086CE9E27843FC20093877F /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086CE9D27843FC20093877F /* ScannerViewController.swift */; };
 		D0A2891C277071B2006CA1D7 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2891B277071B2006CA1D7 /* FirebaseManager.swift */; };
 		D0A2891E27707867006CA1D7 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A2891D27707867006CA1D7 /* UserModel.swift */; };
@@ -119,6 +119,7 @@
 		BE4519A7C9D391AA9B593008 /* Pods-ResturantReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.release.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.release.xcconfig"; sourceTree = "<group>"; };
 		D0557D3627720476002D303B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		D0652240278C78E400FD73AE /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 		D086CE9D27843FC20093877F /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		D0A2891B277071B2006CA1D7 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		D0A2891D27707867006CA1D7 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -325,6 +326,7 @@
 		18D80E0D275E8BB3005BCE63 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D065223C278C78BB00FD73AE /* RestaurantDetail */,
 				1818486E2781BED200A5BB70 /* Location */,
 				18C26DF9276E7D8500D07FA9 /* QRScanner */,
 				18607532276A858D000786F8 /* Add Resturant */,
@@ -536,6 +538,38 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
+		D065223C278C78BB00FD73AE /* RestaurantDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D065223F278C78D100FD73AE /* Model */,
+				D065223E278C78CD00FD73AE /* View */,
+				D065223D278C78C600FD73AE /* ViewModel */,
+			);
+			path = RestaurantDetail;
+			sourceTree = "<group>";
+		};
+		D065223D278C78C600FD73AE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		D065223E278C78CD00FD73AE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0652240278C78E400FD73AE /* RestaurantDetailViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D065223F278C78D100FD73AE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D086CE9C27843FAD0093877F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,11 +767,11 @@
 				88BFE3A127672262004777BC /* Extension+UITextField.swift in Sources */,
 				88BFE3A427672262004777BC /* Extension+Error.swift in Sources */,
 				18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */,
-				18C49B07278659CA001D9F2D /* NotificationManager.swift in Sources */,
 				187A0F6B276EA68900174C36 /* Snackbar.swift in Sources */,
 				D086CE9E27843FC20093877F /* ScannerViewController.swift in Sources */,
 				D0A2891E27707867006CA1D7 /* UserModel.swift in Sources */,
 				18D80E35275EAAC3005BCE63 /* ForgotPasswordViewController.swift in Sources */,
+				D0652241278C78E400FD73AE /* RestaurantDetailViewController.swift in Sources */,
 				88BFE3A027672262004777BC /* Extension+Data.swift in Sources */,
 				18D80E9B276A671D005BCE63 /* Utilities.swift in Sources */,
 				18D80E26275EA5BB005BCE63 /* SignUpViewController.swift in Sources */,
@@ -923,7 +957,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 8LTPJZF6V8;
 				INFOPLIST_FILE = ResturantReminder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -946,7 +980,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 8LTPJZF6V8;
 				INFOPLIST_FILE = ResturantReminder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

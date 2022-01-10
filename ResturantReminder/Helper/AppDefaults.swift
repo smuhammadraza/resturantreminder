@@ -167,7 +167,7 @@ class AppDefaults {
 //        }
 //    }
     
-    // MARK: - IS DEALER LOGIN
+    // MARK: - IS USER LOGIN
     
     public static var isUserLoggedIn: Bool {
         get{
@@ -180,7 +180,27 @@ class AppDefaults {
         }
     }
     
+    public static var loggedInFromFacebook: Bool {
+        get{
+            let facebookLogin = AppDefaults.defaults.bool(forKey: "loggedInFromFacebook")
+            return facebookLogin
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "loggedInFromFacebook")
+            
+        }
+    }
     
+    public static var facebookToken: String {
+        get{
+            let facebookLogin = AppDefaults.defaults.string(forKey: "facebookToken")
+            return facebookLogin ?? ""
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "facebookToken")
+            
+        }
+    }
     
     //MARK: - USER OBJECT
     

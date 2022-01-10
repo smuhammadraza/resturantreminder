@@ -10,6 +10,7 @@ import Presentr
 import GoogleSignIn
 import FirebaseAuth
 import FBSDKLoginKit
+import AVFoundation
 
 class LoginViewController: UIViewController {
     
@@ -96,6 +97,16 @@ class LoginViewController: UIViewController {
                     } else {
                         UIApplication.stopActivityIndicator()
                         AppDefaults.currentUser = UserModel.shared
+                        AppDefaults.loggedInFromFacebook = true
+                        authResult.user.getIDToken(completion: { result, error in
+                            if let error = error {
+                                Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
+                                return
+                            }
+                            guard let result = result else { return }
+                            AppDefaults.facebookToken = result
+                            print(result)
+                        })
                         AppDefaults.isUserLoggedIn = true
                         Bootstrapper.showHome()
                     }

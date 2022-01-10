@@ -134,6 +134,12 @@ extension HomeViewController: UITableViewDataSource {
                 }
             }
         }
+        cell.restaurantDetailTapped = { [weak self] model in
+            guard let self = self else { return }
+            let vc = RestaurantDetailViewController.initFromStoryboard(name: Constants.Storyboards.main)
+            vc.restaurantModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         return cell
     }
     
