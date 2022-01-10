@@ -296,9 +296,12 @@ class AddResturantViewController: UIViewController {
             return
         }
 
-        var content = SharePhotoContent()
-        content.photos = [SharePhoto.init(image: UIImage(named: "HomeProfile")!, userGenerated: true)]
+//        var content = SharePhotoContent()
+//        content.photos = [SharePhoto.init(image: UIImage(named: "HomeProfile")!, userGenerated: true)]
         
+
+        
+
 //        let request = GraphRequest(graphPath: <#T##String#>, parameters: <#T##[String : Any]#>)
 
 //        ShareLinkContent.init
@@ -306,6 +309,20 @@ class AddResturantViewController: UIViewController {
 //        content.contentURL = url
 //        content.quote = "Hi, I am adding \(textFieldName.text ?? "") in Restaurant Reminder."
 //        content.
+    }
+    
+    private func shareInFacebook(image: UIImage) {
+        let photo = SharePhoto(image: image, userGenerated: true)
+        let content = SharePhotoContent()
+        content.photos = [photo]
+        content.contentURL = URL(string: self.textFieldURL.text ?? "www.restaurantreminder.com")!
+        let showDialog = ShareDialog(fromViewController: self, content: content, delegate: self)
+        
+        if (showDialog.canShow) {
+            showDialog.show()
+        } else {
+            Snackbar.showSnackbar(message: "It looks like you don't have the Facebook mobile app on your phone.", duration: .middle)
+        }
     }
     
     private func addRestaurant() {
@@ -327,7 +344,8 @@ class AddResturantViewController: UIViewController {
                    !(self.selectedRestaurantRef.isEmpty) {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
-                    self.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
+                    self.shareInFacebook(image: UIImage(named: "KFC")!)
+                    //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                 }
             } else {
                 return
