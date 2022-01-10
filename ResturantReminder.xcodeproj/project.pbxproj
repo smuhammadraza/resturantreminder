@@ -10,6 +10,7 @@
 		181848712781BEF000A5BB70 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181848702781BEF000A5BB70 /* LocationModel.swift */; };
 		181848762781EC7900A5BB70 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181848752781EC7800A5BB70 /* LocationManager.swift */; };
 		184EAFF02777291A002E619D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 184EAFEF2777291A002E619D /* GoogleSignIn */; };
+		185B38A8278CA7E700ECEAB0 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C49B06278659CA001D9F2D /* NotificationManager.swift */; };
 		18607527276A7E79000786F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18607526276A7E79000786F8 /* SettingsViewController.swift */; };
 		1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752B276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift */; };
 		18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860752F276A8238000786F8 /* CategoryCollectionViewCell.swift */; };
@@ -807,6 +808,7 @@
 				D0557D3727720476002D303B /* HomeViewModel.swift in Sources */,
 				1860752C276A7F22000786F8 /* AddCategoriesCollectionViewCell.swift in Sources */,
 				18607535276A85A3000786F8 /* AddResturantViewController.swift in Sources */,
+				185B38A8278CA7E700ECEAB0 /* NotificationManager.swift in Sources */,
 				187A0F4C276E96F400174C36 /* SignUpViewModel.swift in Sources */,
 				18607527276A7E79000786F8 /* SettingsViewController.swift in Sources */,
 			);
