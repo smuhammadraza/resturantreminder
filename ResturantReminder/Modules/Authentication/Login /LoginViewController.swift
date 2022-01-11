@@ -52,13 +52,14 @@ class LoginViewController: UIViewController {
 
     @objc func handleCustomFBBtn() {
         UIApplication.startActivityIndicator(with: "")
-        LoginManager().logIn(permissions: ["email", "public_profile"], viewController: self) { [weak self] (result) in
+        LoginManager().logIn(permissions: ["email", "public_profile", "user_photos"], viewController: self) { [weak self] (result) in
 
             guard let self = self else { return }
             
             switch result {
-            case .success(granted: _, declined: _, token: let accessToken):
+            case .success(granted: let granted, declined: let declined, token: let accessToken):
                 print(accessToken?.tokenString)
+                print(granted, declined)
                 if let token = accessToken?.tokenString {
                     self.FBLoginToFirebase(token: token)
                 } else {
@@ -105,6 +106,14 @@ class LoginViewController: UIViewController {
                             }
                             guard let result = result else { return }
                             AppDefaults.facebookToken = result
+                            let request = GraphRequest.init(graphPath: "/me/feed", httpMethod: .post) //5305988979430789
+                            request.parameters = [
+                                "source": Data(),
+                                "message": "This is a test post"
+                            ]
+                            request.start { connection, result, error in
+                                print(connection, result, error)
+                            }
                             print(result)
                         })
                         AppDefaults.isUserLoggedIn = true

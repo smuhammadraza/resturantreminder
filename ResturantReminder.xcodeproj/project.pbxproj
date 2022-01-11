@@ -41,6 +41,7 @@
 		18D80EA0276A67FA005BCE63 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D80E9E276A67FA005BCE63 /* HomeCollectionViewCell.swift */; };
 		18D80EA1276A67FA005BCE63 /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D80E9F276A67FA005BCE63 /* HomeCollectionViewCell.xib */; };
 		18D80EA7276A6F7C005BCE63 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D80EA6276A6F7C005BCE63 /* MyProfileViewController.swift */; };
+		6D0EE28151A35D900C0909D6 /* Pods_ResturantReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3028CA861A76E837DFC09F58 /* Pods_ResturantReminder.framework */; };
 		88BFE39B27672262004777BC /* Extension+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE38F27672262004777BC /* Extension+UINavigationController.swift */; };
 		88BFE39C27672262004777BC /* Extension+NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39027672262004777BC /* Extension+NotificationName.swift */; };
 		88BFE39D27672262004777BC /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39127672262004777BC /* Extension+UIColor.swift */; };
@@ -53,7 +54,8 @@
 		88BFE3A427672262004777BC /* Extension+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39827672262004777BC /* Extension+Error.swift */; };
 		88BFE3A527672262004777BC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39927672262004777BC /* Extension+UIView.swift */; };
 		88BFE3A627672262004777BC /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39A27672262004777BC /* Extension+String.swift */; };
-		CE529DCD6D94858D7E0B1B5F /* Pods_ResturantReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BA98DF94E5B1EA6BFE1554 /* Pods_ResturantReminder.framework */; };
+		D04E8E65278DB79E001725A3 /* start location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D04E8E64278DB79E001725A3 /* start location.gpx */; };
+		D04E8E67278DB7AA001725A3 /* end location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = D04E8E66278DB7AA001725A3 /* end location.gpx */; };
 		D0557D3727720476002D303B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0557D3627720476002D303B /* HomeViewModel.swift */; };
 		D063D1F1277457D7008FF0E0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */; };
 		D0652241278C78E400FD73AE /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0652240278C78E400FD73AE /* RestaurantDetailViewController.swift */; };
@@ -103,7 +105,8 @@
 		18D80E9E276A67FA005BCE63 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		18D80E9F276A67FA005BCE63 /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		18D80EA6276A6F7C005BCE63 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
-		27BA98DF94E5B1EA6BFE1554 /* Pods_ResturantReminder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResturantReminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3028CA861A76E837DFC09F58 /* Pods_ResturantReminder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResturantReminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		367AD24A2AB193F26AFCADA8 /* Pods-ResturantReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.debug.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.debug.xcconfig"; sourceTree = "<group>"; };
 		88BFE38F27672262004777BC /* Extension+UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UINavigationController.swift"; sourceTree = "<group>"; };
 		88BFE39027672262004777BC /* Extension+NotificationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+NotificationName.swift"; sourceTree = "<group>"; };
 		88BFE39127672262004777BC /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
@@ -116,8 +119,9 @@
 		88BFE39827672262004777BC /* Extension+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Error.swift"; sourceTree = "<group>"; };
 		88BFE39927672262004777BC /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		88BFE39A27672262004777BC /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
-		9E024A0EFC294F831236F33A /* Pods-ResturantReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.debug.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.debug.xcconfig"; sourceTree = "<group>"; };
-		BE4519A7C9D391AA9B593008 /* Pods-ResturantReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.release.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.release.xcconfig"; sourceTree = "<group>"; };
+		C0DB917897EF3972031DDD62 /* Pods-ResturantReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResturantReminder.release.xcconfig"; path = "Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder.release.xcconfig"; sourceTree = "<group>"; };
+		D04E8E64278DB79E001725A3 /* start location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "start location.gpx"; sourceTree = "<group>"; };
+		D04E8E66278DB7AA001725A3 /* end location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "end location.gpx"; sourceTree = "<group>"; };
 		D0557D3627720476002D303B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D063D1F0277457D7008FF0E0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		D0652240278C78E400FD73AE /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
@@ -137,7 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				184EAFF02777291A002E619D /* GoogleSignIn in Frameworks */,
-				CE529DCD6D94858D7E0B1B5F /* Pods_ResturantReminder.framework in Frameworks */,
+				6D0EE28151A35D900C0909D6 /* Pods_ResturantReminder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +280,7 @@
 				18D80DF4275E8B86005BCE63 /* ResturantReminder */,
 				18D80DF3275E8B86005BCE63 /* Products */,
 				32C8E490C5D5A597E598AFFB /* Pods */,
-				31558418C6A50011CE447F33 /* Frameworks */,
+				1D65A05837491EBE66E364A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -302,6 +306,8 @@
 				18D80DF5275E8B86005BCE63 /* AppDelegate.swift */,
 				18D80E03275E8B87005BCE63 /* Info.plist */,
 				18C26DFD276E8A5800D07FA9 /* GoogleService-Info.plist */,
+				D04E8E64278DB79E001725A3 /* start location.gpx */,
+				D04E8E66278DB7AA001725A3 /* end location.gpx */,
 			);
 			path = ResturantReminder;
 			sourceTree = "<group>";
@@ -499,10 +505,10 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		31558418C6A50011CE447F33 /* Frameworks */ = {
+		1D65A05837491EBE66E364A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				27BA98DF94E5B1EA6BFE1554 /* Pods_ResturantReminder.framework */,
+				3028CA861A76E837DFC09F58 /* Pods_ResturantReminder.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -510,8 +516,8 @@
 		32C8E490C5D5A597E598AFFB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9E024A0EFC294F831236F33A /* Pods-ResturantReminder.debug.xcconfig */,
-				BE4519A7C9D391AA9B593008 /* Pods-ResturantReminder.release.xcconfig */,
+				367AD24A2AB193F26AFCADA8 /* Pods-ResturantReminder.debug.xcconfig */,
+				C0DB917897EF3972031DDD62 /* Pods-ResturantReminder.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -626,12 +632,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18D80E06275E8B87005BCE63 /* Build configuration list for PBXNativeTarget "ResturantReminder" */;
 			buildPhases = (
-				9C370832E21B687B13DE0FB1 /* [CP] Check Pods Manifest.lock */,
+				BACB33BD9E2247CE1FE48A13 /* [CP] Check Pods Manifest.lock */,
 				18D80DEE275E8B86005BCE63 /* Sources */,
 				18D80DEF275E8B86005BCE63 /* Frameworks */,
 				18D80DF0275E8B86005BCE63 /* Resources */,
-				66FF99FCF8A472DAD43C4C2A /* [CP] Embed Pods Frameworks */,
-				692B76F4AD35B22F1500A519 /* [CP] Copy Pods Resources */,
+				BE0CB5F22AF6D0443A2AA2D4 /* [CP] Embed Pods Frameworks */,
+				AC34EA6224CAB2162AA09FD8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -687,11 +693,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D80E11275E8E93005BCE63 /* Authentication.storyboard in Resources */,
+				D04E8E67278DB7AA001725A3 /* end location.gpx in Resources */,
 				18D80EA1276A67FA005BCE63 /* HomeCollectionViewCell.xib in Resources */,
 				18D80E02275E8B87005BCE63 /* LaunchScreen.storyboard in Resources */,
 				18D80DFF275E8B87005BCE63 /* Assets.xcassets in Resources */,
 				18D80E97276A64F4005BCE63 /* HomeTableViewCell.xib in Resources */,
 				18D80DFD275E8B86005BCE63 /* Main.storyboard in Resources */,
+				D04E8E65278DB79E001725A3 /* start location.gpx in Resources */,
 				18C26DFE276E8A5800D07FA9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,24 +707,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		66FF99FCF8A472DAD43C4C2A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		692B76F4AD35B22F1500A519 /* [CP] Copy Pods Resources */ = {
+		AC34EA6224CAB2162AA09FD8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -733,7 +724,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9C370832E21B687B13DE0FB1 /* [CP] Check Pods Manifest.lock */ = {
+		BACB33BD9E2247CE1FE48A13 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -753,6 +744,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE0CB5F22AF6D0443A2AA2D4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResturantReminder/Pods-ResturantReminder-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -954,7 +962,7 @@
 		};
 		18D80E07275E8B87005BCE63 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E024A0EFC294F831236F33A /* Pods-ResturantReminder.debug.xcconfig */;
+			baseConfigurationReference = 367AD24A2AB193F26AFCADA8 /* Pods-ResturantReminder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -977,7 +985,7 @@
 		};
 		18D80E08275E8B87005BCE63 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BE4519A7C9D391AA9B593008 /* Pods-ResturantReminder.release.xcconfig */;
+			baseConfigurationReference = C0DB917897EF3972031DDD62 /* Pods-ResturantReminder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

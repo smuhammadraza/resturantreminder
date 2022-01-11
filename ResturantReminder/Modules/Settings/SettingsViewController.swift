@@ -119,18 +119,24 @@ class SettingsViewController: UIViewController {
                 Snackbar.showSnackbar(message: errorMsg, duration: .middle)
             }
             if let data = data {
-                self.postToFacebook = data.postToFacebook
-                self.postToTwitter = data.postToTwitter
-                self.alertWhenNearBy = data.alertWhenNearBy
-                self.numberOfNotifications = data.numberOfNotifications
-                self.distance = data.distance
-                self.facebookSwitch.isOn = data.postToFacebook ?? false
-                self.twitterSwitch.isOn = data.postToTwitter ?? false
-                self.alertNearBySwitch.isOn = data.alertWhenNearBy ?? false
-                self.labelNearbyDistance.text = "\((data.distance ?? 0.0).roundTo(places: 1)) miles"
-                self.labelNumberOfNotification.text = "\(data.numberOfNotifications ?? 0)/Day"
+                self.updateSettingsView(data: data)
             }
         }
+    }
+
+    //MARK: - UPDATE VIEWS
+    
+    private func updateSettingsView(data: SettingsModel) {
+        self.postToFacebook = data.postToFacebook
+        self.postToTwitter = data.postToTwitter
+        self.alertWhenNearBy = data.alertWhenNearBy
+        self.numberOfNotifications = data.numberOfNotifications
+        self.distance = data.distance
+        self.facebookSwitch.isOn = data.postToFacebook ?? false
+        self.twitterSwitch.isOn = data.postToTwitter ?? false
+        self.alertNearBySwitch.isOn = data.alertWhenNearBy ?? false
+        self.labelNearbyDistance.text = "\((data.distance ?? 0.0).roundTo(places: 1)) miles"
+        self.labelNumberOfNotification.text = "\(data.numberOfNotifications ?? 0)/Day"
     }
     
     // MARK: - ADD DATA

@@ -19,7 +19,7 @@ class FirebaseManager {
 
     func addUser(userID: String, fullName: String, postalCode: String, email: String) {
         ref = Database.database().reference()
-        self.ref.child("users").child(userID).setValue(["fullName": fullName, "postalCode": postalCode, "email": email, "userID": userID])
+        self.ref.child("users").child(userID).updateChildValues(["fullName": fullName, "postalCode": postalCode, "email": email, "userID": userID])
     }
     
     func fetchUser(userID: String, completion: @escaping (String?)->Void) {

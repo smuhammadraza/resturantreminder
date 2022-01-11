@@ -21,9 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+//        LocationManager.shared.locationManager.delegate = self
         if let launchOptions = launchOptions {
             if launchOptions.keys.contains(.location) {
-                LocationManager.shared.locationManager.delegate = self
+//                LocationManager.shared.locationManager.delegate = self
             }
         }
         
@@ -90,12 +91,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
 }
 
-extension AppDelegate: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if let region = region as? CLCircularRegion {
-            let identifier = region.identifier
-            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
-        }
-    }
-}
+//extension AppDelegate: CLLocationManagerDelegate {
+//
+//    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+//        if let region = region as? CLCircularRegion {
+//            let identifier = region.identifier
+//            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+//        }
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+//        if let region = region as? CLCircularRegion {
+//            let identifier = region.identifier
+//            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+//        }
+//    }
+//}
