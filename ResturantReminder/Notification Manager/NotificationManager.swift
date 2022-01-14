@@ -27,7 +27,7 @@ class NotificationManager {
             content.badge = 1
 
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-            let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: "reminder" + "\(Date().timeIntervalSince1970)", content: content, trigger: trigger)
 
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         }

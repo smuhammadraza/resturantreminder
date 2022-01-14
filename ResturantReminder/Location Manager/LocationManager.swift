@@ -14,6 +14,7 @@ class LocationManager: NSObject {
     static let shared = LocationManager()
     private override init() {
         super.init()
+        locationManager = CLLocationManager()
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
 
@@ -38,7 +39,7 @@ class LocationManager: NSObject {
             if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
                 // Register the region.
                 let maxDistance = self.locationManager.maximumRegionMonitoringDistance
-                let max: CLLocationDistance = 2
+                let max: CLLocationDistance = 200
                 let region = CLCircularRegion(center: center,
                                               radius: max, identifier: identifier)
                 region.notifyOnEntry = true

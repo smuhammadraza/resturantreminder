@@ -160,18 +160,4 @@ extension HomeViewController: CLLocationManagerDelegate {
         FirebaseManager.shared.updateUserLocation(latitude: "\(locValue.latitude)", longitude: "\(locValue.longitude)")
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
-    
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if let region = region as? CLCircularRegion {
-            let identifier = region.identifier
-            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        if let region = region as? CLCircularRegion {
-            let identifier = region.identifier
-            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
-        }
-    }
 }
