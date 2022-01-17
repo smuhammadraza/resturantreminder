@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var noRestaurantLabel: UILabel!
     
     // MARK: - VARIABLES
     var viewModel = HomeViewModel()
@@ -27,6 +28,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupObserver()
         locationManager.delegate = self
         LocationManager.shared.locationManager.delegate = self
         locationManagerSingleton.startUpdatingLocation()
@@ -44,6 +46,15 @@ class HomeViewController: UIViewController {
         registerTableViewCell()
     }
     
+    private func setupObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(fetchData), name: .dismissAddRestaurant, object: nil)
+    }
+    
+    
+    @objc func fetchData() {
+        self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
+        self.fetchHomeData()
+    }
 //    private func setupLocationManager() {
 //        // Ask for Authorisation from the User.
 //        self.locationManager.requestAlwaysAuthorization()
@@ -81,10 +92,15 @@ class HomeViewController: UIViewController {
                 self.categories = Array(Set(categories))
                 if self.restaurant.isEmpty {
                     self.tableView.isHidden = true
+                    self.noRestaurantLabel.isHidden = true
                 } else {
+                    self.noRestaurantLabel.isHidden = true
                     self.tableView.isHidden = false
                     self.tableView.reloadData()
                 }
+            } else {
+                self.tableView.isHidden = true
+                self.noRestaurantLabel.isHidden = true
             }
             UIApplication.stopActivityIndicator()
         }

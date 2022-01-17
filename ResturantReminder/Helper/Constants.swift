@@ -24,3 +24,7 @@ struct Constants {
         static let CategoryCollectionViewCell = "CategoryCollectionViewCell"
     }
 }
+
+extension Notification.Name {
+    static let dismissAddRestaurant = Notification.Name("dismissAddRestaurant")
+}

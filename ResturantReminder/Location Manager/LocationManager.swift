@@ -39,12 +39,12 @@ class LocationManager: NSObject {
             if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
                 // Register the region.
                 let maxDistance = self.locationManager.maximumRegionMonitoringDistance
-                let max: CLLocationDistance = 200
+                let max: CLLocationDistance = 5
                 let region = CLCircularRegion(center: center,
                                               radius: max, identifier: identifier)
                 region.notifyOnEntry = true
                 region.notifyOnExit = true
-                Snackbar.showSnackbar(message: "Reminder added for \(restaurantName).", duration: .middle)
+                Snackbar.showSnackbar(message: "Reminder added for \(restaurantName).", duration: .short)
                 self.locationManager.startMonitoring(for: region)
             }
         }

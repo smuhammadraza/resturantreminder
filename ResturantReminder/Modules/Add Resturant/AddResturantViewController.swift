@@ -62,7 +62,8 @@ class AddResturantViewController: UIViewController {
     //MARK: - VALIDATION
     
     private func validateFields() -> Bool {
-        return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && !((self.textFieldPhone.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
+        return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
+//        return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && !((self.textFieldPhone.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
     }
     
     private func validatePhoneNumber() -> Bool {
@@ -258,15 +259,23 @@ class AddResturantViewController: UIViewController {
     @IBAction func didTapSaveButton(_ sender: UIButton) {
         UIApplication.startActivityIndicator(with: "")
         if validateFields() {
-            if !(validatePhoneNumber()) {
+            if self.categories.isEmpty {
                 UIApplication.stopActivityIndicator()
-                Snackbar.showSnackbar(message: "Phone Number is not valid", duration: .middle)
-            } else if !(validateWebsite()) {
-                UIApplication.stopActivityIndicator()
-                Snackbar.showSnackbar(message: "Website is not valid", duration: .middle)
-            } else {
+                Snackbar.showSnackbar(message: "Categories must not be empty.", duration: .middle)
+            }
+//            if !(validatePhoneNumber()) {
+//                UIApplication.stopActivityIndicator()
+//                Snackbar.showSnackbar(message: "Phone Number is not valid", duration: .middle)
+//            }
+//            if !(validateWebsite()) {
+//                UIApplication.stopActivityIndicator()
+//                Snackbar.showSnackbar(message: "Website is not valid", duration: .middle)
+//            }
+            else {
                 self.addRestaurant()
                 UIApplication.stopActivityIndicator()
+                NotificationCenter.default.post(name: .dismissAddRestaurant, object: nil)
+
                 self.dismiss(animated: true, completion: nil)
             }
         } else {
@@ -315,7 +324,11 @@ class AddResturantViewController: UIViewController {
         let photo = SharePhoto(image: image, userGenerated: true)
         let content = SharePhotoContent()
         content.photos = [photo]
-        content.contentURL = URL(string: self.textFieldURL.text ?? "www.restaurantreminder.com")!
+        if !(self.textFieldURL.text?.isEmpty ?? true) {
+            content.contentURL = URL(string: self.textFieldURL.text ?? "www.restaurantreminder.com")!
+        } else {
+            content.contentURL = URL(string: "www.restaurantreminder.com")!
+        }
         let showDialog = ShareDialog(fromViewController: self, content: content, delegate: self)
         
         if (showDialog.canShow) {
