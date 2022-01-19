@@ -242,4 +242,34 @@ class FirebaseManager {
             }
         }
     }
+    
+    func addDidEnterRegion(latitude: String, longitude: String, identifier: String) {
+        ref = Database.database().reference()
+        let dict: [String: Any] = [
+            "latitude": latitude,
+            "longitude": longitude,
+            "identifier": identifier
+        ]
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("DidEnterRegion").updateChildValues(dict)
+    }
+    
+    func addDidExitRegion(latitude: String, longitude: String, identifier: String) {
+        ref = Database.database().reference()
+        let dict: [String: Any] = [
+            "latitude": latitude,
+            "longitude": longitude,
+            "identifier": identifier
+        ]
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("DidExitRegion").updateChildValues(dict)
+    }
+    
+    func fetchNotificationTimer(completion: @escaping (Int?) -> Void) {
+        ref = Database.database().reference()
+        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("notification").observeSingleEvent(of: .value) { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let notification = value?["notification"] as? Int
+            completion(notification)
+        }
+    }
+    
 }

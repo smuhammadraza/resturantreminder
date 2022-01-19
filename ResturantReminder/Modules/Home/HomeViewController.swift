@@ -22,6 +22,11 @@ class HomeViewController: UIViewController {
     var categories = [String]()
     let locationManagerSingleton = LocationManager.shared
     let locationManager = LocationManager.shared.locationManager
+    var notificationTimer: Int = -1 {
+        didSet {
+            NotificationManager.shared.triggerRandomNotification(identifier: "123", timeInterval: notificationTimer)
+        }
+    }
     
     // MARK: - VIEW LIFE CYCLE
 
@@ -103,6 +108,13 @@ class HomeViewController: UIViewController {
                 self.noRestaurantLabel.isHidden = true
             }
             UIApplication.stopActivityIndicator()
+        }
+    }
+    
+    private func fetchNotificationTimer() {
+        FirebaseManager.shared.fetchNotificationTimer { (value) in
+            guard let value = value else { return }
+            self.notificationTimer = value
         }
     }
     

@@ -89,11 +89,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
     }
+    
 }
 
 extension AppDelegate: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        FirebaseManager.shared.addDidEnterRegion(latitude: "\(manager.location?.coordinate.latitude ?? 0.0)", longitude: "\(manager.location?.coordinate.longitude ?? 0.0)", identifier: region.identifier)
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
             NotificationManager.shared.triggerReminderNotification(identifier: identifier)
@@ -101,6 +103,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        FirebaseManager.shared.addDidExitRegion(latitude: "\(manager.location?.coordinate.latitude ?? 0.0)", longitude: "\(manager.location?.coordinate.longitude ?? 0.0)", identifier: region.identifier)
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
             NotificationManager.shared.triggerReminderNotification(identifier: identifier)
