@@ -44,7 +44,7 @@ class AddResturantViewController: UIViewController {
     var addressDropDown = DropDown()
     var categoriesDropDown = DropDown()
     var selectedRestaurantCoordinates: CLLocationCoordinate2D?
-
+    var selectedRestaurantImage: UIImage?
     var scannerVC = ScannerViewController.initFromStoryboard(name: Constants.Storyboards.main)
     var selectedRestaurantRef = ""
     
@@ -357,7 +357,7 @@ class AddResturantViewController: UIViewController {
                    !(self.selectedRestaurantRef.isEmpty) {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
-                    self.shareInFacebook(image: UIImage(named: "KFC")!)
+                    self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "KFC")!)
                     //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                 }
             } else {
@@ -368,7 +368,7 @@ class AddResturantViewController: UIViewController {
     }
     
     private func fetchSelectedPlaceDetails() {
-        self.viewModel.fetchPlaceDetails(with: self.selectedPlaceID) { [weak self] (coordinates, error) in
+        self.viewModel.fetchPlaceDetails(with: self.selectedPlaceID) { [weak self] (coordinates, image, error) in
             guard let self = self else { return }
             if let error = error {
                 print(error.localizedDescription)
@@ -376,6 +376,7 @@ class AddResturantViewController: UIViewController {
             }
             if let coordinates = coordinates {
                 self.selectedRestaurantCoordinates = coordinates
+                self.selectedRestaurantImage = image
 //                self.startRegionMonitoring(with: coordinates)
             }
         }

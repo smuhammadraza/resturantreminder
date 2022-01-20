@@ -44,20 +44,32 @@ class AddResturantViewModel {
         }
     }
     
-    func fetchPlaceDetails(with placeID: String, completion: @escaping (CLLocationCoordinate2D? , Error?) -> Void) {
+    func fetchPlaceDetails(with placeID: String, completion: @escaping (CLLocationCoordinate2D?, UIImage? , Error?) -> Void) {
         // Specify the place data types to return.
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.coordinate.rawValue) |
                                                     UInt(GMSPlaceField.coordinate.rawValue))
-
+        var image: UIImage?
         placesClient.fetchPlace(fromPlaceID: placeID, placeFields: fields, sessionToken: nil, callback: {
           (place: GMSPlace?, error: Error?) in
           if let error = error {
             print("\(error.localizedDescription)")
-            completion(nil, error)
+            completion(nil, nil, error)
             return
           }
           if let place = place {
-            completion(place.coordinate, nil)
+            let photoMetadata: GMSPlacePhotoMetadata = place.photos![0]
+            self.placesClient.loadPlacePhoto(photoMetadata) { (photo, error) in
+                if let error = error {
+                    // TODO: Handle the error.
+                    print("Error loading photo metadata: \(error.localizedDescription)")
+                    return
+                } else {
+                    // Display the first image and its attributions.
+                    completion(place.coordinate, image, nil)
+                    print(photoMetadata.attributions)
+                }
+            }
+            completion(place.coordinate, nil, nil)
             print("The selected place is: \(place.name)")
           }
         })
