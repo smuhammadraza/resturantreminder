@@ -18,18 +18,21 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var locationManager = CLLocationManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        LocationManager.shared.locationManager.delegate = self
+        self.locationManager.delegate = self
         if let launchOptions = launchOptions {
             if launchOptions.keys.contains(.location) {
 //                LocationManager.shared.locationManager.delegate = self
             }
         }
+        application.applicationIconBadgeNumber = 0
         
         FirebaseApp.configure()
         setupNotification(application)
+        setupLocationPermissions()
         GMSPlacesClient.provideAPIKey(Constants.googleAPIKey)
         IQKeyboardManager.shared.enable = true
         DropDown.startListeningToKeyboard()
@@ -79,6 +82,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            }
            application.registerForRemoteNotifications()
        }
+    
+    private func setupLocationPermissions() {
+        locationManager = CLLocationManager()
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            startUpdatingLocation()
+        }
+    }
+    
+    func startUpdatingLocation() {
+        locationManager.startUpdatingLocation()
+        locationManager.startMonitoringVisits()
+        locationManager.startMonitoringSignificantLocationChanges()
+        self.locationManager.delegate = self
+    }
+    
+    func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String) {
+        
+        var restaurantName = ""
+        FirebaseManager.shared.fetchSingleResturant(userID: UserModel.shared.userID, resturantID: identifier) { (singleRestaurant, _) in
+            if let singleRestaurant = singleRestaurant {
+                restaurantName = singleRestaurant.name ?? "Restaurant"
+            }
+            // Make sure the devices supports region monitoring.
+            if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
+                // Register the region.
+//                let maxDistance = self.locationManager.maximumRegionMonitoringDistance
+                let max: CLLocationDistance = 200
+                let region = CLCircularRegion(center: center,
+                                              radius: max, identifier: identifier)
+                region.notifyOnEntry = true
+                region.notifyOnExit = true
+                Snackbar.showSnackbar(message: "Reminder added for \(restaurantName).", duration: .short)
+                self.locationManager.startMonitoring(for: region)
+            }
+        }
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -94,6 +141,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 }
 
 extension AppDelegate: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print(locations.first?.coordinate)
+//        Snackbar.showSnackbar(message: "Your location is \(locations.first?.coordinate)", duration: .short)
+    }
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         FirebaseManager.shared.addDidEnterRegion(latitude: "\(manager.location?.coordinate.latitude ?? 0.0)", longitude: "\(manager.location?.coordinate.longitude ?? 0.0)", identifier: region.identifier)
@@ -109,5 +161,18 @@ extension AppDelegate: CLLocationManagerDelegate {
             let identifier = region.identifier
             NotificationManager.shared.triggerReminderNotification(identifier: identifier)
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        Snackbar.showSnackbar(message: "Monitoring didFailWithError: \(error.localizedDescription)", duration: .short)
+        print("Monitoring didFailWithError: \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        Snackbar.showSnackbar(message: "Monitoring monitoringDidFailFor: \(error.localizedDescription)", duration: .short)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        Snackbar.showSnackbar(message: "Monitoring successfully started!", duration: .short)
     }
 }

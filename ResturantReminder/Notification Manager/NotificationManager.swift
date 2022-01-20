@@ -30,6 +30,8 @@ class NotificationManager {
             let request = UNNotificationRequest(identifier: "reminder" + "\(Date().timeIntervalSince1970)", content: content, trigger: trigger)
 
             UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//            Snackbar.showSnackbar(message: "notification will be shown for \(restaurantName)", duration: .middle)
+
         }
         
     }

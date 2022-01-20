@@ -382,7 +382,9 @@ class AddResturantViewController: UIViewController {
     }
 
     private func startRegionMonitoring(with coordinates: CLLocationCoordinate2D) {
-        LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedRestaurantRef)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.monitorRegionAtLocation(center: coordinates, identifier: self.selectedRestaurantRef)
+//        LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedRestaurantRef)
     }
 }
 
