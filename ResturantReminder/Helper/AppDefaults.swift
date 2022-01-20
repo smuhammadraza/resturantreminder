@@ -58,6 +58,17 @@ class AppDefaults {
         }
     }
     
+    public static var distanceForRegionMonitoring: Double {
+        get{
+            let distanceForRegionMonitoring = AppDefaults.defaults.double(forKey: "distanceForRegionMonitoring")
+            return distanceForRegionMonitoring
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "distanceForRegionMonitoring")
+            
+        }
+    }
+    
     //MARK: - USER OBJECT
     
     public static var currentUser: UserModel? {

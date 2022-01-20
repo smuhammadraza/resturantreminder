@@ -132,6 +132,7 @@ class SettingsViewController: UIViewController {
         self.alertWhenNearBy = data.alertWhenNearBy
         self.numberOfNotifications = data.numberOfNotifications
         self.distance = data.distance
+        AppDefaults.distanceForRegionMonitoring = self.distance ?? 0.124 //self.distance is in miles
         self.facebookSwitch.isOn = data.postToFacebook ?? false
         self.twitterSwitch.isOn = data.postToTwitter ?? false
         self.alertNearBySwitch.isOn = data.alertWhenNearBy ?? false

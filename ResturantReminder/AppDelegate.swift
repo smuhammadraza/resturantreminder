@@ -116,9 +116,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
                 // Register the region.
 //                let maxDistance = self.locationManager.maximumRegionMonitoringDistance
-                let max: CLLocationDistance = 200
+                var max: CLLocationDistance?
+                if AppDefaults.distanceForRegionMonitoring != 0.0 {
+                    max = AppDefaults.distanceForRegionMonitoring * 1609
+                }
                 let region = CLCircularRegion(center: center,
-                                              radius: max, identifier: identifier)
+                                              radius: max ?? 200, identifier: identifier)
                 region.notifyOnEntry = true
                 region.notifyOnExit = true
                 Snackbar.showSnackbar(message: "Reminder added for \(restaurantName).", duration: .short)
