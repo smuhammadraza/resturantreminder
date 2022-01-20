@@ -266,9 +266,8 @@ class FirebaseManager {
     func fetchNotificationTimer(completion: @escaping (Int?) -> Void) {
         ref = Database.database().reference()
         ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("notification").observeSingleEvent(of: .value) { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            let notification = value?["notification"] as? Int
-            completion(notification)
+            let value = snapshot.value as? Int
+            completion(value)
         }
     }
     

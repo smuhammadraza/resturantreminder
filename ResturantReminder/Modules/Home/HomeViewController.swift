@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
         self.fetchHomeData()
+        self.fetchNotificationTimer()
     }
     // MARK: - SETUP VIEW
     
