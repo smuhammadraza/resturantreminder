@@ -50,6 +50,10 @@ class RestaurantDetailViewController: UIViewController {
     
     @IBAction func deleteRestaurantTapped(_ sender: UIButton) {
         FirebaseManager.shared.deleteRestaurant(userID: AppDefaults.currentUser?.userID ?? "", restaurantID: self.restaurantModel?.restaurantID ?? "")
+//        if let coordinates = self.restaurantModel?.coordinates {
+//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//            appDelegate.stopRegionMonitoring(center: coordinates, identifier: self.restaurantModel?.restaurantID ?? "")
+//        }
 //        NotificationManager.shared.triggerRandomNotification(identifier: "123", timeInterval: 10)
         self.navigationController?.popViewController(animated: true)
     }

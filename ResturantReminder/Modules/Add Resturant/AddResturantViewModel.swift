@@ -8,6 +8,7 @@
 import Foundation
 import GooglePlaces
 import FirebaseDatabase
+import FirebaseStorage
 
 class AddResturantViewModel {
     
@@ -47,8 +48,8 @@ class AddResturantViewModel {
     func fetchPlaceDetails(with placeID: String, completion: @escaping (CLLocationCoordinate2D?, UIImage? , Error?) -> Void) {
         // Specify the place data types to return.
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.coordinate.rawValue) |
-                                                    UInt(GMSPlaceField.coordinate.rawValue))
-        var image: UIImage?
+                                                    UInt(GMSPlaceField.coordinate.rawValue) | UInt(GMSPlaceField.photos.rawValue))
+//        var image: UIImage?
         placesClient.fetchPlace(fromPlaceID: placeID, placeFields: fields, sessionToken: nil, callback: {
           (place: GMSPlace?, error: Error?) in
           if let error = error {
@@ -57,20 +58,24 @@ class AddResturantViewModel {
             return
           }
           if let place = place {
-            let photoMetadata: GMSPlacePhotoMetadata = place.photos![0]
-            self.placesClient.loadPlacePhoto(photoMetadata) { (photo, error) in
-                if let error = error {
-                    // TODO: Handle the error.
-                    print("Error loading photo metadata: \(error.localizedDescription)")
-                    return
-                } else {
-                    // Display the first image and its attributions.
-                    completion(place.coordinate, image, nil)
-                    print(photoMetadata.attributions)
+            if let photo = place.photos?[0] {
+                let photoMetadata: GMSPlacePhotoMetadata = photo
+                self.placesClient.loadPlacePhoto(photoMetadata) { (photo, error) in
+                    if let error = error {
+                        // TODO: Handle the error.
+                        print("Error loading photo metadata: \(error.localizedDescription)")
+                        return
+                    } else {
+                        // Display the first image and its attributions.
+                        completion(place.coordinate, photo, nil)
+                        print(photoMetadata.attributions)
+                    }
                 }
+                completion(place.coordinate, nil, nil)
+                print("The selected place is: \(place.name ?? "")")
+            } else {
+                completion(place.coordinate, nil, nil)
             }
-            completion(place.coordinate, nil, nil)
-            print("The selected place is: \(place.name)")
           }
         })
     }
@@ -78,4 +83,18 @@ class AddResturantViewModel {
     func getScannedData(url: String, completion: @escaping ((String?, String?) -> Void)) {
         networkObj.getScannedData(url: url, completion: completion)
     }
+    
+    func uploadRestaurantImage(image: UIImage, restaurantID: String) {
+        let imageRef = Storage.storage().reference().child("\(AppDefaults.currentUser?.userID ?? "")/\(restaurantID)/image.jpg")
+        StorageService.uploadImage(image, at: imageRef) { (downloadURL) in
+            guard let downloadURL = downloadURL else {
+                return
+            }
+            let urlString = downloadURL.absoluteString
+            print("image url: \(urlString)")
+        }
+    }
+    
+    
+    
 }

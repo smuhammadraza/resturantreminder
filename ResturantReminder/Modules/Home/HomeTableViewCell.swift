@@ -17,6 +17,7 @@ class HomeTableViewCell: UITableViewCell {
     // MARK: - VARIABLES
     var restaurantModel = [ResturantModel]()
     var restaurantDetailTapped: ((ResturantModel) -> Void)?
+    var restaurantImages = [String: UIImage]()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -41,12 +42,13 @@ class HomeTableViewCell: UITableViewCell {
     
     // MARK: - CONFIGURE CELL
     
-    func configureCell(model: [ResturantModel], categoryTitle: String, categorySubTitle: String) {
+    func configureCell(model: [ResturantModel], categoryTitle: String, categorySubTitle: String, restaurantImages: [String: UIImage]) {
         self.restaurantModel = model
         self.labelTitle.isHidden = categoryTitle.isEmpty
         self.labelTitle.text = categoryTitle
         self.labelSubtitle.isHidden = categorySubTitle.isEmpty
         self.labelSubtitle.text = categorySubTitle
+        self.restaurantImages = restaurantImages
         self.collectionView.reloadData()
     }
     
@@ -68,7 +70,18 @@ extension HomeTableViewCell: UICollectionViewDataSource {
                                                             for: indexPath) as? HomeCollectionViewCell else {
             fatalError("Cannot find collection view cell")
         }
-        cell.configure(model: self.restaurantModel[indexPath.row])
+        if self.restaurantImages.count > 0 {
+            self.restaurantImages.forEach { (key, value) in
+                if key == self.restaurantModel[indexPath.row].restaurantID {
+                    cell.configure(model: self.restaurantModel[indexPath.row], image: value)
+                } else {
+                    cell.configure(model: self.restaurantModel[indexPath.row])
+                }
+            }
+        }
+        else {
+            cell.configure(model: self.restaurantModel[indexPath.row])
+        }
         return cell
     }
     

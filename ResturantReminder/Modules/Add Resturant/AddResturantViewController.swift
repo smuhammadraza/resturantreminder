@@ -358,6 +358,7 @@ class AddResturantViewController: UIViewController {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
                     self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "KFC")!)
+                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "KFC")!, restaurantID: self.selectedRestaurantRef)
                     //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                 }
             } else {
@@ -382,11 +383,14 @@ class AddResturantViewController: UIViewController {
         }
     }
 
+    //MARK: - REGION MONITORING
     private func startRegionMonitoring(with coordinates: CLLocationCoordinate2D) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.monitorRegionAtLocation(center: coordinates, identifier: self.selectedRestaurantRef)
 //        LocationManager.shared.monitorRegionAtLocation(center: coordinates, identifier: self.selectedRestaurantRef)
     }
+    
+    
 }
 
 extension AddResturantViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseStorage
 
 class MyProfileViewModel {
     
@@ -26,4 +27,21 @@ class MyProfileViewModel {
         UserModel.shared.fullName = name
         AppDefaults.currentUser?.fullName = name
     }
+    
+    func uploadProfilePicture(image: UIImage) {
+        let imageRef = Storage.storage().reference().child("\(AppDefaults.currentUser?.userID ?? "")/profilePic/image.jpg")
+        StorageService.uploadImage(image, at: imageRef) { (downloadURL) in
+            guard let downloadURL = downloadURL else {
+                return
+            }
+            let urlString = downloadURL.absoluteString
+            print("image url: \(urlString)")
+        }
+    }
+    
+    func fetchProfilePicture(completion: @escaping ((UIImage?, String?)-> Void)) {
+        let imageRef = Storage.storage().reference().child("\(AppDefaults.currentUser?.userID ?? "")/profilePic/image.jpg")
+        StorageService.getImage(reference: imageRef, completion: completion)
+    }
+    
 }

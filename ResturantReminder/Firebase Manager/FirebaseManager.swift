@@ -43,7 +43,7 @@ class FirebaseManager {
         self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories]), withCompletionBlock: completion)
     }
     
-    func fetchResturant(userID: String, resturantID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
+    func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
         ref = Database.database().reference()
 //        ref.child("users").child(userID).child("restaurants")
         ref.child("users").child(userID).child("restaurants").observeSingleEvent(of: .value) { snapshot in

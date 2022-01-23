@@ -32,6 +32,7 @@ class MyProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupValues()
+        self.fetchProfilePic()
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,6 +63,18 @@ class MyProfileViewController: UIViewController {
     
     private func setupTextView() {
         aboutYourselfTextView.delegate = self
+    }
+    
+    private func fetchProfilePic() {
+        self.imageProfilePicture.image = UIImage(named: "NoProfilePic")
+        self.viewModel.fetchProfilePicture { (image, error) in
+            if let image = image {
+                self.imageProfilePicture.image = image
+            }
+            if let error = error {
+//                Snackbar.showSnackbar(message: error, duration: .short)
+            }
+        }
     }
     
     // MARK: - BUTTON ACTIONS
@@ -190,6 +203,7 @@ extension MyProfileViewController: UIImagePickerControllerDelegate, UINavigation
         picker.dismiss(animated: true) {
             if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 self.imageProfilePicture.image = pickedImage
+                self.viewModel.uploadProfilePicture(image: pickedImage)
             }
         }
     }

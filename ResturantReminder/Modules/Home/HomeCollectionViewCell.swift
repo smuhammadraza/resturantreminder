@@ -25,7 +25,11 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - CONFIGURE CELL
-    func configure(model: ResturantModel) {
+    func configure(model: ResturantModel, image: UIImage? = nil) {
+        self.titleImageView.image = UIImage(named: "NoImagePlaceholder")
+        if let image = image {
+            titleImageView.image = image
+        }
         titleLabel.text = model.name
         if model.notes != "" {
             subTitleLabel.text = model.notes

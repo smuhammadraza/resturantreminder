@@ -129,6 +129,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func stopRegionMonitoring(center: CLLocationCoordinate2D, identifier: String) {
+        var max: CLLocationDistance?
+        if AppDefaults.distanceForRegionMonitoring != 0.0 {
+            max = AppDefaults.distanceForRegionMonitoring * 1609
+        }
+        let region = CLCircularRegion(center: center,
+                                      radius: max ?? 200, identifier: identifier)
+        region.notifyOnEntry = true
+        region.notifyOnExit = true
+        self.locationManager.stopMonitoring(for: region)
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -162,7 +174,7 @@ extension AppDelegate: CLLocationManagerDelegate {
         FirebaseManager.shared.addDidExitRegion(latitude: "\(manager.location?.coordinate.latitude ?? 0.0)", longitude: "\(manager.location?.coordinate.longitude ?? 0.0)", identifier: region.identifier)
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
-            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+//            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
         }
     }
     

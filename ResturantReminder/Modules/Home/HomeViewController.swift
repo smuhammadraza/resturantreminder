@@ -27,6 +27,7 @@ class HomeViewController: UIViewController {
             NotificationManager.shared.triggerRandomNotification(identifier: "123", timeInterval: notificationTimer)
         }
     }
+    var restaurantImages = [String: UIImage]()
     
     // MARK: - VIEW LIFE CYCLE
 
@@ -44,6 +45,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
         self.fetchHomeData()
+        
         self.fetchNotificationTimer()
     }
     // MARK: - SETUP VIEW
@@ -61,20 +63,6 @@ class HomeViewController: UIViewController {
         self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
         self.fetchHomeData()
     }
-//    private func setupLocationManager() {
-//        // Ask for Authorisation from the User.
-//        self.locationManager.requestAlwaysAuthorization()
-//
-//        // For use in foreground
-//        self.locationManager.requestWhenInUseAuthorization()
-//
-//        if CLLocationManager.locationServicesEnabled() {
-//            locationManager.delegate = self
-//            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-//            locationManager.startUpdatingLocation()
-//            startUpdatingLocation()
-//        }
-//    }
     
     private func registerTableViewCell() {
         self.tableView.register(UINib.init(nibName: Constants.CellIdentifiers.HomeTableViewCell,
@@ -86,7 +74,7 @@ class HomeViewController: UIViewController {
     
     private func fetchHomeData() {
         UIApplication.startActivityIndicator(with: "")
-        viewModel.fetchResturant(userID: AppDefaults.currentUser?.userID ?? "", resturantID: "") { restaurantModel, error in
+        viewModel.fetchResturant(userID: AppDefaults.currentUser?.userID ?? "") { restaurantModel, error in
             print(error)
             print(restaurantModel)
             if let restaurantModel = restaurantModel {
@@ -102,6 +90,7 @@ class HomeViewController: UIViewController {
                 } else {
                     self.noRestaurantLabel.isHidden = true
                     self.tableView.isHidden = false
+                    self.fetchRestaurantImages()
                     self.tableView.reloadData()
                 }
             } else {
@@ -109,6 +98,18 @@ class HomeViewController: UIViewController {
                 self.noRestaurantLabel.isHidden = true
             }
             UIApplication.stopActivityIndicator()
+        }
+    }
+    
+    private func fetchRestaurantImages() {
+        for restaurant in self.restaurant {
+            if let restaurantID = restaurant.restaurantID {
+                self.viewModel.fetchRestaurantImage(restaurantID: restaurantID) { (image, _) in
+                    if let image = image {
+                        self.restaurantImages[restaurantID] = image
+                    }
+                }
+            }
         }
     }
     
@@ -146,21 +147,36 @@ extension HomeViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         if indexPath.row == 0 {
-            cell.configureCell(model: self.restaurant, categoryTitle: "All Restaurants", categorySubTitle: "")
+            cell.configureCell(model: self.restaurant, categoryTitle: "All Restaurants", categorySubTitle: "", restaurantImages: self.restaurantImages)
         } else if indexPath.row == 1 && !(self.categories.isEmpty){
             var restaurantModel = [ResturantModel]()
+            var restaurantImage = [String: UIImage]()
+
             self.restaurant.forEach { object in
                 if object.categories?.contains(self.categories[indexPath.row]) ?? false {
                     restaurantModel.append(object)
-                    cell.configureCell(model: restaurantModel, categoryTitle: "All Categories", categorySubTitle: self.categories[indexPath.row])
+                    self.restaurantImages.forEach { (key, value) in
+                        if object.restaurantID == key {
+                            restaurantImage[key] = value
+                        }
+                    }
+//                    if object.restaurantID ==
+                    cell.configureCell(model: restaurantModel, categoryTitle: "All Categories", categorySubTitle: self.categories[indexPath.row], restaurantImages: restaurantImage)
                 }
             }
         } else if !(self.categories.isEmpty) && indexPath.row < self.categories.count {
             var restaurantModel = [ResturantModel]()
+            var restaurantImage = [String: UIImage]()
+
             self.restaurant.forEach { object in
                 if object.categories?.contains(self.categories[indexPath.row]) ?? false {
                     restaurantModel.append(object)
-                    cell.configureCell(model: restaurantModel, categoryTitle: "", categorySubTitle: self.categories[indexPath.row])
+                    self.restaurantImages.forEach { (key, value) in
+                        if object.restaurantID == key {
+                            restaurantImage[key] = value
+                        }
+                    }
+                    cell.configureCell(model: restaurantModel, categoryTitle: "", categorySubTitle: self.categories[indexPath.row], restaurantImages: restaurantImage)
                 }
             }
         }
