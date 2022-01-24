@@ -1485,8 +1485,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7oz-rU-FMS" userLabel="ContentView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="435.33333333333331"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="bHn-ec-W1G">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="bHn-ec-W1G">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="294.33333333333331"/>
+                                        <color key="backgroundColor" white="0.67000000000000004" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ne3-wZ-uWk">
                                         <rect key="frame" x="25" y="302.33333333333331" width="364" height="125"/>
@@ -1642,7 +1643,7 @@
         <image name="MyProfileEdit" width="10" height="10"/>
         <image name="MyProfileEditBg" width="24" height="24"/>
         <image name="MyProfileSettings" width="24" height="24"/>
-        <image name="NoImagePlaceholder" width="832.5" height="1024"/>
+        <image name="NoImagePlaceholder" width="256" height="256"/>
         <image name="NoProfilePic" width="430" height="376"/>
         <image name="SettingsBackButton" width="33" height="33"/>
         <image name="SettingsCategoryAdd" width="16" height="16"/>

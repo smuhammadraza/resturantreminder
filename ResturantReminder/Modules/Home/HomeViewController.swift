@@ -149,7 +149,8 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.categories.count
+        let count = self.categories.count + 1
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -158,35 +159,20 @@ extension HomeViewController: UITableViewDataSource {
         }
         if indexPath.row == 0 {
             cell.configureCell(model: self.restaurant, categoryTitle: "All Restaurants", categorySubTitle: "", restaurantImages: self.restaurantImages)
-        } else if indexPath.row == 1 && !(self.categories.isEmpty){
+        }
+        else {
             var restaurantModel = [ResturantModel]()
             var restaurantImage = [String: UIImage]()
 
             self.restaurant.forEach { object in
-                if object.categories?.contains(self.categories[indexPath.row]) ?? false {
+                if object.categories?.contains(self.categories[indexPath.row - 1]) ?? false {
                     restaurantModel.append(object)
                     self.restaurantImages.forEach { (key, value) in
                         if object.restaurantID == key {
                             restaurantImage[key] = value
                         }
                     }
-//                    if object.restaurantID ==
-                    cell.configureCell(model: restaurantModel, categoryTitle: "All Categories", categorySubTitle: self.categories[indexPath.row], restaurantImages: restaurantImage)
-                }
-            }
-        } else if !(self.categories.isEmpty) && indexPath.row < self.categories.count {
-            var restaurantModel = [ResturantModel]()
-            var restaurantImage = [String: UIImage]()
-
-            self.restaurant.forEach { object in
-                if object.categories?.contains(self.categories[indexPath.row]) ?? false {
-                    restaurantModel.append(object)
-                    self.restaurantImages.forEach { (key, value) in
-                        if object.restaurantID == key {
-                            restaurantImage[key] = value
-                        }
-                    }
-                    cell.configureCell(model: restaurantModel, categoryTitle: "", categorySubTitle: self.categories[indexPath.row], restaurantImages: restaurantImage)
+                    cell.configureCell(model: restaurantModel, categoryTitle: indexPath.row == 1 ? "All Categories" : "", categorySubTitle: self.categories[indexPath.row - 1], restaurantImages: restaurantImage)
                 }
             }
         }
