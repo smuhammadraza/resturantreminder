@@ -357,8 +357,8 @@ class AddResturantViewController: UIViewController {
                    !(self.selectedRestaurantRef.isEmpty) {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
-                    self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "KFC")!)
-                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "KFC")!, restaurantID: self.selectedRestaurantRef)
+                    self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImagePlaceholder")!)
+                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImagePlaceholder")!, restaurantID: self.selectedRestaurantRef)
                     //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                 }
             } else {

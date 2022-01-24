@@ -18,6 +18,7 @@ class RestaurantDetailViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     var restaurantModel: ResturantModel?
+    var titleImage : UIImage?
     
     //MARK: - LIFECYCLE
     
@@ -29,6 +30,9 @@ class RestaurantDetailViewController: UIViewController {
     //MARK: - UPDATE VIEWS
     
     private func updateViews() {
+        if let titleImage = titleImage {
+            self.restaurantTitleImage.image = titleImage
+        }
         if let restaurantModel = restaurantModel {
 //            self.restaurantTitleImage.image = UIImage()
             self.titleLabel.text = restaurantModel.name ?? "N/A"

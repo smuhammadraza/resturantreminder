@@ -66,13 +66,28 @@ class MyProfileViewController: UIViewController {
     }
     
     private func fetchProfilePic() {
-        self.imageProfilePicture.image = UIImage(named: "NoProfilePic")
-        self.viewModel.fetchProfilePicture { (image, error) in
-            if let image = image {
-                self.imageProfilePicture.image = image
+        guard let image = self.imageProfilePicture.image,
+              let imageData = image.pngData(),
+              let placeHolderImageData = UIImage(named: "NoProfilePic")?.pngData()
+        else { return }
+        if imageData == placeHolderImageData {
+            let activityIndicator = UIActivityIndicatorView()
+            if #available(iOS 13.0, *) {
+                activityIndicator.style = .large
+            } else {
+                activityIndicator.style = .gray
+                // Fallback on earlier versions
             }
-            if let error = error {
-//                Snackbar.showSnackbar(message: error, duration: .short)
+            activityIndicator.tintColor = .orange
+            activityIndicator.frame = CGRect(x: self.imageProfilePicture.frame.width/2, y: self.imageProfilePicture.frame.height/2, width: 50, height: 50)
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.startAnimating()
+            self.imageProfilePicture.addSubview(activityIndicator)
+            self.viewModel.fetchProfilePicture { (image, _) in
+                if let image = image {
+                    self.imageProfilePicture.image = image
+                }
+                activityIndicator.stopAnimating()
             }
         }
     }

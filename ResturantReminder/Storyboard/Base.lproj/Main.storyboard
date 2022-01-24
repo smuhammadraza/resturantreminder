@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n5b-u9-LUU">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -862,7 +862,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="KMb-rs-vqf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="KMb-rs-vqf">
                                 <rect key="frame" x="133.33333333333331" y="88.333333333333314" width="147.33333333333331" height="147"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="KMb-rs-vqf" secondAttribute="height" multiplier="1:1" id="Mh5-Zi-6eC"/>
@@ -1485,7 +1485,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7oz-rU-FMS" userLabel="ContentView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="435.33333333333331"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KFC" translatesAutoresizingMaskIntoConstraints="NO" id="bHn-ec-W1G">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="bHn-ec-W1G">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="294.33333333333331"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ne3-wZ-uWk">
@@ -1638,12 +1638,12 @@
         <image name="HomeTabProfile" width="24" height="24"/>
         <image name="HomeTabProfileSelected" width="48" height="48"/>
         <image name="HomeTabSelected" width="20" height="22"/>
-        <image name="KFC" width="292" height="144"/>
         <image name="MuteNotification" width="36" height="36"/>
-        <image name="MyProfile" width="128" height="128"/>
         <image name="MyProfileEdit" width="10" height="10"/>
         <image name="MyProfileEditBg" width="24" height="24"/>
         <image name="MyProfileSettings" width="24" height="24"/>
+        <image name="NoImagePlaceholder" width="832.5" height="1024"/>
+        <image name="NoProfilePic" width="430" height="376"/>
         <image name="SettingsBackButton" width="33" height="33"/>
         <image name="SettingsCategoryAdd" width="16" height="16"/>
         <image name="SettingsCategoryCrossButton" width="7" height="7"/>

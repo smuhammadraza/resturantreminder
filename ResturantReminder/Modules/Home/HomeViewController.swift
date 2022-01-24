@@ -87,30 +87,40 @@ class HomeViewController: UIViewController {
                 if self.restaurant.isEmpty {
                     self.tableView.isHidden = true
                     self.noRestaurantLabel.isHidden = true
+                    UIApplication.stopActivityIndicator()
                 } else {
                     self.noRestaurantLabel.isHidden = true
                     self.tableView.isHidden = false
                     self.fetchRestaurantImages()
-                    self.tableView.reloadData()
                 }
             } else {
                 self.tableView.isHidden = true
                 self.noRestaurantLabel.isHidden = true
+                UIApplication.stopActivityIndicator()
             }
-            UIApplication.stopActivityIndicator()
         }
     }
     
     private func fetchRestaurantImages() {
+        
+        let group = DispatchGroup()
+        
         for restaurant in self.restaurant {
+            group.enter()
             if let restaurantID = restaurant.restaurantID {
                 self.viewModel.fetchRestaurantImage(restaurantID: restaurantID) { (image, _) in
                     if let image = image {
                         self.restaurantImages[restaurantID] = image
                     }
+                    group.leave()
                 }
             }
         }
+        let work = DispatchWorkItem.init { [weak self] in
+            UIApplication.stopActivityIndicator()
+            self?.tableView.reloadData()
+        }
+        group.notify(queue: .main, work: work)
     }
     
     private func fetchNotificationTimer() {
@@ -180,10 +190,11 @@ extension HomeViewController: UITableViewDataSource {
                 }
             }
         }
-        cell.restaurantDetailTapped = { [weak self] model in
+        cell.restaurantDetailTapped = { [weak self] model, image in
             guard let self = self else { return }
             let vc = RestaurantDetailViewController.initFromStoryboard(name: Constants.Storyboards.main)
             vc.restaurantModel = model
+            vc.titleImage = image
             self.navigationController?.pushViewController(vc, animated: true)
         }
         return cell

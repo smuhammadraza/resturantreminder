@@ -16,7 +16,7 @@ class HomeTableViewCell: UITableViewCell {
     
     // MARK: - VARIABLES
     var restaurantModel = [ResturantModel]()
-    var restaurantDetailTapped: ((ResturantModel) -> Void)?
+    var restaurantDetailTapped: ((ResturantModel, UIImage?) -> Void)?
     var restaurantImages = [String: UIImage]()
     
     // MARK: - VIEW LIFE CYCLE
@@ -86,7 +86,7 @@ extension HomeTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.restaurantDetailTapped?(self.restaurantModel[indexPath.item])
+        self.restaurantDetailTapped?(self.restaurantModel[indexPath.item], self.restaurantImages[self.restaurantModel[indexPath.item].restaurantID ?? ""])
     }
     
 }
