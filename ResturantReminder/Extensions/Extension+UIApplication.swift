@@ -7,30 +7,31 @@
 //
 
 import Foundation
-//import JGProgressHUD
+import JGProgressHUD
 //import SideMenuSwift
-//
-//extension UIApplication {
-//    class func startActivityIndicator(with message: String? = "") {
-//        DispatchQueue.main.async {
-//            let hud = JGProgressHUD(style: .dark)
-//            hud.tag = 999
-//            hud.textLabel.text = message
-//            if let view = UIApplication.shared.keyWindow {
-//                hud.show(in: view)
-//            }
-//        }
-//    }
-//    
-//    class func stopActivityIndicator() {
-//        DispatchQueue.main.async {
-//            if let hud = UIApplication.shared.keyWindow?.viewWithTag(999) as? JGProgressHUD {
-//                hud.dismiss()
-//                hud.removeFromSuperview()
-//            }
-//        }
-//    }
-//    
+
+extension UIApplication {
+    class func startActivityIndicator(with message: String? = "") {
+
+        DispatchQueue.main.async {
+            let hud = JGProgressHUD(style: .dark)
+            hud.tag = 999
+            hud.textLabel.text = message
+            if let view = UIApplication.shared.keyWindow {
+                hud.show(in: view)
+            }
+        }
+    }
+    
+    class func stopActivityIndicator() {
+        DispatchQueue.main.async {
+            if let hud = UIApplication.shared.keyWindow?.viewWithTag(999) as? JGProgressHUD {
+                hud.dismiss()
+                hud.removeFromSuperview()
+            }
+        }
+    }
+    
 //    class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController {
 //        if let sideMenu = controller as? SideMenuController {
 //            return topViewController(controller: sideMenu.contentViewController)
@@ -48,7 +49,7 @@ import Foundation
 //        }
 //        return controller!
 //    }
-//}
+}
 
 
 extension Encodable {

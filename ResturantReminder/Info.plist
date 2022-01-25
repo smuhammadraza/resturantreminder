@@ -18,10 +18,64 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb972204663505214</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.768858567965-8mqmbbep3m10kiqo11sg5tl1ov41qa3d</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>972204663505214</string>
+	<key>FacebookClientToken</key>
+	<string>771da0e48dc9624a25a6f5569334ef6b</string>
+	<key>FacebookDisplayName</key>
+	<string>Resturant Reminder</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbauth2</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>restaurantreminder.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Enable Camera to take photos of Prescription.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow location to have full experience of the app</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow location to have full experience of the app</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Enable microphone to enable voice call.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Enable to allow to save images of prescription to Photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Enable Photo Library to upload photos of Prescription.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -45,7 +99,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 </dict>
 </plist>

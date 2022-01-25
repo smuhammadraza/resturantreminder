@@ -15,7 +15,9 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - VARIABLES
-    
+    var restaurantModel = [ResturantModel]()
+    var restaurantDetailTapped: ((ResturantModel, UIImage?) -> Void)?
+    var restaurantImages = [String: UIImage]()
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -40,26 +42,15 @@ class HomeTableViewCell: UITableViewCell {
     
     // MARK: - CONFIGURE CELL
     
-    func configureCell(indexRow: Int) {
-        switch indexRow {
-        case 0:
-            self.labelTitle.text = "All Resturants"
-            self.labelSubtitle.text = ""
-            self.labelTitle.isHidden = false
-            self.labelSubtitle.isHidden = true
-        case 1:
-            self.labelTitle.text = "Categories"
-            self.labelSubtitle.text = "Breakfast"
-            self.labelTitle.isHidden = false
-            self.labelSubtitle.isHidden = false
-        default:
-            self.labelTitle.text = ""
-            self.labelSubtitle.text = "Burgers"
-            self.labelTitle.isHidden = true
-            self.labelSubtitle.isHidden = false
-        }
+    func configureCell(model: [ResturantModel], categoryTitle: String, categorySubTitle: String, restaurantImages: [String: UIImage]) {
+        self.restaurantModel = model
+        self.labelTitle.isHidden = categoryTitle.isEmpty
+        self.labelTitle.text = categoryTitle
+        self.labelSubtitle.isHidden = categorySubTitle.isEmpty
+        self.labelSubtitle.text = categorySubTitle
+        self.restaurantImages = restaurantImages
+        self.collectionView.reloadData()
     }
-    
     
 }
 
@@ -71,7 +62,7 @@ extension HomeTableViewCell: UICollectionViewDelegate, UICollectionViewDelegateF
 
 extension HomeTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.restaurantModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,8 +70,23 @@ extension HomeTableViewCell: UICollectionViewDataSource {
                                                             for: indexPath) as? HomeCollectionViewCell else {
             fatalError("Cannot find collection view cell")
         }
+        if self.restaurantImages.count > 0 {
+            self.restaurantImages.forEach { (key, value) in
+                if key == self.restaurantModel[indexPath.row].restaurantID {
+                    cell.configure(model: self.restaurantModel[indexPath.row], image: value)
+                } else {
+                    cell.configure(model: self.restaurantModel[indexPath.row])
+                }
+            }
+        }
+        else {
+            cell.configure(model: self.restaurantModel[indexPath.row])
+        }
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.restaurantDetailTapped?(self.restaurantModel[indexPath.item], self.restaurantImages[self.restaurantModel[indexPath.item].restaurantID ?? ""])
+    }
     
 }
