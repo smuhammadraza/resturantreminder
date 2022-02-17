@@ -63,13 +63,17 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9f6-pj-odr">
-                                            <rect key="frame" x="40" y="25" width="374" height="48"/>
+                                            <rect key="frame" x="40" y="19" width="374" height="60"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeProfile" translatesAutoresizingMaskIntoConstraints="NO" id="ogD-zs-Pid">
-                                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="ogD-zs-Pid">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="ddK-39-2oJ"/>
+                                                        <constraint firstAttribute="width" secondItem="ogD-zs-Pid" secondAttribute="height" multiplier="1:1" id="sbX-km-Pd4"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey, Dennis" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="z7v-TI-Lay">
-                                                    <rect key="frame" x="68" y="0.0" width="306" height="48"/>
+                                                    <rect key="frame" x="80" y="0.0" width="294" height="60"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="26"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -77,7 +81,7 @@
                                             </subviews>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpt-4a-PpK">
-                                            <rect key="frame" x="28" y="13" width="72" height="72"/>
+                                            <rect key="frame" x="25" y="4" width="90" height="90"/>
                                             <connections>
                                                 <action selector="profileButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ETl-F3-Jfp"/>
                                             </connections>
@@ -627,13 +631,30 @@
                                             <constraint firstItem="z5X-LR-sKt" firstAttribute="height" secondItem="KSN-Jz-FC3" secondAttribute="height" multiplier="0.08" id="nEs-c8-Sdf"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GG6-rR-AJe">
+                                        <rect key="frame" x="34" y="238.66666666666666" width="330" height="1"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="sj1-gI-eNG"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJt-Kv-KdY">
+                                        <rect key="frame" x="123.33333333333334" y="526.33333333333337" width="167.00000000000003" height="1"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="NC0-zq-8VM"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="yrj-MI-0w3" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" constant="30" id="585-TT-SsD"/>
+                                    <constraint firstItem="c6z-q6-sZC" firstAttribute="bottom" secondItem="GG6-rR-AJe" secondAttribute="top" id="84d-nm-7f7"/>
                                     <constraint firstAttribute="bottom" secondItem="9nl-EK-u2j" secondAttribute="bottom" id="9qM-Hj-8ap"/>
                                     <constraint firstItem="DWp-vS-sEJ" firstAttribute="bottom" secondItem="KSN-Jz-FC3" secondAttribute="bottom" id="AL5-1l-ba7"/>
+                                    <constraint firstItem="GG6-rR-AJe" firstAttribute="trailing" secondItem="c6z-q6-sZC" secondAttribute="trailing" id="AxP-u9-ULr"/>
                                     <constraint firstAttribute="trailing" secondItem="9nl-EK-u2j" secondAttribute="trailing" id="Dpk-tx-LVr"/>
+                                    <constraint firstItem="pJt-Kv-KdY" firstAttribute="trailing" secondItem="NJH-oD-Gpu" secondAttribute="trailing" id="GJF-0G-hki"/>
                                     <constraint firstItem="9nl-EK-u2j" firstAttribute="top" secondItem="bXU-jq-rE3" secondAttribute="top" id="KrG-UT-ejG"/>
                                     <constraint firstItem="CpL-sJ-Jwk" firstAttribute="top" secondItem="yrj-MI-0w3" secondAttribute="bottom" constant="4.9999999999999716" id="LNL-fF-ARx"/>
                                     <constraint firstItem="DWp-vS-sEJ" firstAttribute="top" secondItem="KSN-Jz-FC3" secondAttribute="top" id="MEs-Wx-Hdb"/>
@@ -641,14 +662,17 @@
                                     <constraint firstItem="fft-ar-AOO" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" constant="20" id="Pl5-ET-IIh"/>
                                     <constraint firstAttribute="bottom" secondItem="KSN-Jz-FC3" secondAttribute="bottom" constant="20" id="RRH-mw-WNe"/>
                                     <constraint firstItem="DWp-vS-sEJ" firstAttribute="trailing" secondItem="KSN-Jz-FC3" secondAttribute="trailing" id="W8B-iW-Kh2"/>
+                                    <constraint firstItem="GG6-rR-AJe" firstAttribute="leading" secondItem="c6z-q6-sZC" secondAttribute="leading" id="XJJ-br-mZ7"/>
                                     <constraint firstItem="yrj-MI-0w3" firstAttribute="top" secondItem="fft-ar-AOO" secondAttribute="bottom" constant="8" symbolic="YES" id="XwD-F7-HGb"/>
                                     <constraint firstAttribute="trailing" secondItem="yrj-MI-0w3" secondAttribute="trailing" constant="30" id="Xy7-hg-n5K"/>
                                     <constraint firstItem="fft-ar-AOO" firstAttribute="top" secondItem="bXU-jq-rE3" secondAttribute="top" constant="20" id="ZST-Ep-Nu3"/>
                                     <constraint firstItem="KSN-Jz-FC3" firstAttribute="top" secondItem="yrj-MI-0w3" secondAttribute="bottom" constant="5" id="d37-0Q-E4z"/>
                                     <constraint firstAttribute="trailing" secondItem="KSN-Jz-FC3" secondAttribute="trailing" constant="10" id="fEy-SB-FE2"/>
+                                    <constraint firstItem="NJH-oD-Gpu" firstAttribute="bottom" secondItem="pJt-Kv-KdY" secondAttribute="top" id="gxa-Vm-5Sk"/>
                                     <constraint firstItem="9nl-EK-u2j" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" id="kAd-35-soT"/>
                                     <constraint firstItem="DWp-vS-sEJ" firstAttribute="leading" secondItem="KSN-Jz-FC3" secondAttribute="leading" id="kgW-Rv-I8Y"/>
                                     <constraint firstItem="KSN-Jz-FC3" firstAttribute="leading" secondItem="bXU-jq-rE3" secondAttribute="leading" constant="10" id="lNS-NB-yoq"/>
+                                    <constraint firstItem="pJt-Kv-KdY" firstAttribute="leading" secondItem="NJH-oD-Gpu" secondAttribute="leading" id="zPn-hy-5aE"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -666,6 +690,8 @@
                     </view>
                     <connections>
                         <outlet property="addRestaurantView" destination="KSN-Jz-FC3" id="UEU-h7-deT"/>
+                        <outlet property="addressAnchor" destination="GG6-rR-AJe" id="uvE-Uw-8f5"/>
+                        <outlet property="categoriesAnchor" destination="pJt-Kv-KdY" id="fc0-hv-7vM"/>
                         <outlet property="collectionView" destination="u2x-FX-g4d" id="oh0-ay-EmZ"/>
                         <outlet property="containerView" destination="CpL-sJ-Jwk" id="ToX-LG-MZ7"/>
                         <outlet property="previousCategoriesButton" destination="NJH-oD-Gpu" id="Yme-kA-fkV"/>
@@ -1618,11 +1644,6 @@
             <point key="canvasLocation" x="1593" y="-1243"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="5xE-fn-Hdd">
-            <size key="intrinsicContentSize" width="137" height="25"/>
-        </designable>
-    </designables>
     <resources>
         <image name=" " width="128" height="128"/>
         <image name="AddResturantBg" width="414" height="846"/>

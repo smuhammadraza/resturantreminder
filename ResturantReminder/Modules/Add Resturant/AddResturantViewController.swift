@@ -21,6 +21,8 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var textFieldName: UITextField!
     @IBOutlet weak var textFieldAddress: UITextField!
+    @IBOutlet weak var addressAnchor: UIView!
+    @IBOutlet weak var categoriesAnchor: UIView!
     @IBOutlet weak var textFieldPhone: UITextField!
     @IBOutlet weak var textFieldURL: UITextField!
     @IBOutlet weak var textFieldNotes: UITextField!
@@ -90,7 +92,7 @@ class AddResturantViewController: UIViewController {
     
     private func setupAddressDropDown() {
         addressDropDown.direction = .bottom
-        addressDropDown.anchorView = textFieldAddress
+        addressDropDown.anchorView = addressAnchor
         self.selectionClousureAddress = { [weak self] (index: Int, item: String) in
             guard let `self` = self else { return }
             self.addressDropDown.hide()
@@ -104,7 +106,7 @@ class AddResturantViewController: UIViewController {
     
     private func setupCategoriesDropDown() {
         categoriesDropDown.direction = .bottom
-        categoriesDropDown.anchorView = self.previousCategoriesButton
+        categoriesDropDown.anchorView = categoriesAnchor
         self.selectionClousureCategories = { [weak self] (index: Int, item: String) in
             guard let `self` = self else { return }
             self.categoriesDropDown.hide()

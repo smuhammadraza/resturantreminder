@@ -48,6 +48,11 @@ class HomeViewController: UIViewController {
         
         self.fetchNotificationTimer()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.userProfileImageView.cornerRadius = userProfileImageView.height/2
+    }
     // MARK: - SETUP VIEW
     
     private func setupView() {
@@ -97,6 +102,12 @@ class HomeViewController: UIViewController {
                 self.tableView.isHidden = true
                 self.noRestaurantLabel.isHidden = true
                 UIApplication.stopActivityIndicator()
+            }
+        }
+        
+        self.viewModel.fetchProfilePicture { (image, _) in
+            if let image = image {
+                self.userProfileImageView.image = image
             }
         }
     }
