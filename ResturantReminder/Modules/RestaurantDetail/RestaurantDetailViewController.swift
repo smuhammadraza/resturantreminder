@@ -53,13 +53,19 @@ class RestaurantDetailViewController: UIViewController {
     }
     
     @IBAction func deleteRestaurantTapped(_ sender: UIButton) {
-        FirebaseManager.shared.deleteRestaurant(userID: AppDefaults.currentUser?.userID ?? "", restaurantID: self.restaurantModel?.restaurantID ?? "")
+        
+        Alert.showConfirmationAlert(vc: self, title: "Delete Restaurant", message: "Are you sure you want to delete?", alertPrederredStyle: .alert, actionTitle1: "Yes", actionTitle2: "No", actionStyle1: .destructive, actionStyle2: .cancel) { _ in
+            FirebaseManager.shared.deleteRestaurant(userID: AppDefaults.currentUser?.userID ?? "", restaurantID: self.restaurantModel?.restaurantID ?? "")
+            
+            self.navigationController?.popViewController(animated: true)
+        } handler2: { _ in
+            //do nothing
+        }
 //        if let coordinates = self.restaurantModel?.coordinates {
 //            let appDelegate = UIApplication.shared.delegate as! AppDelegate
 //            appDelegate.stopRegionMonitoring(center: coordinates, identifier: self.restaurantModel?.restaurantID ?? "")
 //        }
 //        NotificationManager.shared.triggerRandomNotification(identifier: "123", timeInterval: 10)
-        self.navigationController?.popViewController(animated: true)
     }
 }
 

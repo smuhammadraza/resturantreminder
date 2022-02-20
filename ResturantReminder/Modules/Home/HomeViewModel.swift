@@ -25,4 +25,16 @@ class HomeViewModel {
         let imageRef = Storage.storage().reference().child("\(AppDefaults.currentUser?.userID ?? "")/profilePic/image.jpg")
         StorageService.getImage(reference: imageRef, completion: completion)
     }
+    
+    func fetchSettingsData(completion: @escaping ((SettingsModel?, String?)->Void)) {
+        FirebaseManager.shared.fetchSettingsData(completion: completion)
+    }
+    
+    func addTodayNotification(userID: String, date: String, count: Int) {
+        FirebaseManager.shared.addTodayNotification(userID: userID, date: date, count: count)
+    }
+    
+    func fetchTodayNotification(userID: String, date: String, completion: @escaping ([String : Int]?) -> Void) {
+        FirebaseManager.shared.fetchTodayNotifications(userID: userID, date: date, completion: completion)
+    }
 }

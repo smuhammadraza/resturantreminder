@@ -166,7 +166,10 @@ extension AppDelegate: CLLocationManagerDelegate {
         FirebaseManager.shared.addDidEnterRegion(latitude: "\(manager.location?.coordinate.latitude ?? 0.0)", longitude: "\(manager.location?.coordinate.longitude ?? 0.0)", identifier: region.identifier)
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
-            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+            if AppDefaults.numberOfNotifications > 0 {
+                NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+                AppDefaults.numberOfNotifications -= 1
+            }
         }
     }
 

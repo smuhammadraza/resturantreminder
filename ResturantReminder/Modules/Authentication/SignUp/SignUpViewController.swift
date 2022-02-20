@@ -41,7 +41,13 @@ class SignUpViewController: UIViewController {
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .middle)
                 return
             } else {
-                FirebaseManager.shared.addUser(userID: authResult?.user.uid ?? "", fullName: self.textFieldFullName.text ?? "", postalCode: self.textFieldPostalCode.text ?? "", email: self.textFieldEmail.text ?? "")
+                
+                self.viewModel.addUser(userID: authResult?.user.uid ?? "", fullName: self.textFieldFullName.text ?? "", postalCode: self.textFieldPostalCode.text ?? "", email: self.textFieldEmail.text ?? "")
+                
+                self.viewModel.addSettingsData(userID: authResult?.user.uid ?? "", postToFacebook: false, postToTwitter: false, alertWhenNearBy: true, distance: 1.0, numberOfNotifications: 2) { _, ref in
+                    print(ref)
+                }
+
                 UIApplication.stopActivityIndicator()
                 self.dismiss(animated: true, completion: nil)
             }

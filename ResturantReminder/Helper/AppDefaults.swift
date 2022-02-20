@@ -96,4 +96,15 @@ class AppDefaults {
         }
     }
     
+    public static var numberOfNotifications: Int {
+        get{
+            let numberOfNotifications = AppDefaults.defaults.integer(forKey: "numberOfNotifications")
+            return numberOfNotifications
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "numberOfNotifications")
+            
+        }
+    }
+    
 }

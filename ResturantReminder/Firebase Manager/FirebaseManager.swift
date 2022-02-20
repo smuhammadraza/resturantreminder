@@ -43,6 +43,24 @@ class FirebaseManager {
         self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories]), withCompletionBlock: completion)
     }
     
+    func addTodayNotification(userID: String, date: String, count: Int) {
+        ref = Database.database().reference()
+        let numberOfNotif = [date: count]
+        self.ref.child("users").child(userID).child("numberOfNotifications").updateChildValues(numberOfNotif)
+    }
+    
+    func fetchTodayNotifications(userID: String, date: String, completion: @escaping (([String: Int]?) -> Void)) {
+        ref = Database.database().reference()
+        ref.child("users").child(userID).child("numberOfNotifications").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? [String: Int] else {
+                completion(nil)
+                return
+            }
+            completion(value)
+        }
+    }
+
+    
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
         ref = Database.database().reference()
 //        ref.child("users").child(userID).child("restaurants")
@@ -168,7 +186,7 @@ class FirebaseManager {
         }
     }
     
-    func addSettingsData(postToFacebook: Bool?, postToTwitter: Bool?, alertWhenNearBy: Bool?, distance: Double?, numberOfNotifications: Int?, completion: @escaping ((Error?, DatabaseReference) -> Void)) {
+    func addSettingsData(userID: String? = nil, postToFacebook: Bool?, postToTwitter: Bool?, alertWhenNearBy: Bool?, distance: Double?, numberOfNotifications: Int?, completion: @escaping ((Error?, DatabaseReference) -> Void)) {
         ref = Database.database().reference()
         var dict = [String: Any]()
         if let postToFacebook = postToFacebook {
@@ -186,7 +204,7 @@ class FirebaseManager {
         if let numberOfNotifications = numberOfNotifications {
             dict["numberOfNotifications"] = numberOfNotifications
         }
-        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("settings").updateChildValues(dict) { error, ref in
+        ref.child("users").child(userID ?? AppDefaults.currentUser?.userID ?? "").child("settings").updateChildValues(dict) { error, ref in
             print(ref)
             completion(error, ref)
         }
@@ -261,14 +279,6 @@ class FirebaseManager {
             "identifier": identifier
         ]
         ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("DidExitRegion").updateChildValues(dict)
-    }
-    
-    func fetchNotificationTimer(completion: @escaping (Int?) -> Void) {
-        ref = Database.database().reference()
-        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("notification").observeSingleEvent(of: .value) { (snapshot) in
-            let value = snapshot.value as? Int
-            completion(value)
-        }
     }
     
 }

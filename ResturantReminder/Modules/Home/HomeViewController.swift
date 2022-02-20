@@ -16,6 +16,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var noRestaurantLabel: UILabel!
     
+    @IBOutlet weak var placeHolderUserNameLabel: UILabel!
+    @IBOutlet weak var placeHolderUserProfileImageView: UIImageView!
+
+    
     // MARK: - VARIABLES
     var viewModel = HomeViewModel()
     var restaurant = [ResturantModel]()
@@ -28,6 +32,7 @@ class HomeViewController: UIViewController {
         }
     }
     var restaurantImages = [String: UIImage]()
+    var numberOfNotifications = 0
     
     // MARK: - VIEW LIFE CYCLE
 
@@ -43,10 +48,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
-        self.fetchHomeData()
-        
-        self.fetchNotificationTimer()
+        self.fetchData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,8 +67,35 @@ class HomeViewController: UIViewController {
     
     
     @objc func fetchData() {
-        self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
         self.fetchHomeData()
+        self.fetchTodayNotifications()
+    }
+    
+    private func fetchTodayNotifications() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YYYY"
+        viewModel.fetchTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date())) { notificationDict in
+            if let notificationDict = notificationDict {
+                AppDefaults.numberOfNotifications = notificationDict[dateFormatter.string(from: Date())] ?? 0
+            } else {
+                self.fetchNotificationsCountFromSettings { count in
+                    self.viewModel.addTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date()), count: count)
+                }
+            }
+        }
+    }
+    
+    private func fetchNotificationsCountFromSettings(completion: @escaping ((Int) -> Void)) {
+        
+        viewModel.fetchSettingsData { data, errorMsg in
+            if let errorMsg = errorMsg {
+                Snackbar.showSnackbar(message: errorMsg, duration: .middle)
+            }
+            if let data = data {
+                guard let numberOfNotif = data.numberOfNotifications else { return }
+                completion(numberOfNotif)
+            }
+        }
     }
     
     private func registerTableViewCell() {
@@ -103,11 +132,14 @@ class HomeViewController: UIViewController {
                 self.noRestaurantLabel.isHidden = true
                 UIApplication.stopActivityIndicator()
             }
+            self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
+            self.placeHolderUserNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
         }
         
         self.viewModel.fetchProfilePicture { (image, _) in
             if let image = image {
                 self.userProfileImageView.image = image
+                self.placeHolderUserProfileImageView.image = image
             }
         }
     }
@@ -132,13 +164,6 @@ class HomeViewController: UIViewController {
             self?.tableView.reloadData()
         }
         group.notify(queue: .main, work: work)
-    }
-    
-    private func fetchNotificationTimer() {
-        FirebaseManager.shared.fetchNotificationTimer { (value) in
-            guard let value = value else { return }
-            self.notificationTimer = value
-        }
     }
     
     // MARK: - BUTTON ACTIONS
