@@ -148,6 +148,9 @@ class SettingsViewController: UIViewController {
             }
             print(ref)
         }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-YYYY"
+        viewModel.addTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date()), count: numberOfNotifications ?? 0)
     }
     
     // MARK: - BUTTON ACTIONS

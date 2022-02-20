@@ -169,6 +169,9 @@ extension AppDelegate: CLLocationManagerDelegate {
             if AppDefaults.numberOfNotifications > 0 {
                 NotificationManager.shared.triggerReminderNotification(identifier: identifier)
                 AppDefaults.numberOfNotifications -= 1
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd-MM-YYYY"
+                self.addTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date()), count: AppDefaults.numberOfNotifications)
             }
         }
     }
@@ -193,4 +196,13 @@ extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         Snackbar.showSnackbar(message: "Monitoring successfully started!", duration: .short)
     }
+}
+
+extension AppDelegate {
+    
+    //MARK: - UPDATE NOTIFICATIONS PER DAY COUNT
+    func addTodayNotification(userID: String, date: String, count: Int) {
+        FirebaseManager.shared.addTodayNotification(userID: userID, date: date, count: count)
+    }
+    
 }

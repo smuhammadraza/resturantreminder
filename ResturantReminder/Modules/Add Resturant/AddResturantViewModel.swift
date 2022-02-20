@@ -31,7 +31,9 @@ class AddResturantViewModel {
     
     func fetchPlacesAutoComplete(text: String, completion: @escaping (([GMSAutocompletePrediction]?, String?)-> Void)) {
         let placeFields: GMSPlaceField = [.name, .formattedAddress]
-        placesClient.findAutocompletePredictions(fromQuery: text, filter: nil, sessionToken: nil) { (placesPrediction, error) in
+        let filter = GMSAutocompleteFilter()
+        filter.countries = ["us", "pk"]
+        placesClient.findAutocompletePredictions(fromQuery: text, filter: filter, sessionToken: nil) { (placesPrediction, error) in
 //            guard let self = self else { return }
             
             guard let place = placesPrediction else {

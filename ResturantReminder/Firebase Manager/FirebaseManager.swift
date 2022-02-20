@@ -60,6 +60,10 @@ class FirebaseManager {
         }
     }
 
+    func removeNumOfNotifications(userID: String) {
+        ref = Database.database().reference()
+        ref.child("users").child(userID).child("numberOfNotifications").removeValue()
+    }
     
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
         ref = Database.database().reference()

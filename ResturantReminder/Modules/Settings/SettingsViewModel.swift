@@ -31,4 +31,9 @@ class SettingsViewModel {
     func fetchSettingsData(completion: @escaping ((SettingsModel?, String?)->Void)) {
         FirebaseManager.shared.fetchSettingsData(completion: completion)
     }
+    
+    func addTodayNotification(userID: String, date: String, count: Int) {
+        FirebaseManager.shared.addTodayNotification(userID: userID, date: date, count: count)
+    }
+
 }

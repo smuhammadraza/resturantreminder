@@ -73,19 +73,26 @@ class HomeViewController: UIViewController {
     
     private func fetchTodayNotifications() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/YYYY"
+        dateFormatter.dateFormat = "dd-MM-YYYY"
         viewModel.fetchTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date())) { notificationDict in
             if let notificationDict = notificationDict {
-                AppDefaults.numberOfNotifications = notificationDict[dateFormatter.string(from: Date())] ?? 0
-            } else {
-                self.fetchNotificationsCountFromSettings { count in
-                    self.viewModel.addTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date()), count: count)
+                if let todayNotifCount = notificationDict[dateFormatter.string(from: Date())] {
+                    AppDefaults.numberOfNotifications = todayNotifCount
+                } else {
+                    self.viewModel.removeNumOfNotifications(userID: AppDefaults.currentUser?.userID ?? "")
+                    self.fetchNotificationsCountFromSettings()
                 }
+            } else {
+                self.fetchNotificationsCountFromSettings()
+                
             }
         }
     }
     
-    private func fetchNotificationsCountFromSettings(completion: @escaping ((Int) -> Void)) {
+    private func fetchNotificationsCountFromSettings() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-YYYY"
         
         viewModel.fetchSettingsData { data, errorMsg in
             if let errorMsg = errorMsg {
@@ -93,10 +100,12 @@ class HomeViewController: UIViewController {
             }
             if let data = data {
                 guard let numberOfNotif = data.numberOfNotifications else { return }
-                completion(numberOfNotif)
+                self.viewModel.addTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date()), count: numberOfNotif)
+                //                completion(numberOfNotif)
             }
         }
     }
+    
     
     private func registerTableViewCell() {
         self.tableView.register(UINib.init(nibName: Constants.CellIdentifiers.HomeTableViewCell,
