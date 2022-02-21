@@ -47,7 +47,11 @@ class SignUpViewController: UIViewController {
                 self.viewModel.addSettingsData(userID: authResult?.user.uid ?? "", postToFacebook: false, postToTwitter: false, alertWhenNearBy: true, distance: 1.0, numberOfNotifications: 2) { _, ref in
                     print(ref)
                 }
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd-MM-YYYY"
 
+                AppDefaults.numberOfNotifications = 2
+                AppDefaults.todayDate = dateFormatter.string(from: Date())
                 UIApplication.stopActivityIndicator()
                 self.dismiss(animated: true, completion: nil)
             }

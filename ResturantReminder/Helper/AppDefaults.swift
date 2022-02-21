@@ -107,4 +107,14 @@ class AppDefaults {
         }
     }
     
+    public static var todayDate: String {
+        get{
+            let date = AppDefaults.defaults.string(forKey: "todayDate")
+            return date ?? ""
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "todayDate")
+            
+        }
+    }
 }

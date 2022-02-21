@@ -43,28 +43,6 @@ class FirebaseManager {
         self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories]), withCompletionBlock: completion)
     }
     
-    func addTodayNotification(userID: String, date: String, count: Int) {
-        ref = Database.database().reference()
-        let numberOfNotif = [date: count]
-        self.ref.child("users").child(userID).child("numberOfNotifications").updateChildValues(numberOfNotif)
-    }
-    
-    func fetchTodayNotifications(userID: String, date: String, completion: @escaping (([String: Int]?) -> Void)) {
-        ref = Database.database().reference()
-        ref.child("users").child(userID).child("numberOfNotifications").observeSingleEvent(of: .value) { snapshot in
-            guard let value = snapshot.value as? [String: Int] else {
-                completion(nil)
-                return
-            }
-            completion(value)
-        }
-    }
-
-    func removeNumOfNotifications(userID: String) {
-        ref = Database.database().reference()
-        ref.child("users").child(userID).child("numberOfNotifications").removeValue()
-    }
-    
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
         ref = Database.database().reference()
 //        ref.child("users").child(userID).child("restaurants")

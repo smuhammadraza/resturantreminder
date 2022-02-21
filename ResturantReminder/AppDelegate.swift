@@ -166,12 +166,18 @@ extension AppDelegate: CLLocationManagerDelegate {
         FirebaseManager.shared.addDidEnterRegion(latitude: "\(manager.location?.coordinate.latitude ?? 0.0)", longitude: "\(manager.location?.coordinate.longitude ?? 0.0)", identifier: region.identifier)
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
-            if AppDefaults.numberOfNotifications > 0 {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd-MM-YYYY"
+            
+            if AppDefaults.todayDate == dateFormatter.string(from: Date()) {
+                if AppDefaults.numberOfNotifications > 0 {
+                    NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+                    AppDefaults.numberOfNotifications -= 1
+                }
+            } else {
+                AppDefaults.todayDate = dateFormatter.string(from: Date())
+                self.fetchNotificationsCountFromSettings()
                 NotificationManager.shared.triggerReminderNotification(identifier: identifier)
-                AppDefaults.numberOfNotifications -= 1
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd-MM-YYYY"
-                self.addTodayNotification(userID: AppDefaults.currentUser?.userID ?? "", date: dateFormatter.string(from: Date()), count: AppDefaults.numberOfNotifications)
             }
         }
     }
@@ -200,9 +206,22 @@ extension AppDelegate: CLLocationManagerDelegate {
 
 extension AppDelegate {
     
-    //MARK: - UPDATE NOTIFICATIONS PER DAY COUNT
-    func addTodayNotification(userID: String, date: String, count: Int) {
-        FirebaseManager.shared.addTodayNotification(userID: userID, date: date, count: count)
+    //MARK: - UPDATE NOTIFICATIONS COUNT
+    
+    private func fetchNotificationsCountFromSettings() {
+        self.fetchSettingsData { data, errorMsg in
+            if let errorMsg = errorMsg {
+                Snackbar.showSnackbar(message: errorMsg, duration: .middle)
+            }
+            if let data = data {
+                guard let numberOfNotif = data.numberOfNotifications else { return }
+                AppDefaults.numberOfNotifications = numberOfNotif
+            }
+        }
     }
     
+    func fetchSettingsData(completion: @escaping ((SettingsModel?, String?)->Void)) {
+        FirebaseManager.shared.fetchSettingsData(completion: completion)
+    }
+
 }
