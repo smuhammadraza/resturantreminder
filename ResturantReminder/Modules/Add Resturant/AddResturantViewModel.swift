@@ -19,6 +19,10 @@ class AddResturantViewModel {
         FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, completion: completion)
     }
     
+    func editResturant(restaurantID: String, userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
+        FirebaseManager.shared.editRestaurant(restaurantID: restaurantID, userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, completion: completion)
+    }
+    
     func addCategories(categories: [String]) {
         FirebaseManager.shared.addCategories(categories: categories)
     }
@@ -32,7 +36,7 @@ class AddResturantViewModel {
     func fetchPlacesAutoComplete(text: String, completion: @escaping (([GMSAutocompletePrediction]?, String?)-> Void)) {
         let placeFields: GMSPlaceField = [.name, .formattedAddress]
         let filter = GMSAutocompleteFilter()
-        filter.countries = ["us", "pk"]
+        filter.countries = ["us"]
         placesClient.findAutocompletePredictions(fromQuery: text, filter: filter, sessionToken: nil) { (placesPrediction, error) in
 //            guard let self = self else { return }
             

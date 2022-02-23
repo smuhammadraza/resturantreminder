@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Presentr
 
 class RestaurantDetailViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class RestaurantDetailViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     
     var restaurantModel: ResturantModel?
     var titleImage : UIImage?
@@ -38,7 +40,8 @@ class RestaurantDetailViewController: UIViewController {
             self.titleLabel.text = restaurantModel.name ?? "N/A"
             self.distanceLabel.text = "N/A"
             self.ratingLabel.text = "\(restaurantModel.rating ?? 0.0)"
-            self.descriptionLabel.text = restaurantModel.notes ?? "N/A"
+            self.descriptionLabel.text = restaurantModel.notes ?? ""
+            self.addressLabel.text = restaurantModel.address ?? ""
         }
     }
     
@@ -48,8 +51,19 @@ class RestaurantDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func silentNotificationTapped(_ sender: UIButton) {
-        
+    @IBAction func editRestaurantTapped(_ sender: UIButton) {
+        let vc = AddResturantViewController.initFromStoryboard(name: Constants.Storyboards.main)
+        let presenter = Presentr.init(presentationType: .custom(width: .fluid(percentage: 1.0),
+                                                                height: .fluid(percentage: 0.9), center: .center))
+        presenter.dismissOnSwipe = true
+        presenter.roundCorners = true
+        presenter.cornerRadius = 10.0
+        vc.titleText = "Edit Restaurant"
+        vc.restaurantModel = self.restaurantModel
+        vc.navigateBackToHome = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        customPresentViewController(presenter, viewController: vc, animated: true)
     }
     
     @IBAction func deleteRestaurantTapped(_ sender: UIButton) {

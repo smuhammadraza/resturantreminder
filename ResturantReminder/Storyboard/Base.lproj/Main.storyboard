@@ -161,8 +161,8 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddResturantBg" translatesAutoresizingMaskIntoConstraints="NO" id="9nl-EK-u2j">
                                         <rect key="frame" x="0.0" y="0.0" width="398" height="736"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Resturant" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fft-ar-AOO">
-                                        <rect key="frame" x="20" y="19.999999999999996" width="172" height="35.666666666666657"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Restaurant" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fft-ar-AOO">
+                                        <rect key="frame" x="20" y="19.999999999999996" width="186.33333333333334" height="35.666666666666657"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="26"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -710,6 +710,7 @@
                         <outlet property="textFieldNotes" destination="tRr-fh-9tx" id="hKL-II-Ovb"/>
                         <outlet property="textFieldPhone" destination="PLl-fV-iw6" id="NNZ-5K-e13"/>
                         <outlet property="textFieldURL" destination="aeU-LL-6qz" id="aVU-It-Tlo"/>
+                        <outlet property="titleLabel" destination="fft-ar-AOO" id="Eyl-LL-zWO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jH1-Bu-bXC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1516,25 +1517,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7oz-rU-FMS" userLabel="ContentView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="457.33333333333331"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="473.33333333333331"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="bHn-ec-W1G">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImage-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="bHn-ec-W1G">
                                         <rect key="frame" x="15" y="15" width="384" height="294.33333333333331"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
+                                                <real key="value" value="0.25"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="10"/>
+                                                <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ne3-wZ-uWk">
-                                        <rect key="frame" x="40" y="324.33333333333331" width="349" height="125"/>
+                                        <rect key="frame" x="40" y="324.33333333333331" width="349" height="141"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J98-Zr-zr4">
                                                 <rect key="frame" x="0.0" y="0.0" width="27.666666666666668" height="19.333333333333332"/>
@@ -1575,9 +1576,15 @@
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBX-w0-fFg">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBX-w0-fFg">
                                                 <rect key="frame" x="0.0" y="67.333333333333371" width="349" height="57.666666666666657"/>
                                                 <string key="text">Specialised in fried chicken, Kentucky’s special chicken Specialised in fried chicken, Kentucky’s special chicken Specialised in fried chicken, Kentucky’s special chicken</string>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                <color key="textColor" name="DarkGreyTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxR-5t-3OH">
+                                                <rect key="frame" x="0.0" y="141" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                 <color key="textColor" name="DarkGreyTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1598,26 +1605,30 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Nf-uP-PSz">
-                                        <rect key="frame" x="370" y="28.666666666666671" width="36" height="36"/>
+                                        <rect key="frame" x="334" y="28.666666666666671" width="72" height="36"/>
                                         <subviews>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZR-dN-DD7">
-                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZR-dN-DD7">
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                                <color key="tintColor" systemColor="tintColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="MuteNotification">
+                                                <state key="normal" image="edit-icon">
                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="silentNotificationTapped:" destination="h1N-jt-VYO" eventType="touchUpInside" id="eiI-Lm-1s6"/>
+                                                    <action selector="editRestaurantTapped:" destination="h1N-jt-VYO" eventType="touchUpInside" id="S2D-lW-aMR"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1b-Ez-xDy">
-                                                <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZv-it-AH0">
+                                                <rect key="frame" x="36" y="0.0" width="36" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="36" id="4zP-Ce-flP"/>
+                                                </constraints>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="Delete">
                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="deleteRestaurantTapped:" destination="h1N-jt-VYO" eventType="touchUpInside" id="Cej-M5-Wfa"/>
+                                                    <action selector="deleteRestaurantTapped:" destination="h1N-jt-VYO" eventType="touchUpInside" id="hcF-hP-pJS"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1650,6 +1661,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="JxR-5t-3OH" id="kMh-0O-k8z"/>
                         <outlet property="descriptionLabel" destination="HBX-w0-fFg" id="MSK-Ka-5mR"/>
                         <outlet property="distanceLabel" destination="rqC-eX-y9H" id="iZ7-ts-jgW"/>
                         <outlet property="ratingLabel" destination="gAj-NS-vn6" id="Xmk-AL-oa1"/>
@@ -1677,17 +1689,17 @@
         <image name="HomeTabProfile" width="24" height="24"/>
         <image name="HomeTabProfileSelected" width="48" height="48"/>
         <image name="HomeTabSelected" width="20" height="22"/>
-        <image name="MuteNotification" width="36" height="36"/>
         <image name="MyProfileEdit" width="10" height="10"/>
         <image name="MyProfileEditBg" width="24" height="24"/>
         <image name="MyProfileSettings" width="24" height="24"/>
-        <image name="NoImagePlaceholder" width="256" height="256"/>
+        <image name="NoImage-Placeholder" width="292" height="144"/>
         <image name="NoProfilePic" width="430" height="376"/>
         <image name="SettingsBackButton" width="33" height="33"/>
         <image name="SettingsCategoryAdd" width="16" height="16"/>
         <image name="SettingsCategoryCrossButton" width="7" height="7"/>
         <image name="SettingsDownIcon" width="18" height="18"/>
         <image name="TabbarBg" width="414" height="123"/>
+        <image name="edit-icon" width="36" height="36"/>
         <image name="location" width="16" height="16"/>
         <image name="rating" width="28" height="28"/>
         <image name="star" width="16" height="16"/>
@@ -1702,6 +1714,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
