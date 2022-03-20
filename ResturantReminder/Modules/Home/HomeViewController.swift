@@ -113,6 +113,7 @@ class HomeViewController: UIViewController {
                             let coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
                             appDelegate.monitorRegionAtLocation(center: coordinates, identifier: restaurant.restaurantID ?? "")
                         }
+                        AppDefaults.fromLogin = false
                     }
                     self.fetchRestaurantImages()
                     

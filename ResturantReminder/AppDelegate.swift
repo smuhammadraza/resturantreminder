@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         AppDefaults.fromLogin = false
+        AppDefaults.notifRestaurantID = ""
     }
 
     // MARK: - APPLICATION OPEN URL METHODS
@@ -153,6 +154,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let payload = response.notification.request.content.userInfo
         let id = payload["id"] as? String
         AppDefaults.notifRestaurantID = id ?? ""
+        Bootstrapper.showHome()
         completionHandler()
     }
 
