@@ -39,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Bootstrapper.initialize()
         return true
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        AppDefaults.fromLogin = false
+    }
 
     // MARK: - APPLICATION OPEN URL METHODS
        
@@ -146,6 +150,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let payload = response.notification.request.content.userInfo
+        let id = payload["id"] as? String
+        AppDefaults.notifRestaurantID = id ?? ""
         completionHandler()
     }
 

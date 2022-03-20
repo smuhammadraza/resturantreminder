@@ -76,7 +76,6 @@ class AddResturantViewController: UIViewController {
     
     private func validateFields() -> Bool {
         return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
-//        return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && !((self.textFieldPhone.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
     }
     
     private func validatePhoneNumber() -> Bool {
@@ -103,6 +102,10 @@ class AddResturantViewController: UIViewController {
         self.textFieldNotes.text = restaurantModel.notes
         self.textFieldPhone.text = restaurantModel.phone
         self.categories = restaurantModel.categories ?? []
+        self.selectedRestaurantRef = restaurantModel.restaurantID ?? ""
+        guard let latitude = restaurantModel.location?.latitude else { return }
+        guard let longitude = restaurantModel.location?.longitude else { return }
+        self.selectedRestaurantCoordinates = CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
     }
     
     private func setupDropDowns() {
@@ -347,7 +350,7 @@ class AddResturantViewController: UIViewController {
     }
     
     private func addRestaurant() {
-        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories) {
+        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories, latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0), longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) {
             [weak self] (error, databaseRef) in
             guard let self = self else { return }
             if let error = error {
@@ -377,7 +380,7 @@ class AddResturantViewController: UIViewController {
     }
     
     private func editRestaurant() {
-        viewModel.editResturant(restaurantID: self.restaurantModel?.restaurantID ?? "", userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories) {
+        viewModel.editResturant(restaurantID: self.restaurantModel?.restaurantID ?? "", userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories, latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0), longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) {
             [weak self] (error, databaseRef) in
             guard let self = self else { return }
             if let error = error {

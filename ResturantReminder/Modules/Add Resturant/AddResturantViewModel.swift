@@ -15,12 +15,12 @@ class AddResturantViewModel {
     private var placesClient: GMSPlacesClient = GMSPlacesClient.shared()
     private let networkObj = AddRestaurantNetwork()
 
-    func addResturant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
-        FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, completion: completion)
+    func addResturant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
+        FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, latitude: latitude, longitude: longitude, completion: completion)
     }
     
-    func editResturant(restaurantID: String, userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
-        FirebaseManager.shared.editRestaurant(restaurantID: restaurantID, userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, completion: completion)
+    func editResturant(restaurantID: String, userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
+        FirebaseManager.shared.editRestaurant(restaurantID: restaurantID, userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, latitude: latitude, longitude: longitude, completion: completion)
     }
     
     func addCategories(categories: [String]) {

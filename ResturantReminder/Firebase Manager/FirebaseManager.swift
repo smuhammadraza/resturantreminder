@@ -38,14 +38,16 @@ class FirebaseManager {
         }
     }
     
-    func addRestaurant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
+    func addRestaurant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
         ref = Database.database().reference()
-        self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories]), withCompletionBlock: completion)
+        let coordinates = ["latitude": latitude, "longitude": longitude]
+        self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories, "location": coordinates]), withCompletionBlock: completion)
     }
     
-    func editRestaurant(restaurantID: String, userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
+    func editRestaurant(restaurantID: String, userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
         ref = Database.database().reference()
-        self.ref.child("users").child(userID).child("restaurants").child(restaurantID).updateChildValues((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories]), withCompletionBlock: completion)
+        let coordinates = ["latitude": latitude, "longitude": longitude]
+        self.ref.child("users").child(userID).child("restaurants").child(restaurantID).updateChildValues((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories, "location": coordinates]), withCompletionBlock: completion)
     }
     
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {

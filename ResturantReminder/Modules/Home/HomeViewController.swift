@@ -48,7 +48,14 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fetchData()
+        if !(AppDefaults.notifRestaurantID.isEmpty) {
+            let vc = RestaurantDetailViewController.initFromStoryboard(name: Constants.Storyboards.main)
+            vc.notifRestaurantID = AppDefaults.notifRestaurantID
+            AppDefaults.notifRestaurantID = ""
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            self.fetchData()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -98,7 +105,17 @@ class HomeViewController: UIViewController {
                 } else {
                     self.noRestaurantLabel.isHidden = true
                     self.tableView.isHidden = false
+                    if AppDefaults.fromLogin {
+                        self.restaurant.forEach { restaurant in
+                            guard let latitude = restaurant.location?.latitude else { return }
+                            guard let longitude = restaurant.location?.longitude else { return }
+                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                            let coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
+                            appDelegate.monitorRegionAtLocation(center: coordinates, identifier: restaurant.restaurantID ?? "")
+                        }
+                    }
                     self.fetchRestaurantImages()
+                    
                 }
             } else {
                 self.tableView.isHidden = true

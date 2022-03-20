@@ -21,12 +21,13 @@ class RestaurantDetailViewController: UIViewController {
     
     var restaurantModel: ResturantModel?
     var titleImage : UIImage?
+    var notifRestaurantID: String?
     
     //MARK: - LIFECYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.updateViews()
+        self.fetchNotifRestaurant()
     }
 
     //MARK: - UPDATE VIEWS
@@ -39,9 +40,24 @@ class RestaurantDetailViewController: UIViewController {
 //            self.restaurantTitleImage.image = UIImage()
             self.titleLabel.text = restaurantModel.name ?? "N/A"
             self.distanceLabel.text = "N/A"
-            self.ratingLabel.text = "\(restaurantModel.rating ?? 0.0)"
+            self.ratingLabel.text = "\(String(describing: restaurantModel.rating?.roundTo(places: 1) ?? 0.0))"
             self.descriptionLabel.text = restaurantModel.notes ?? ""
             self.addressLabel.text = restaurantModel.address ?? ""
+        }
+    }
+    
+    //MARK: - FETCH DATA
+    
+    fileprivate func fetchNotifRestaurant() {
+        guard let notifRestaurantID = notifRestaurantID else {
+            self.updateViews()
+            return
+        }
+        FirebaseManager.shared.fetchSingleResturant(userID: UserModel.shared.userID, resturantID: notifRestaurantID) { (model, _) in
+            if let model = model {
+                self.restaurantModel = model
+                self.updateViews()
+            }
         }
     }
     

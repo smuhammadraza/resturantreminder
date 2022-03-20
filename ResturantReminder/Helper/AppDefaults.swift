@@ -117,4 +117,26 @@ class AppDefaults {
             
         }
     }
+    
+    public static var fromLogin: Bool {
+        get{
+            let value = AppDefaults.defaults.bool(forKey: "fromLogin")
+            return value
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "fromLogin")
+            
+        }
+    }
+    
+    public static var notifRestaurantID: String {
+        get{
+            let value = AppDefaults.defaults.string(forKey: "notifRestaurantID") ?? ""
+            return value
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "notifRestaurantID")
+            
+        }
+    }
 }
