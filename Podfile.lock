@@ -18,6 +18,11 @@ PODS:
   - FBSDKLoginKit/Login (11.1.0):
     - FBSDKCoreKit (~> 11.1.0)
     - FBSDKCoreKit_Basics (~> 11.1.0)
+  - FBSDKShareKit (11.1.0):
+    - FBSDKShareKit/Share (= 11.1.0)
+  - FBSDKShareKit/Share (11.1.0):
+    - FBSDKCoreKit (~> 11.1.0)
+    - FBSDKCoreKit_Basics (~> 11.1.0)
   - Firebase (7.11.0):
     - Firebase/Core (= 7.11.0)
   - Firebase/Auth (7.11.0):
@@ -31,6 +36,9 @@ PODS:
   - Firebase/Database (7.11.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (~> 7.11.0)
+  - Firebase/Storage (7.11.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 7.11.0)
   - FirebaseAnalytics (7.11.0):
     - FirebaseAnalytics/AdIdSupport (= 7.11.0)
     - FirebaseCore (~> 7.0)
@@ -80,6 +88,9 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
+  - FirebaseStorage (7.11.0):
+    - FirebaseCore (~> 7.0)
+    - GTMSessionFetcher/Core (~> 1.4)
   - GoogleAppMeasurement/AdIdSupport (7.11.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -128,9 +139,11 @@ DEPENDENCIES:
   - Cosmos (~> 23.0)
   - DropDown
   - FBSDKLoginKit
+  - FBSDKShareKit
   - Firebase (~> 7.11.0)
   - Firebase/Auth (~> 7.11.0)
   - Firebase/Database (~> 7.11.0)
+  - Firebase/Storage (~> 7.11.0)
   - GooglePlaces
   - IQKeyboardManagerSwift
   - JGProgressHUD
@@ -146,6 +159,7 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
+    - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -153,6 +167,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseDatabase
     - FirebaseInstallations
+    - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GooglePlaces
@@ -174,6 +189,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 7ccb8b4bb2b5ee2ad94327b774dc23f03509675d
   FBSDKCoreKit_Basics: 8f978bce195845f609b0ec6b425949d0d24f525b
   FBSDKLoginKit: d65eb587a9eaa89295338fb0bb3b358bde0b7ae4
+  FBSDKShareKit: b2142706d3f2410fb0ea76ad5a63238c71307117
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   FirebaseAnalytics: cd3bd84d722a24a8923918af8af8e5236f615d77
   FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
@@ -181,6 +197,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c
   FirebaseDatabase: 6c39fbf1c8514a2f32e610f9bf9ef30c535dc15a
   FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
+  FirebaseStorage: 8542711850ca181a3931c0ed483006a7b46039e7
   GoogleAppMeasurement: fd19169c3034975cb934e865e5667bfdce59df7f
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
   GooglePlaces: 5d87ca13ed98b7a937e0d8bc7026f718c7263271
@@ -195,6 +212,6 @@ SPEC CHECKSUMS:
   QRCodeReader.swift: 373a389fe9a22d513c879a32a6f647c58f4ef572
   TTGSnackbar: 2bd245d2bbf83639483410273fd936af0b7ba2a9
 
-PODFILE CHECKSUM: 000328dd230257bdddf748c47c884336e63d91c8
+PODFILE CHECKSUM: 8f63625a9c50498b2ffddfff2c80d656576f823a
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

@@ -38,9 +38,16 @@ class FirebaseManager {
         }
     }
     
-    func addRestaurant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], completion: @escaping (Error?, DatabaseReference) -> Void) {
+    func addRestaurant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
         ref = Database.database().reference()
-        self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories]), withCompletionBlock: completion)
+        let coordinates = ["latitude": latitude, "longitude": longitude]
+        self.ref.child("users").child(userID).child("restaurants").childByAutoId().setValue((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories, "location": coordinates]), withCompletionBlock: completion)
+    }
+    
+    func editRestaurant(restaurantID: String, userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
+        ref = Database.database().reference()
+        let coordinates = ["latitude": latitude, "longitude": longitude]
+        self.ref.child("users").child(userID).child("restaurants").child(restaurantID).updateChildValues((["name": name, "address": address, "phone": phone, "rating": rating, "url": url, "notes": notes, "categories": categories, "location": coordinates]), withCompletionBlock: completion)
     }
     
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
@@ -168,7 +175,7 @@ class FirebaseManager {
         }
     }
     
-    func addSettingsData(postToFacebook: Bool?, postToTwitter: Bool?, alertWhenNearBy: Bool?, distance: Double?, numberOfNotifications: Int?, completion: @escaping ((Error?, DatabaseReference) -> Void)) {
+    func addSettingsData(userID: String? = nil, postToFacebook: Bool?, postToTwitter: Bool?, alertWhenNearBy: Bool?, distance: Double?, numberOfNotifications: Int?, completion: @escaping ((Error?, DatabaseReference) -> Void)) {
         ref = Database.database().reference()
         var dict = [String: Any]()
         if let postToFacebook = postToFacebook {
@@ -186,7 +193,7 @@ class FirebaseManager {
         if let numberOfNotifications = numberOfNotifications {
             dict["numberOfNotifications"] = numberOfNotifications
         }
-        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("settings").updateChildValues(dict) { error, ref in
+        ref.child("users").child(userID ?? AppDefaults.currentUser?.userID ?? "").child("settings").updateChildValues(dict) { error, ref in
             print(ref)
             completion(error, ref)
         }
@@ -261,14 +268,6 @@ class FirebaseManager {
             "identifier": identifier
         ]
         ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("DidExitRegion").updateChildValues(dict)
-    }
-    
-    func fetchNotificationTimer(completion: @escaping (Int?) -> Void) {
-        ref = Database.database().reference()
-        ref.child("users").child(AppDefaults.currentUser?.userID ?? "").child("notification").observeSingleEvent(of: .value) { (snapshot) in
-            let value = snapshot.value as? Int
-            completion(value)
-        }
     }
     
 }

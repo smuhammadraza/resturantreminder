@@ -161,6 +161,7 @@ class LoginViewController: UIViewController {
                         UIApplication.stopActivityIndicator()
                         AppDefaults.currentUser = UserModel.shared
                         AppDefaults.isUserLoggedIn = true
+                        AppDefaults.fromLogin = true
                         Bootstrapper.showHome()
                     }
                 }

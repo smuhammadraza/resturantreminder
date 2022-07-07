@@ -20,4 +20,13 @@ class HomeViewModel {
         let imageRef = Storage.storage().reference().child("\(AppDefaults.currentUser?.userID ?? "")/\(restaurantID)/image.jpg")
         StorageService.getImage(reference: imageRef, completion: completion)
     }
+    
+    func fetchProfilePicture(completion: @escaping ((UIImage?, String?)-> Void)) {
+        let imageRef = Storage.storage().reference().child("\(AppDefaults.currentUser?.userID ?? "")/profilePic/image.jpg")
+        StorageService.getImage(reference: imageRef, completion: completion)
+    }
+    
+    func fetchSettingsData(completion: @escaping ((SettingsModel?, String?)->Void)) {
+        FirebaseManager.shared.fetchSettingsData(completion: completion)
+    }
 }

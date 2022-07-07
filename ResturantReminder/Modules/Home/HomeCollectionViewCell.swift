@@ -26,7 +26,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - CONFIGURE CELL
     func configure(model: ResturantModel, image: UIImage? = nil) {
-//        self.titleImageView.image = UIImage(named: "NoImagePlaceholder")
+//        self.titleImageView.image = UIImage(named: "NoImage-Placeholder")
         if let image = image {
             titleImageView.image = image
         }
