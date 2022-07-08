@@ -21,6 +21,8 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var textFieldName: UITextField!
     @IBOutlet weak var textFieldAddress: UITextField!
+    @IBOutlet weak var addressAnchor: UIView!
+    @IBOutlet weak var categoriesAnchor: UIView!
     @IBOutlet weak var textFieldPhone: UITextField!
     @IBOutlet weak var textFieldURL: UITextField!
     @IBOutlet weak var textFieldNotes: UITextField!
@@ -30,6 +32,7 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var previousCategoriesButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
     
     // MARK: - VARIABLES
     
@@ -47,6 +50,12 @@ class AddResturantViewController: UIViewController {
     var selectedRestaurantImage: UIImage?
     var scannerVC = ScannerViewController.initFromStoryboard(name: Constants.Storyboards.main)
     var selectedRestaurantRef = ""
+    var titleText = "Add Restaurant"
+    var restaurantModel: ResturantModel?
+    var fromEdit = false
+    
+    //MARK: - CALLBACKS
+    var navigateBackToHome: (() -> Void)?
     
     // MARK: - VIEW LIFE CYCLE
     
@@ -57,13 +66,16 @@ class AddResturantViewController: UIViewController {
         self.setupViews()
         self.setupDropDowns()
         self.qrCallback()
+        if let restaurantModel = restaurantModel {
+            self.fromEdit = true
+            self.fillFields(restaurantModel: restaurantModel)
+        }
     }
     
     //MARK: - VALIDATION
     
     private func validateFields() -> Bool {
         return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
-//        return (!((self.textFieldName.text ?? "").isEmpty) && !((self.textFieldAddress.text ?? "").isEmpty) && !((self.textFieldPhone.text ?? "").isEmpty) && (self.selectedRestaurantCoordinates != nil))
     }
     
     private func validatePhoneNumber() -> Bool {
@@ -83,6 +95,19 @@ class AddResturantViewController: UIViewController {
     
     // MARK: - SETUP VIEW
     
+    private func fillFields(restaurantModel: ResturantModel) {
+        self.textFieldName.text = restaurantModel.name
+        self.textFieldAddress.text = restaurantModel.address
+        self.textFieldURL.text = restaurantModel.url
+        self.textFieldNotes.text = restaurantModel.notes
+        self.textFieldPhone.text = restaurantModel.phone
+        self.categories = restaurantModel.categories ?? []
+        self.selectedRestaurantRef = restaurantModel.restaurantID ?? ""
+        guard let latitude = restaurantModel.location?.latitude else { return }
+        guard let longitude = restaurantModel.location?.longitude else { return }
+        self.selectedRestaurantCoordinates = CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
+    }
+    
     private func setupDropDowns() {
         self.setupAddressDropDown()
         self.setupCategoriesDropDown()
@@ -90,7 +115,7 @@ class AddResturantViewController: UIViewController {
     
     private func setupAddressDropDown() {
         addressDropDown.direction = .bottom
-        addressDropDown.anchorView = textFieldAddress
+        addressDropDown.anchorView = addressAnchor
         self.selectionClousureAddress = { [weak self] (index: Int, item: String) in
             guard let `self` = self else { return }
             self.addressDropDown.hide()
@@ -104,7 +129,7 @@ class AddResturantViewController: UIViewController {
     
     private func setupCategoriesDropDown() {
         categoriesDropDown.direction = .bottom
-        categoriesDropDown.anchorView = self.previousCategoriesButton
+        categoriesDropDown.anchorView = categoriesAnchor
         self.selectionClousureCategories = { [weak self] (index: Int, item: String) in
             guard let `self` = self else { return }
             self.categoriesDropDown.hide()
@@ -120,6 +145,7 @@ class AddResturantViewController: UIViewController {
     }
     
     private func setupViews() {
+        self.titleLabel.text = self.titleText
         self.addRestaurantView.isHidden = self.segmentControl.selectedSegmentIndex == 1
         self.containerView.isHidden = self.segmentControl.selectedSegmentIndex == 0
         self.textFieldAddress.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -263,20 +289,18 @@ class AddResturantViewController: UIViewController {
                 UIApplication.stopActivityIndicator()
                 Snackbar.showSnackbar(message: "Categories must not be empty.", duration: .middle)
             }
-//            if !(validatePhoneNumber()) {
-//                UIApplication.stopActivityIndicator()
-//                Snackbar.showSnackbar(message: "Phone Number is not valid", duration: .middle)
-//            }
-//            if !(validateWebsite()) {
-//                UIApplication.stopActivityIndicator()
-//                Snackbar.showSnackbar(message: "Website is not valid", duration: .middle)
-//            }
             else {
-                self.addRestaurant()
+                if fromEdit {
+                    self.editRestaurant()
+                    self.dismiss(animated: true) {
+                        self.navigateBackToHome?()
+                    }
+                } else {
+                    self.addRestaurant()
+                    self.dismiss(animated: true, completion: nil)
+                }
                 UIApplication.stopActivityIndicator()
                 NotificationCenter.default.post(name: .dismissAddRestaurant, object: nil)
-
-                self.dismiss(animated: true, completion: nil)
             }
         } else {
             UIApplication.stopActivityIndicator()
@@ -305,19 +329,6 @@ class AddResturantViewController: UIViewController {
             return
         }
 
-//        var content = SharePhotoContent()
-//        content.photos = [SharePhoto.init(image: UIImage(named: "HomeProfile")!, userGenerated: true)]
-        
-
-        
-
-//        let request = GraphRequest(graphPath: <#T##String#>, parameters: <#T##[String : Any]#>)
-
-//        ShareLinkContent.init
-        //        let content = ShareLinkContent()
-//        content.contentURL = url
-//        content.quote = "Hi, I am adding \(textFieldName.text ?? "") in Restaurant Reminder."
-//        content.
     }
     
     private func shareInFacebook(image: UIImage) {
@@ -339,7 +350,7 @@ class AddResturantViewController: UIViewController {
     }
     
     private func addRestaurant() {
-        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories) {
+        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories, latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0), longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) {
             [weak self] (error, databaseRef) in
             guard let self = self else { return }
             if let error = error {
@@ -357,8 +368,38 @@ class AddResturantViewController: UIViewController {
                    !(self.selectedRestaurantRef.isEmpty) {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
-                    self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImagePlaceholder")!)
-                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImagePlaceholder")!, restaurantID: self.selectedRestaurantRef)
+                    self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!)
+                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!, restaurantID: self.selectedRestaurantRef)
+                    //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
+                }
+            } else {
+                return
+            }
+        }
+        
+    }
+    
+    private func editRestaurant() {
+        viewModel.editResturant(restaurantID: self.restaurantModel?.restaurantID ?? "", userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories, latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0), longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) {
+            [weak self] (error, databaseRef) in
+            guard let self = self else { return }
+            if let error = error {
+                Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)
+            }
+            print(databaseRef)
+            let dbURL = databaseRef.url
+
+            let index = dbURL.range(of: "/", options: .backwards)?.upperBound
+            if let index = index {
+                let restaurantNodeString = dbURL.substring(from: index)
+                print(restaurantNodeString)
+                self.selectedRestaurantRef = restaurantNodeString
+                if let selectedRestaurantCoordinates = self.selectedRestaurantCoordinates,
+                   !(self.selectedRestaurantRef.isEmpty) {
+                    self.viewModel.addCategories(categories: self.categories)
+                    self.startRegionMonitoring(with: selectedRestaurantCoordinates)
+                    self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!)
+                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!, restaurantID: self.selectedRestaurantRef)
                     //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                 }
             } else {

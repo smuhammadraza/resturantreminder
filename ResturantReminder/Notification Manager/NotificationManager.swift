@@ -25,6 +25,7 @@ class NotificationManager {
             content.body = "You're near \(restaurantName)."
             content.sound = UNNotificationSound.default
             content.badge = 1
+            content.userInfo = ["id": identifier]
 
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
             let request = UNNotificationRequest(identifier: "reminder" + "\(Date().timeIntervalSince1970)", content: content, trigger: trigger)

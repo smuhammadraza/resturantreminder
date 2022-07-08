@@ -39,6 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Bootstrapper.initialize()
         return true
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        AppDefaults.fromLogin = false
+        AppDefaults.notifRestaurantID = ""
+    }
 
     // MARK: - APPLICATION OPEN URL METHODS
        
@@ -146,6 +151,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let payload = response.notification.request.content.userInfo
+        let id = payload["id"] as? String
+        AppDefaults.notifRestaurantID = id ?? ""
+        Bootstrapper.showHome()
         completionHandler()
     }
 
@@ -166,7 +175,19 @@ extension AppDelegate: CLLocationManagerDelegate {
         FirebaseManager.shared.addDidEnterRegion(latitude: "\(manager.location?.coordinate.latitude ?? 0.0)", longitude: "\(manager.location?.coordinate.longitude ?? 0.0)", identifier: region.identifier)
         if let region = region as? CLCircularRegion {
             let identifier = region.identifier
-            NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd-MM-YYYY"
+            
+            if AppDefaults.todayDate == dateFormatter.string(from: Date()) {
+                if AppDefaults.numberOfNotifications > 0 {
+                    NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+                    AppDefaults.numberOfNotifications -= 1
+                }
+            } else {
+                AppDefaults.todayDate = dateFormatter.string(from: Date())
+                self.fetchNotificationsCountFromSettings()
+                NotificationManager.shared.triggerReminderNotification(identifier: identifier)
+            }
         }
     }
 
@@ -190,4 +211,26 @@ extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         Snackbar.showSnackbar(message: "Monitoring successfully started!", duration: .short)
     }
+}
+
+extension AppDelegate {
+    
+    //MARK: - UPDATE NOTIFICATIONS COUNT
+    
+    private func fetchNotificationsCountFromSettings() {
+        self.fetchSettingsData { data, errorMsg in
+            if let errorMsg = errorMsg {
+                Snackbar.showSnackbar(message: errorMsg, duration: .middle)
+            }
+            if let data = data {
+                guard let numberOfNotif = data.numberOfNotifications else { return }
+                AppDefaults.numberOfNotifications = numberOfNotif
+            }
+        }
+    }
+    
+    func fetchSettingsData(completion: @escaping ((SettingsModel?, String?)->Void)) {
+        FirebaseManager.shared.fetchSettingsData(completion: completion)
+    }
+
 }

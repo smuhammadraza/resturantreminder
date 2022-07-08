@@ -20,5 +20,11 @@ struct ResturantModel: Codable {
     var name, address, phone, url, notes: String?
     var rating: Double?
     var categories: [String]?
+    var location: Location?
     
+}
+
+struct Location: Codable {
+    var latitude: String?
+    var longitude: String?
 }

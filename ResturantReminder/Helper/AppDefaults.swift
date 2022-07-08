@@ -96,4 +96,47 @@ class AppDefaults {
         }
     }
     
+    public static var numberOfNotifications: Int {
+        get{
+            let numberOfNotifications = AppDefaults.defaults.integer(forKey: "numberOfNotifications")
+            return numberOfNotifications
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "numberOfNotifications")
+            
+        }
+    }
+    
+    public static var todayDate: String {
+        get{
+            let date = AppDefaults.defaults.string(forKey: "todayDate")
+            return date ?? ""
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "todayDate")
+            
+        }
+    }
+    
+    public static var fromLogin: Bool {
+        get{
+            let value = AppDefaults.defaults.bool(forKey: "fromLogin")
+            return value
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "fromLogin")
+            
+        }
+    }
+    
+    public static var notifRestaurantID: String {
+        get{
+            let value = AppDefaults.defaults.string(forKey: "notifRestaurantID") ?? ""
+            return value
+        }
+        set{
+            AppDefaults.defaults.set(newValue, forKey: "notifRestaurantID")
+            
+        }
+    }
 }

@@ -16,6 +16,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var noRestaurantLabel: UILabel!
     
+    @IBOutlet weak var placeHolderUserNameLabel: UILabel!
+    @IBOutlet weak var placeHolderUserProfileImageView: UIImageView!
+
+    
     // MARK: - VARIABLES
     var viewModel = HomeViewModel()
     var restaurant = [ResturantModel]()
@@ -28,6 +32,7 @@ class HomeViewController: UIViewController {
         }
     }
     var restaurantImages = [String: UIImage]()
+    var numberOfNotifications = 0
     
     // MARK: - VIEW LIFE CYCLE
 
@@ -43,10 +48,19 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
-        self.fetchHomeData()
-        
-        self.fetchNotificationTimer()
+        if !(AppDefaults.notifRestaurantID.isEmpty) {
+            let vc = RestaurantDetailViewController.initFromStoryboard(name: Constants.Storyboards.main)
+            vc.notifRestaurantID = AppDefaults.notifRestaurantID
+            AppDefaults.notifRestaurantID = ""
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            self.fetchData()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.userProfileImageView.cornerRadius = userProfileImageView.height/2
     }
     // MARK: - SETUP VIEW
     
@@ -60,9 +74,9 @@ class HomeViewController: UIViewController {
     
     
     @objc func fetchData() {
-        self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
         self.fetchHomeData()
     }
+    
     
     private func registerTableViewCell() {
         self.tableView.register(UINib.init(nibName: Constants.CellIdentifiers.HomeTableViewCell,
@@ -91,12 +105,32 @@ class HomeViewController: UIViewController {
                 } else {
                     self.noRestaurantLabel.isHidden = true
                     self.tableView.isHidden = false
+                    if AppDefaults.fromLogin {
+                        self.restaurant.forEach { restaurant in
+                            guard let latitude = restaurant.location?.latitude else { return }
+                            guard let longitude = restaurant.location?.longitude else { return }
+                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                            let coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
+                            appDelegate.monitorRegionAtLocation(center: coordinates, identifier: restaurant.restaurantID ?? "")
+                        }
+                        AppDefaults.fromLogin = false
+                    }
                     self.fetchRestaurantImages()
+                    
                 }
             } else {
                 self.tableView.isHidden = true
                 self.noRestaurantLabel.isHidden = true
                 UIApplication.stopActivityIndicator()
+            }
+            self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
+            self.placeHolderUserNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
+        }
+        
+        self.viewModel.fetchProfilePicture { (image, _) in
+            if let image = image {
+                self.userProfileImageView.image = image
+                self.placeHolderUserProfileImageView.image = image
             }
         }
     }
@@ -121,13 +155,6 @@ class HomeViewController: UIViewController {
             self?.tableView.reloadData()
         }
         group.notify(queue: .main, work: work)
-    }
-    
-    private func fetchNotificationTimer() {
-        FirebaseManager.shared.fetchNotificationTimer { (value) in
-            guard let value = value else { return }
-            self.notificationTimer = value
-        }
     }
     
     // MARK: - BUTTON ACTIONS
