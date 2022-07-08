@@ -23,6 +23,11 @@ class HomeCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleImageView.image = UIImage.init(named: "NoImage-Placeholder")
+    }
     
     // MARK: - CONFIGURE CELL
     func configure(model: ResturantModel, image: UIImage? = nil) {

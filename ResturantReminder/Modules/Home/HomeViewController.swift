@@ -43,6 +43,8 @@ class HomeViewController: UIViewController {
         locationManager.delegate = self
         LocationManager.shared.locationManager.delegate = self
         locationManagerSingleton.startUpdatingLocation()
+        self.tableView.isHidden = true
+        self.noRestaurantLabel.isHidden = true
 //        setupLocationManager()
     }
     

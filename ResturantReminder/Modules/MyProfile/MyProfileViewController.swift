@@ -38,6 +38,7 @@ class MyProfileViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.imageProfilePicture.cornerRadius = imageProfilePicture.height/2
+        view.layoutIfNeeded()
     }
     
     // MARK: - SETUP VIEW

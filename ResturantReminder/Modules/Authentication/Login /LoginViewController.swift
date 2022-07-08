@@ -38,14 +38,24 @@ class LoginViewController: UIViewController {
     private func setupFacebookCustomBtn() {
         facebookBtn.delegate = self
         facebookBtn.permissions = ["email", "public_profile"]
+        setupFacebookButton()
         
         let customFBBtn = UIButton()
         customFBBtn.backgroundColor = .clear
         customFBBtn.setImage(#imageLiteral(resourceName: "LoginFBIcon"), for: .normal)
+        customFBBtn.setImage(#imageLiteral(resourceName: "LoginFBIcon"), for: .selected)
+        customFBBtn.setImage(#imageLiteral(resourceName: "LoginFBIcon"), for: .highlighted)
         customFBBtn.frame = facebookBtn.frame
         facebookBtn.addSubview(customFBBtn)
         
         customFBBtn.addTarget(self, action: #selector(handleCustomFBBtn), for: .touchUpInside)
+    }
+
+    private func setupFacebookButton() {
+        for controlState: UIControl.State in [.normal, .selected, .highlighted] {
+            facebookBtn.setImage(nil, for: controlState)
+            facebookBtn.setBackgroundImage(nil, for: controlState)
+        }
     }
     
     // MARK: - FACEBOOK HELPER METHODS
