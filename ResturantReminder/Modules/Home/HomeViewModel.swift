@@ -9,10 +9,69 @@ import UIKit
 import FirebaseStorage
 
 class HomeViewModel {
+
+    var restaurant = [ResturantModel]()
+    var categories = [String]()
+    var restaurantImages = [String: UIImage]()
+
+    var restaurantModelBasedOnCategories = [String: [ResturantModel]]()
+    var restaurantImageBasedOnCategories = [String: [String: UIImage]]()
     
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
-        FirebaseManager.shared.fetchResturant(userID: userID) { model, error  in
-            completion(model, error)
+        FirebaseManager.shared.fetchResturant(userID: userID) { restaurantModel, error  in
+            if let restaurantModel = restaurantModel, restaurantModel.count != self.restaurant.count {
+                self.restaurant = restaurantModel
+                var categories = [String]()
+                self.restaurant.forEach { object in categories.append(contentsOf: object.categories ?? []) }
+                self.categories = Array(Set(categories))
+                if self.restaurant.isEmpty {
+                    completion(self.restaurant, error)
+                }else {
+                    self.fetchRestaurantImages(completion: {
+                        self.createDataModelBasedOnCategories()
+                        completion(self.restaurant, error)
+                    })
+                }
+            } else {
+                completion(self.restaurant, error)
+            }
+
+        }
+    }
+
+    private func fetchRestaurantImages(completion: @escaping ()->()) {
+        let group = DispatchGroup()
+        for restaurant in self.restaurant {
+            group.enter()
+            if let restaurantID = restaurant.restaurantID {
+                self.fetchRestaurantImage(restaurantID: restaurantID) { (image, _) in
+                    if let image = image {
+                        self.restaurantImages[restaurantID] = image
+                    }
+                    group.leave()
+                }
+            }
+        }
+        let work = DispatchWorkItem.init { completion() }
+        group.notify(queue: .main, work: work)
+    }
+
+    private func createDataModelBasedOnCategories() {
+        restaurantModelBasedOnCategories.removeAll()
+        restaurantImageBasedOnCategories.removeAll()
+        for category in categories {
+            self.restaurant.forEach { object in
+                if object.categories?.contains(category) ?? false {
+                    if restaurantModelBasedOnCategories[category] == nil {
+                        restaurantModelBasedOnCategories[category] = [object]
+                    } else {
+                        restaurantModelBasedOnCategories[category]?.append(object)
+                    }
+                    let result = restaurantImages.first(where: { $0.key == (object.restaurantID ?? "") })
+                    let dict = [(result?.key ?? ""): (result?.value ?? UIImage(named: "NoImage-Placeholder")!)]
+                    restaurantImageBasedOnCategories[category] = dict
+                }
+            }
         }
     }
     

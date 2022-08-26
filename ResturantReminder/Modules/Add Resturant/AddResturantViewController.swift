@@ -350,8 +350,16 @@ class AddResturantViewController: UIViewController {
     }
     
     private func addRestaurant() {
-        viewModel.addResturant(userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories, latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0), longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) {
-            [weak self] (error, databaseRef) in
+        viewModel.addResturant(userID: UserModel.shared.userID,
+                               name: self.textFieldName.text ?? "",
+                               address: self.textFieldAddress.text ?? "",
+                               phone: self.textFieldPhone.text ?? "",
+                               rating: ratingView.rating,
+                               url: self.textFieldURL.text ?? "",
+                               notes: self.textFieldNotes.text ?? "",
+                               categories: self.categories,
+                               latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0),
+                               longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) { [weak self] (error, databaseRef) in
             guard let self = self else { return }
             if let error = error {
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)

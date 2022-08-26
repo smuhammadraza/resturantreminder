@@ -90,73 +90,39 @@ class HomeViewController: UIViewController {
     
     private func fetchHomeData() {
         UIApplication.startActivityIndicator(with: "")
-        viewModel.fetchResturant(userID: AppDefaults.currentUser?.userID ?? "") { restaurantModel, error in
-            print(error)
-            print(restaurantModel)
-            if let restaurantModel = restaurantModel {
-                self.restaurant = restaurantModel
-                var categories = [String]()
-                self.restaurant.forEach { object in
-                    categories.append(contentsOf: object.categories ?? [])
-                }
-                self.categories = Array(Set(categories))
-                if self.restaurant.isEmpty {
-                    self.tableView.isHidden = true
-                    self.noRestaurantLabel.isHidden = true
-                    UIApplication.stopActivityIndicator()
-                } else {
-                    self.noRestaurantLabel.isHidden = true
-                    self.tableView.isHidden = false
-                    if AppDefaults.fromLogin {
-                        self.restaurant.forEach { restaurant in
-                            guard let latitude = restaurant.location?.latitude else { return }
-                            guard let longitude = restaurant.location?.longitude else { return }
-                            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                            let coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
-                            appDelegate.monitorRegionAtLocation(center: coordinates, identifier: restaurant.restaurantID ?? "")
-                        }
-                        AppDefaults.fromLogin = false
-                    }
-                    self.fetchRestaurantImages()
-                    
-                }
-            } else {
-                self.tableView.isHidden = true
-                self.noRestaurantLabel.isHidden = true
-                UIApplication.stopActivityIndicator()
-            }
-            self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
-            self.placeHolderUserNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
-        }
-        
+
         self.viewModel.fetchProfilePicture { (image, _) in
             if let image = image {
                 self.userProfileImageView.image = image
                 self.placeHolderUserProfileImageView.image = image
             }
         }
-    }
-    
-    private func fetchRestaurantImages() {
-        
-        let group = DispatchGroup()
-        
-        for restaurant in self.restaurant {
-            group.enter()
-            if let restaurantID = restaurant.restaurantID {
-                self.viewModel.fetchRestaurantImage(restaurantID: restaurantID) { (image, _) in
-                    if let image = image {
-                        self.restaurantImages[restaurantID] = image
-                    }
-                    group.leave()
-                }
-            }
-        }
-        let work = DispatchWorkItem.init { [weak self] in
+
+        viewModel.fetchResturant(userID: AppDefaults.currentUser?.userID ?? "") { restaurantModel, error in
+            self.restaurant = self.viewModel.restaurant
+            self.categories = self.viewModel.categories
+            self.restaurantImages = self.viewModel.restaurantImages
+            self.tableView.isHidden = self.restaurant.isEmpty
+            self.noRestaurantLabel.isHidden = !self.restaurant.isEmpty
+            self.startRegionMonitoringIfComingFromLogin()
+            self.userNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
+            self.placeHolderUserNameLabel.text = "Hey, \(AppDefaults.currentUser?.fullName ?? "")"
+            self.tableView.reloadData()
             UIApplication.stopActivityIndicator()
-            self?.tableView.reloadData()
         }
-        group.notify(queue: .main, work: work)
+    }
+
+    private func startRegionMonitoringIfComingFromLogin() {
+        if AppDefaults.fromLogin {
+            self.restaurant.forEach { restaurant in
+                guard let latitude = restaurant.location?.latitude else { return }
+                guard let longitude = restaurant.location?.longitude else { return }
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(latitude)!, longitude: Double(longitude)!)
+                appDelegate.monitorRegionAtLocation(center: coordinates, identifier: restaurant.restaurantID ?? "")
+            }
+            AppDefaults.fromLogin = false
+        }
     }
     
     // MARK: - BUTTON ACTIONS
@@ -166,20 +132,14 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - HELPER METHODS
-    
-//    private func startUpdatingLocation() {
-//        locationManager.startUpdatingLocation()
-//        locationManager.startMonitoringVisits()
-//        locationManager.startMonitoringSignificantLocationChanges()
-//    }
+
 }
 
 
 extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = self.categories.count + 1
-        return count
+        return categories.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -190,20 +150,13 @@ extension HomeViewController: UITableViewDataSource {
             cell.configureCell(model: self.restaurant, categoryTitle: "All Restaurants", categorySubTitle: "", restaurantImages: self.restaurantImages)
         }
         else {
-            var restaurantModel = [ResturantModel]()
-            var restaurantImage = [String: UIImage]()
-
-            self.restaurant.forEach { object in
-                if object.categories?.contains(self.categories[indexPath.row - 1]) ?? false {
-                    restaurantModel.append(object)
-                    self.restaurantImages.forEach { (key, value) in
-                        if object.restaurantID == key {
-                            restaurantImage[key] = value
-                        }
-                    }
-                    cell.configureCell(model: restaurantModel, categoryTitle: indexPath.row == 1 ? "All Categories" : "", categorySubTitle: self.categories[indexPath.row - 1], restaurantImages: restaurantImage)
-                }
-            }
+            let category = self.categories[indexPath.row - 1]
+            let resturantForCategory = self.viewModel.restaurantModelBasedOnCategories[category] ?? []
+            let resturantImagesForCategory = self.viewModel.restaurantImageBasedOnCategories[category] ?? [:]
+            cell.configureCell(model: resturantForCategory,
+                               categoryTitle: indexPath.row == 1 ? "All Categories" : "",
+                               categorySubTitle: category,
+                               restaurantImages: resturantImagesForCategory)
         }
         cell.restaurantDetailTapped = { [weak self] model, image in
             guard let self = self else { return }
