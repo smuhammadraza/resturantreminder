@@ -20,6 +20,7 @@ struct ResturantModel: Codable, Equatable {
     var name, address, phone, url, notes: String?
     var rating: Double?
     var categories: [String]?
+    var dateAdded: Double?
     var location: Location?
 
     static func == (lhs: ResturantModel, rhs: ResturantModel) -> Bool {

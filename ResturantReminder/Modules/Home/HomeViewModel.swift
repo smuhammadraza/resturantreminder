@@ -23,7 +23,7 @@ class HomeViewModel {
                 self.restaurant = restaurantModel
                 var categories = [String]()
                 self.restaurant.forEach { object in categories.append(contentsOf: object.categories ?? []) }
-                self.categories = Array(Set(categories))
+                self.categories = Array(Set(categories)).sorted()
                 if self.restaurant.isEmpty {
                     completion(self.restaurant, error)
                 }else {
