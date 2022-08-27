@@ -15,8 +15,45 @@ class AddResturantViewModel {
     private var placesClient: GMSPlacesClient = GMSPlacesClient.shared()
     private let networkObj = AddRestaurantNetwork()
 
-    func addResturant(userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
-        FirebaseManager.shared.addRestaurant(userID: userID, name: name, address: address, phone: phone, rating: rating, url: url, notes: notes, categories: categories, latitude: latitude, longitude: longitude, completion: completion)
+    func addResturant(userID: String,
+                      name: String,
+                      address: String,
+                      phone: String,
+                      rating: Double,
+                      url: String,
+                      notes: String,
+                      categories: [String],
+                      latitude: String,
+                      longitude: String,
+                      selectedRestaurantImage: UIImage?,
+                      completion: @escaping (Error?, DatabaseReference) -> Void) {
+        FirebaseManager.shared.addRestaurant(userID: userID,
+                                             name: name,
+                                             address: address,
+                                             phone: phone,
+                                             rating: rating,
+                                             url: url,
+                                             notes: notes,
+                                             categories: categories,
+                                             latitude: latitude,
+                                             longitude: longitude,
+                                             completion: { (error, databaseRef) in
+            if let error = error {
+                completion(error, databaseRef)
+            } else {
+                let dbURL = databaseRef.url
+                if let index = dbURL.range(of: "/", options: .backwards)?.upperBound {
+                    let restaurantNodeString = dbURL.substring(from: index)
+                    if !restaurantNodeString.isEmpty {
+                        let resturantImage = selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!
+                        self.uploadRestaurantImage(image: resturantImage,
+                                                   restaurantID: restaurantNodeString, completion: {
+                            completion(error, databaseRef)
+                        })
+                    } else { completion(error, databaseRef) }
+                } else { completion(error, databaseRef) }
+            }
+        })
     }
     
     func editResturant(restaurantID: String, userID: String, name: String, address: String, phone: String, rating: Double, url: String, notes: String, categories: [String], latitude: String, longitude: String, completion: @escaping (Error?, DatabaseReference) -> Void) {
@@ -90,14 +127,11 @@ class AddResturantViewModel {
         networkObj.getScannedData(url: url, completion: completion)
     }
     
-    func uploadRestaurantImage(image: UIImage, restaurantID: String) {
+    func uploadRestaurantImage(image: UIImage, restaurantID: String, completion: @escaping ()->()) {
         let imageRef = Storage.storage().reference().child("\(AppDefaults.currentUser?.userID ?? "")/\(restaurantID)/image.jpg")
-        StorageService.uploadImage(image, at: imageRef) { (downloadURL) in
-            guard let downloadURL = downloadURL else {
-                return
-            }
-            let urlString = downloadURL.absoluteString
-            print("image url: \(urlString)")
+        StorageService.uploadImage(image, at: imageRef) { (_) in
+            print("🔥  ----- Image Downloaded for added restaurant ------- 🔥")
+            completion()
         }
     }
     

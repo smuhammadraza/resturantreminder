@@ -19,7 +19,7 @@ class HomeViewModel {
     
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
         FirebaseManager.shared.fetchResturant(userID: userID) { restaurantModel, error  in
-            if let restaurantModel = restaurantModel, restaurantModel.count != self.restaurant.count {
+            if let restaurantModel = restaurantModel, restaurantModel != self.restaurant {
                 self.restaurant = restaurantModel
                 var categories = [String]()
                 self.restaurant.forEach { object in categories.append(contentsOf: object.categories ?? []) }
@@ -60,16 +60,21 @@ class HomeViewModel {
         restaurantModelBasedOnCategories.removeAll()
         restaurantImageBasedOnCategories.removeAll()
         for category in categories {
-            self.restaurant.forEach { object in
-                if object.categories?.contains(category) ?? false {
-                    if restaurantModelBasedOnCategories[category] == nil {
-                        restaurantModelBasedOnCategories[category] = [object]
-                    } else {
-                        restaurantModelBasedOnCategories[category]?.append(object)
-                    }
-                    let result = restaurantImages.first(where: { $0.key == (object.restaurantID ?? "") })
-                    let dict = [(result?.key ?? ""): (result?.value ?? UIImage(named: "NoImage-Placeholder")!)]
+            let restaurants = self.restaurant.filter({ $0.categories?.contains(category) ?? false })
+            restaurants.forEach { categoryWiseRestaurant in
+                if restaurantModelBasedOnCategories[category] == nil {
+                    restaurantModelBasedOnCategories[category] = [categoryWiseRestaurant]
+                } else {
+                    restaurantModelBasedOnCategories[category]?.append(categoryWiseRestaurant)
+                }
+                let result = restaurantImages.first(where: { $0.key == (categoryWiseRestaurant.restaurantID ?? "") })
+                let dict = [(result?.key ?? ""): (result?.value ?? UIImage(named: "NoImage-Placeholder")!)]
+                if restaurantImageBasedOnCategories[category] == nil {
                     restaurantImageBasedOnCategories[category] = dict
+                } else {
+                    var existing = restaurantImageBasedOnCategories[category] ?? [:]
+                    existing[(result?.key ?? "")] = (result?.value ?? UIImage(named: "NoImage-Placeholder")!)
+                    restaurantImageBasedOnCategories[category] = existing
                 }
             }
         }

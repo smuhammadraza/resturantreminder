@@ -293,14 +293,16 @@ class AddResturantViewController: UIViewController {
                 if fromEdit {
                     self.editRestaurant()
                     self.dismiss(animated: true) {
+                        UIApplication.stopActivityIndicator()
                         self.navigateBackToHome?()
                     }
                 } else {
-                    self.addRestaurant()
-                    self.dismiss(animated: true, completion: nil)
+                    self.addRestaurant(completion: { [weak self] in
+                        UIApplication.stopActivityIndicator()
+                        NotificationCenter.default.post(name: .dismissAddRestaurant, object: nil)
+                        self?.dismiss(animated: true, completion: nil)
+                    })
                 }
-                UIApplication.stopActivityIndicator()
-                NotificationCenter.default.post(name: .dismissAddRestaurant, object: nil)
             }
         } else {
             UIApplication.stopActivityIndicator()
@@ -349,7 +351,7 @@ class AddResturantViewController: UIViewController {
         }
     }
     
-    private func addRestaurant() {
+    private func addRestaurant(completion: @escaping ()->()) {
         viewModel.addResturant(userID: UserModel.shared.userID,
                                name: self.textFieldName.text ?? "",
                                address: self.textFieldAddress.text ?? "",
@@ -359,7 +361,8 @@ class AddResturantViewController: UIViewController {
                                notes: self.textFieldNotes.text ?? "",
                                categories: self.categories,
                                latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0),
-                               longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) { [weak self] (error, databaseRef) in
+                               longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0),
+                               selectedRestaurantImage: selectedRestaurantImage) { [weak self] (error, databaseRef) in
             guard let self = self else { return }
             if let error = error {
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)
@@ -377,10 +380,16 @@ class AddResturantViewController: UIViewController {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
                     self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!)
-                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!, restaurantID: self.selectedRestaurantRef)
+//                    let resturantImage = self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!
+//                    self.viewModel.uploadRestaurantImage(image: resturantImage,
+//                                                         restaurantID: self.selectedRestaurantRef)
                     //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
+                    completion()
+                } else {
+                    Snackbar.showSnackbar(message: "Something went wrong!", duration: .short)
                 }
             } else {
+                Snackbar.showSnackbar(message: "Something went wrong!", duration: .short)
                 return
             }
         }
@@ -388,8 +397,17 @@ class AddResturantViewController: UIViewController {
     }
     
     private func editRestaurant() {
-        viewModel.editResturant(restaurantID: self.restaurantModel?.restaurantID ?? "", userID: UserModel.shared.userID, name: self.textFieldName.text ?? "", address: self.textFieldAddress.text ?? "", phone: self.textFieldPhone.text ?? "", rating: ratingView.rating, url: self.textFieldURL.text ?? "", notes: self.textFieldNotes.text ?? "", categories: self.categories, latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0), longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) {
-            [weak self] (error, databaseRef) in
+        viewModel.editResturant(restaurantID: self.restaurantModel?.restaurantID ?? "",
+                                userID: UserModel.shared.userID,
+                                name: self.textFieldName.text ?? "",
+                                address: self.textFieldAddress.text ?? "",
+                                phone: self.textFieldPhone.text ?? "",
+                                rating: ratingView.rating,
+                                url: self.textFieldURL.text ?? "",
+                                notes: self.textFieldNotes.text ?? "",
+                                categories: self.categories,
+                                latitude: String(selectedRestaurantCoordinates?.latitude ?? 0.0),
+                                longitude: String(selectedRestaurantCoordinates?.longitude ?? 0.0)) { [weak self] (error, databaseRef) in
             guard let self = self else { return }
             if let error = error {
                 Snackbar.showSnackbar(message: error.localizedDescription, duration: .short)
@@ -407,7 +425,7 @@ class AddResturantViewController: UIViewController {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
                     self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!)
-                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!, restaurantID: self.selectedRestaurantRef)
+                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!, restaurantID: self.selectedRestaurantRef, completion: {})
                     //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                 }
             } else {

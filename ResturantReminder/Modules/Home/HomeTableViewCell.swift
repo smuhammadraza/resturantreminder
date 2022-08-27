@@ -42,7 +42,10 @@ class HomeTableViewCell: UITableViewCell {
     
     // MARK: - CONFIGURE CELL
     
-    func configureCell(model: [ResturantModel], categoryTitle: String, categorySubTitle: String, restaurantImages: [String: UIImage]) {
+    func configureCell(model: [ResturantModel],
+                       categoryTitle: String,
+                       categorySubTitle: String,
+                       restaurantImages: [String: UIImage]) {
         self.restaurantModel = model
         self.labelTitle.isHidden = categoryTitle.isEmpty
         self.labelTitle.text = categoryTitle

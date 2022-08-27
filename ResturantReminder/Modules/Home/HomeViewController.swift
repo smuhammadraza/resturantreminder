@@ -147,7 +147,10 @@ extension HomeViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         if indexPath.row == 0 {
-            cell.configureCell(model: self.restaurant, categoryTitle: "All Restaurants", categorySubTitle: "", restaurantImages: self.restaurantImages)
+            cell.configureCell(model: self.restaurant,
+                               categoryTitle: "All Restaurants",
+                               categorySubTitle: "",
+                               restaurantImages: self.restaurantImages)
         }
         else {
             let category = self.categories[indexPath.row - 1]
