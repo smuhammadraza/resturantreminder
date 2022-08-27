@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OMt-eJ-7rT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OMt-eJ-7rT">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -181,12 +181,18 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXM-QN-b87" userLabel="google btn">
                                                 <rect key="frame" x="85.666666666666657" y="0.0" width="77.666666666666657" height="77.666666666666671"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="JXM-QN-b87" secondAttribute="height" multiplier="1:1" id="Z4m-Wt-wdj"/>
+                                                </constraints>
                                                 <state key="normal" image="LoginGoogleIcon"/>
                                                 <connections>
                                                     <action selector="gmailLoginTapped:" destination="OMt-eJ-7rT" eventType="touchUpInside" id="mWY-Mt-65k"/>
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="JXM-QN-b87" firstAttribute="height" secondItem="GT8-hv-4sN" secondAttribute="height" id="Rlw-IP-rwy"/>
+                                        </constraints>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginSignUpText" translatesAutoresizingMaskIntoConstraints="NO" id="7aw-P7-tdj">
                                         <rect key="frame" x="89" y="456" width="236" height="37"/>

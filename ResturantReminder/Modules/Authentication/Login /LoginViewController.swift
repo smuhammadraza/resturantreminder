@@ -27,6 +27,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.connectFields()
+//        self.setupFacebookCustomBtn()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.setupFacebookCustomBtn()
     }
     
@@ -45,7 +50,7 @@ class LoginViewController: UIViewController {
         customFBBtn.setImage(#imageLiteral(resourceName: "LoginFBIcon"), for: .normal)
         customFBBtn.setImage(#imageLiteral(resourceName: "LoginFBIcon"), for: .selected)
         customFBBtn.setImage(#imageLiteral(resourceName: "LoginFBIcon"), for: .highlighted)
-        customFBBtn.frame = facebookBtn.frame
+        customFBBtn.frame = facebookBtn.bounds
         facebookBtn.addSubview(customFBBtn)
         
         customFBBtn.addTarget(self, action: #selector(handleCustomFBBtn), for: .touchUpInside)

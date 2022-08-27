@@ -306,11 +306,12 @@ class AddResturantViewController: UIViewController {
             }
             else {
                 if fromEdit {
-                    self.editRestaurant()
-                    self.dismiss(animated: true) {
+                    self.editRestaurant(completion: {
                         UIApplication.stopActivityIndicator()
-                        self.navigateBackToHome?()
-                    }
+                        self.dismiss(animated: true) {
+                            self.navigateBackToHome?()
+                        }
+                    })
                 } else {
                     self.addRestaurant(completion: { [weak self] in
                         UIApplication.stopActivityIndicator()
@@ -414,7 +415,7 @@ class AddResturantViewController: UIViewController {
         
     }
     
-    private func editRestaurant() {
+    private func editRestaurant(completion: @escaping ()->()) {
         viewModel.editResturant(restaurantID: self.restaurantModel?.restaurantID ?? "",
                                 userID: UserModel.shared.userID,
                                 name: self.textFieldName.text ?? "",
@@ -447,7 +448,11 @@ class AddResturantViewController: UIViewController {
                         let selectedImage = self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!
                         self.viewModel.uploadRestaurantImage(image: selectedImage,
                                                              restaurantID: self.selectedRestaurantRef,
-                                                             completion: {})
+                                                             completion: {
+                            completion()
+                        })
+                    } else {
+                        completion()
                     }
                 }
             } else {
