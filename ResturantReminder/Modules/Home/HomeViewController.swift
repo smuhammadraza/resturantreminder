@@ -175,7 +175,7 @@ extension HomeViewController: UITableViewDataSource {
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Utilities.convertIphone6ToIphone5(size: 300.0)
+        return Utilities.convertIphone6ToIphone5(size: 350.0)
     }
 }
 
