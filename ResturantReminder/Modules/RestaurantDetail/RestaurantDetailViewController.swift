@@ -22,6 +22,7 @@ class RestaurantDetailViewController: UIViewController {
     var restaurantModel: ResturantModel?
     var titleImage : UIImage?
     var notifRestaurantID: String?
+    var restaurantHasItsOwnImage: Bool = false
     
     //MARK: - LIFECYCLE
     
@@ -34,6 +35,8 @@ class RestaurantDetailViewController: UIViewController {
     
     private func updateViews() {
         if let titleImage = titleImage {
+            let dummyImage = UIImage.init(named: "NoImage-Placeholder")
+            restaurantHasItsOwnImage = titleImage != dummyImage
             self.restaurantTitleImage.image = titleImage
         }
         if let restaurantModel = restaurantModel {
@@ -76,6 +79,7 @@ class RestaurantDetailViewController: UIViewController {
         presenter.cornerRadius = 10.0
         vc.titleText = "Edit Restaurant"
         vc.restaurantModel = self.restaurantModel
+        vc.restaurantHasItsOwnImageForEditState = self.restaurantHasItsOwnImage
         vc.navigateBackToHome = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }

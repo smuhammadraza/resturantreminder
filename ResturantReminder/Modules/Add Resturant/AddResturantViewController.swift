@@ -33,7 +33,8 @@ class AddResturantViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var previousCategoriesButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
-    
+    @IBOutlet weak var imageSelected: UIImageView!
+
     // MARK: - VARIABLES
     
     var placeName = [String]()
@@ -47,12 +48,24 @@ class AddResturantViewController: UIViewController {
     var addressDropDown = DropDown()
     var categoriesDropDown = DropDown()
     var selectedRestaurantCoordinates: CLLocationCoordinate2D?
-    var selectedRestaurantImage: UIImage?
+    var selectedRestaurantImage: UIImage? {
+        didSet {
+            imageSelected.isHidden = (selectedRestaurantImage == nil)
+        }
+    }
     var scannerVC = ScannerViewController.initFromStoryboard(name: Constants.Storyboards.main)
     var selectedRestaurantRef = ""
     var titleText = "Add Restaurant"
     var restaurantModel: ResturantModel?
     var fromEdit = false
+    var placeFetchedInEditState: Bool = false
+    var restaurantHasItsOwnImageForEditState: Bool = false
+
+    private lazy var imagePicker: ImagePicker = {
+        let imagePicker = ImagePicker()
+        imagePicker.delegate = self
+        return imagePicker
+    }()
     
     //MARK: - CALLBACKS
     var navigateBackToHome: (() -> Void)?
@@ -68,6 +81,7 @@ class AddResturantViewController: UIViewController {
         self.qrCallback()
         if let restaurantModel = restaurantModel {
             self.fromEdit = true
+            imageSelected.isHidden = !restaurantHasItsOwnImageForEditState
             self.fillFields(restaurantModel: restaurantModel)
         }
     }
@@ -152,6 +166,7 @@ class AddResturantViewController: UIViewController {
     }
     
     @objc func textFieldDidChange() {
+        if textFieldAddress.text?.isEmpty ?? false { selectedRestaurantImage = nil }
         self.fetchPlacesAutoComplete(text: textFieldAddress.text ?? "")
     }
     
@@ -323,15 +338,22 @@ class AddResturantViewController: UIViewController {
         self.categoriesDropDown.show()
     }
     
-    // MARK: - HELPER METHOD
-    
-    private func facebookShare(url: String) {
-        guard let url = URL(string: url) else {
-            // handle and return
-            return
+    @IBAction func didTapGalleryButton(_ sender: UIButton) {
+        Alert.showConfirmationAlert(vc: self,
+                                    title: "Choose Restaurant Image",
+                                    message: "",
+                                    alertPrederredStyle: .alert,
+                                    actionTitle1: "Camera",
+                                    actionTitle2: "Gallery",
+                                    actionStyle1: .default,
+                                    actionStyle2: .default) { _ in
+            self.imagePicker.cameraAsscessRequest()
+        } handler2: { _ in
+            self.imagePicker.photoGalleryAsscessRequest()
         }
-
     }
+
+    // MARK: - HELPER METHOD
     
     private func shareInFacebook(image: UIImage) {
         let photo = SharePhoto(image: image, userGenerated: true)
@@ -380,10 +402,6 @@ class AddResturantViewController: UIViewController {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
                     self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!)
-//                    let resturantImage = self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!
-//                    self.viewModel.uploadRestaurantImage(image: resturantImage,
-//                                                         restaurantID: self.selectedRestaurantRef)
-                    //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
                     completion()
                 } else {
                     Snackbar.showSnackbar(message: "Something went wrong!", duration: .short)
@@ -425,8 +443,12 @@ class AddResturantViewController: UIViewController {
                     self.viewModel.addCategories(categories: self.categories)
                     self.startRegionMonitoring(with: selectedRestaurantCoordinates)
                     self.shareInFacebook(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!)
-                    self.viewModel.uploadRestaurantImage(image: self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!, restaurantID: self.selectedRestaurantRef, completion: {})
-                    //                    sel!f.facebookShare(url: self.textFieldURL.text ?? "www.restaurantreminder.com")
+                    if self.placeFetchedInEditState {
+                        let selectedImage = self.selectedRestaurantImage ?? UIImage(named: "NoImage-Placeholder")!
+                        self.viewModel.uploadRestaurantImage(image: selectedImage,
+                                                             restaurantID: self.selectedRestaurantRef,
+                                                             completion: {})
+                    }
                 }
             } else {
                 return
@@ -444,7 +466,8 @@ class AddResturantViewController: UIViewController {
             }
             if let coordinates = coordinates {
                 self.selectedRestaurantCoordinates = coordinates
-                self.selectedRestaurantImage = image
+                if self.fromEdit { self.placeFetchedInEditState = true }
+                self.selectedRestaurantImage = self.selectedRestaurantImage == nil ? image : ((image != nil) ? image : self.selectedRestaurantImage)
 //                self.startRegionMonitoring(with: coordinates)
             }
         }
@@ -511,5 +534,20 @@ extension AddResturantViewController: SharingDelegate {
     
     func sharerDidCancel(_ sharer: Sharing) {
         print("share cancel with: \(sharer.description)")
+    }
+}
+
+extension AddResturantViewController: ImagePickerDelegate {
+    func imagePicker(_ imagePicker: ImagePicker, didSelect image: UIImage) {
+        if self.fromEdit { self.placeFetchedInEditState = true }
+        selectedRestaurantImage = image
+        imagePicker.dismiss()
+    }
+
+    func cancelButtonDidClick(on imageView: ImagePicker) { imagePicker.dismiss() }
+    func imagePicker(_ imagePicker: ImagePicker, grantedAccess: Bool,
+                     to sourceType: UIImagePickerController.SourceType) {
+        guard grantedAccess else { return }
+        imagePicker.present(parent: self, sourceType: sourceType)
     }
 }

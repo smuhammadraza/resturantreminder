@@ -65,7 +65,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Enable Camera to take photos of Prescription.</string>
+	<string>Enable Camera to take photos of your favorite restaurants.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow location to have full experience of the app</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -73,9 +73,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Enable microphone to enable voice call.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Enable to allow to save images of prescription to Photos.</string>
+	<string>Enable to allow to save images of your favorite restaurants to Photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Enable Photo Library to upload photos of Prescription.</string>
+	<string>Enable Photo Library to upload photos of your favorite restaurants.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

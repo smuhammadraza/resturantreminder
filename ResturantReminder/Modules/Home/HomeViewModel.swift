@@ -19,7 +19,8 @@ class HomeViewModel {
     
     func fetchResturant(userID: String, completion: @escaping ([ResturantModel]?, String?)->Void) {
         FirebaseManager.shared.fetchResturant(userID: userID) { restaurantModel, error  in
-            if let restaurantModel = restaurantModel, restaurantModel != self.restaurant {
+            if let restaurantModel = restaurantModel,
+                restaurantModel != self.restaurant {
                 self.restaurant = restaurantModel
                 var categories = [String]()
                 self.restaurant.forEach { object in categories.append(contentsOf: object.categories ?? []) }

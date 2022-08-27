@@ -42,6 +42,7 @@
 		18D80EA1276A67FA005BCE63 /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D80E9F276A67FA005BCE63 /* HomeCollectionViewCell.xib */; };
 		18D80EA7276A6F7C005BCE63 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D80EA6276A6F7C005BCE63 /* MyProfileViewController.swift */; };
 		18FBBB1D279C551C0036DE72 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FBBB1C279C551C0036DE72 /* StorageService.swift */; };
+		27689E1328B9C7FB006D77D2 /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27689E1228B9C7FB006D77D2 /* ImagePickerHelper.swift */; };
 		88BFE39B27672262004777BC /* Extension+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE38F27672262004777BC /* Extension+UINavigationController.swift */; };
 		88BFE39C27672262004777BC /* Extension+NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39027672262004777BC /* Extension+NotificationName.swift */; };
 		88BFE39D27672262004777BC /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BFE39127672262004777BC /* Extension+UIColor.swift */; };
@@ -107,6 +108,7 @@
 		18D80E9F276A67FA005BCE63 /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		18D80EA6276A6F7C005BCE63 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		18FBBB1C279C551C0036DE72 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		27689E1228B9C7FB006D77D2 /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
 		88BFE38F27672262004777BC /* Extension+UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UINavigationController.swift"; sourceTree = "<group>"; };
 		88BFE39027672262004777BC /* Extension+NotificationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+NotificationName.swift"; sourceTree = "<group>"; };
 		88BFE39127672262004777BC /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				18D80E8A276A60DB005BCE63 /* Bootstrapper.swift */,
 				187A0F6A276EA68900174C36 /* Snackbar.swift */,
 				D0A289252770AD90006CA1D7 /* AppDefaults.swift */,
+				27689E1228B9C7FB006D77D2 /* ImagePickerHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				88BFE3A227672262004777BC /* Extension+TCHJsonAttributes.swift in Sources */,
 				88BFE3A527672262004777BC /* Extension+UIView.swift in Sources */,
 				88BFE3A127672262004777BC /* Extension+UITextField.swift in Sources */,
+				27689E1328B9C7FB006D77D2 /* ImagePickerHelper.swift in Sources */,
 				88BFE3A427672262004777BC /* Extension+Error.swift in Sources */,
 				18607530276A8238000786F8 /* CategoryCollectionViewCell.swift in Sources */,
 				187A0F6B276EA68900174C36 /* Snackbar.swift in Sources */,
